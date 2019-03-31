@@ -40,5 +40,4 @@ public class MySQLConnection extends Config {
 			System.out.println("Error al cerrar la conexion: " + e.getMessage());
 		}
 	}
-
 }
