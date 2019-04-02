@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 
-public class MySQLConnection extends Config {
+public class MySQLi extends Config {
 	private static Connection cn = null;
 	
-	public MySQLConnection() {
+	public MySQLi() {
 		
 	}
 	
@@ -17,7 +17,6 @@ public class MySQLConnection extends Config {
 	     try {
 	    	 Class.forName(driver);
 	    	 cn = (Connection) DriverManager.getConnection(url, user, password);
-	    	 // System.out.println("Conexion exitosa");
 	     } catch (SQLException ex) {
 	    	 throw new SQLException(ex);
 	     } catch (ClassNotFoundException ex) {
@@ -33,7 +32,6 @@ public class MySQLConnection extends Config {
 			if (cn != null) {
 				if (! cn.isClosed()) {
 					cn.close();
-					// System.out.println("Conexion cerrada");
 				}
 			}
 		} catch (Exception e) {
