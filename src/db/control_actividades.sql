@@ -33,9 +33,9 @@ CREATE table usuarios(
     
 ) ENGINE = INNODB;
 
-CREATE TABLE projectos(
+CREATE TABLE proyectos(
 	id 					SMALLINT	    NOT NULL AUTO_INCREMENT,
-    nombre_projecto		VARCHAR(50)	    NOT NULL,
+    nombre_proyecto		VARCHAR(50)	    NOT NULL,
     descripcion         VARCHAR(255)    NOT NULL,
     id_usuario			SMALLINT 	    NOT NULL,			
     
@@ -56,15 +56,15 @@ CREATE TABLE proyectos_actividades(
    	fecha_creacion 		TIMESTAMP	DEFAULT CURRENT_TIMESTAMP,
     fecha_entrega 		DATE 		NOT NULL,
     id_usuario			SMALLINT 	NOT NULL,
-    id_projecto			SMALLINT 	NOT NULL,
+    id_proyecto			SMALLINT 	NOT NULL,
     
     
     /*primary key*/
     PRIMARY KEY(id),
     
      /*foreign key*/
-    INDEX(id_usuario, id_projecto),
+    INDEX(id_usuario, id_proyecto),
     FOREIGN KEY(id_usuario) REFERENCES usuarios(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(id_projecto) REFERENCES projectos(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_proyecto) REFERENCES proyectos(id) ON UPDATE CASCADE ON DELETE CASCADE
     
 ) ENGINE = INNODB;
