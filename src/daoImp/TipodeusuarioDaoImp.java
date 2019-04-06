@@ -26,26 +26,18 @@ public class TipodeusuarioDaoImp extends MySQLi implements TipodeusuarioDao {
 	@SuppressWarnings("finally")
 	@Override
 	public long saveTipodeusuario(Tipodeusuario tipodeusuario) throws Exception {
-	String sql ="INSERT INTO TIPODEUSUARIO(descripcion,id,tipo) values (?,?,?)";
-	
-	
+	String sql ="INSERT INTO tipo_usuario(descripcion,id,tipo) values (?,?,?)";
 
 	long bandera=0;
 	
    try{
-	   
-	   
-	   MySQLi.connect();
 	   
 	   PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
 		 //setear los datos a ?,?,?,?
 		 statement.setString(1, tipodeusuario.getDescripcion()); 
 		 statement.setByte(2, tipodeusuario.getId()); 
 		 statement.setString(3, tipodeusuario.getTipo()); 
-		 
-		 
-		 
-		 
+
 		 statement.executeUpdate();
 		 bandera = 1;
 	} catch (ClassNotFoundException | SQLException e) {
@@ -54,25 +46,22 @@ public class TipodeusuarioDaoImp extends MySQLi implements TipodeusuarioDao {
 		throw e;
 	}finally {	
 	   	//cerrar conexion con mysql
- 	
-		close();
- 
-	return bandera;
-	
+		MySQLi.close();
 	}
+   return bandera;
    
 }
  
-	
+	@Override
 	public void updateTipodeusuario(Tipodeusuario tipodeusuario) throws Exception {
-		String sql="UPDATE tipodeusuario SET descripcion=?,tipo=? WHERE id=?";
+		String sql="UPDATE tipo_usuario SET descripcion=?,tipo=? WHERE id=?";
 		
 		try {
 			  MySQLi.connect();
 			  PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	          
 			     statement.setString(1, tipodeusuario.getDescripcion()); 
-				 statement.setByte  (2,   tipodeusuario.getId()); 
+				 statement.setByte  (2, tipodeusuario.getId()); 
 				 statement.setString(3, tipodeusuario.getTipo()); 
 				 
 				 statement.executeUpdate();
@@ -83,10 +72,9 @@ public class TipodeusuarioDaoImp extends MySQLi implements TipodeusuarioDao {
 			
 		}finally {
 			MySQLi.close();
-			 
 		}
 	}
-          
+
 	@Override
 	public void deleteTipodeusuario(Tipodeusuario tipodeusuario) throws Exception {
 		// TODO Auto-generated method stub
