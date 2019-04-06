@@ -32,6 +32,7 @@ nb-configuration.xml
 .idea/
 *.iml
 *.iws
+out/
 
 # Mac
 .DS_Store
@@ -45,3 +46,6 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 dependency-reduced-pom.xml
+
+# binaries
+bin/
