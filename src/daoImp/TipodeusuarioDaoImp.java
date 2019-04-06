@@ -32,7 +32,7 @@ public class TipodeusuarioDaoImp extends MySQLi implements TipodeusuarioDao {
 	
    try{
 	   
-	   this.conectar();
+	   //this.conectar();
 	   
 	   
 	   PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
@@ -60,20 +60,81 @@ public class TipodeusuarioDaoImp extends MySQLi implements TipodeusuarioDao {
  
 	@Override
 	public void updateTipodeusuario(Tipodeusuario tipodeusuario) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void deleteTipodeusuario(Tipodeusuario tipodeusuario) throws Exception {
-		// TODO Auto-generated method stub
 		
+	String sql ="DELETE FROM tipo_usuario WHERE id =? " ;
+		
+		try {
+				
+			PreparedStatement statement = MySQLi.connect().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+		
+			statement.setInt(1, tipodeusuario.getId());
+			
+			statement.execute();
+			
+			System.out.println("dato eliminado");
+			
+		} catch (ClassNotFoundException | SQLException e) {
+		
+			System.out.println("ERROR al eliminar ");	
+			
+			throw e;
+		}finally{
+			MySQLi.close();
+		}
 	}
-
 	@Override
 	public List<Tipodeusuario> findAllTipodeusuarios() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String sql="SELECT* FROM tipo_usuario";
+		
+		List<Tipodeusuario> tipodeusuario =null;
+		
+		ResultSet rs;
+		
+		try {
+			
+			
+			PreparedStatement statment =MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			rs = statment.executeQuery();//Devuelve un resulset
+			
+			tipodeusuario = new ArrayList();
+			
+			
+			while(rs.next()) {
+				
+				Tipodeusuario tipousuario =new Tipodeusuario();
+				
+				tipousuario.setId(rs.getByte(1));
+				tipousuario.setDescripcion(rs.getString(2));
+				tipousuario.setTipo(rs.getString(3));
+				
+				tipodeusuario.add(tipousuario);
+			}
+			
+		} catch (SQLException e) {
+				System.out.println("ERROR al listar datos");
+				throw e ;
+			
+		}finally{
+			MySQLi.close();
+		}
+				
+		
+		
+	return tipodeusuario;	
 	}
+	
+	public static TipodeusuarioDao getInstance() {
+		if (TipodeusuarioDaoImpl == null) {
+			TipodeusuarioDaoImpl = new TipodeusuarioDaoImp();
+		}	
+		return TipodeusuarioDaoImpl;
+    }
 
 }
+	
+	
