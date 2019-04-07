@@ -11,5 +11,5 @@ public class Config {
 		protected static String url="jdbc:mysql://" + host + ":" + port + "/" + database;
 		
 		protected static String user="root";
-		protected static String password="";
+		protected static String password="developsy@2516";
 }
