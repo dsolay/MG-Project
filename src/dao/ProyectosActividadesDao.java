@@ -1,9 +1,9 @@
 package dao;
 
 import modelo.ProyectosActividades;
-import modelo.Usuario;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProyectosActividadesDao {
 
@@ -13,5 +13,5 @@ public interface ProyectosActividadesDao {
 
     void delete(ProyectosActividades pa) throws Exception;
 
-    List<ProyectosActividades> findAll() throws  Exception;
+    List<Map<String, String>> findAll() throws  Exception;
 }

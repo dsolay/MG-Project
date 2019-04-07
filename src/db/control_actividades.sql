@@ -52,7 +52,7 @@ CREATE TABLE proyectos_actividades(
     nombre_actividad	VARCHAR(255)    NOT NULL,
     prioridad 			TINYINT 	    NOT NULL,
     estado 				TINYINT 	    NOT NULL,
-   	fecha_creacion 		TIMESTAMP	    DEFAULT CURRENT_TIMESTAMP,
+   	fecha_creacion 		TIMESTAMP	    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     fecha_entrega 		DATE 		    NOT NULL,
     id_usuario			SMALLINT 	    NOT NULL,
     id_proyecto			SMALLINT 	    NOT NULL,
