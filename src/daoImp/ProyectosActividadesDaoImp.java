@@ -88,6 +88,7 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
     @Override
     public List<Map<String, String>> findAll() throws Exception {
     	String sql = "SELECT " +
+				"pa.id, " +
 				"po.nombre_proyecto, " +
 				"pa.nombre_actividad, " +
 				"us.username, " +
@@ -112,13 +113,14 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 			map = new HashMap<String, String>();
 	        
 	        while (rs.next()) {
-	        	map.put("nombre_proyecto", rs.getString(1));
-	        	map.put("nombre_actividad", rs.getString(2));
-				map.put("username", rs.getString(3));
-				map.put("fecha_creacion", rs.getString(4));
-				map.put("fecha_entrega", rs.getString(5));
-				map.put("prioridad", String.valueOf(rs.getByte(6)));
-				map.put("estado", String.valueOf(rs.getByte(7)));
+				map.put("id", rs.getString(1));
+	        	map.put("nombre_proyecto", rs.getString(2));
+	        	map.put("nombre_actividad", rs.getString(3));
+				map.put("username", rs.getString(4));
+				map.put("fecha_creacion", rs.getString(5));
+				map.put("fecha_entrega", rs.getString(6));
+				map.put("prioridad", String.valueOf(rs.getByte(7)));
+				map.put("estado", String.valueOf(rs.getByte(8)));
 
 				actividad.add(map);
 			}
