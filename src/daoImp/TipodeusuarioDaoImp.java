@@ -2,7 +2,7 @@ package daoImp;
 
 import dao.TipodeusuarioDao;
 import db.MySQLi;
-import modelo.Tipodeusuario;
+import model.Tipodeusuario;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

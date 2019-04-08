@@ -2,7 +2,7 @@ package daoImp;
 
 import dao.ProyectosActividadesDao;
 import db.MySQLi;
-import modelo.ProyectosActividades;
+import model.ProyectosActividades;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,8 +36,6 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 			System.out.println("Dato guardado");
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
-		} finally {
-			MySQLi.close();
 		}
     }
 
@@ -60,8 +58,6 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
             System.out.println("Dato actualizado");
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
-		} finally {
-			MySQLi.close();
 		}
     }
 
@@ -80,8 +76,6 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
                System.out.println("Dato Eliminado");
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Error al eliminar la actividad\n" + e.getMessage());
-        } finally{
-        	MySQLi.close();
         }
     }
 
@@ -110,9 +104,10 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 	        rs = statement.executeQuery();
 
 	        actividad = new ArrayList<Map<String, String>>();
-			map = new HashMap<String, String>();
 	        
 	        while (rs.next()) {
+				map = new HashMap<String, String>();
+
 				map.put("id", rs.getString(1));
 	        	map.put("nombre_proyecto", rs.getString(2));
 	        	map.put("nombre_actividad", rs.getString(3));
@@ -125,10 +120,8 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 				actividad.add(map);
 			}
 		} catch (SQLException e) {
-			System.out.println("Error al listar datos\n" + e.getMessage());
+			System.out.println("Method: findAll()\nError: \n" + e.getMessage());
             //throw  e;
-		} finally {
-			MySQLi.close();
 		}
     	
         return actividad;

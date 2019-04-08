@@ -1,6 +1,6 @@
 package dao;
 
-import modelo.ProyectosActividades;
+import model.ProyectosActividades;
 
 import java.util.List;
 import java.util.Map;
