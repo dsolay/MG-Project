@@ -1,15 +1,21 @@
 $(document).ready(function () {
-    var rowData;
-
-    $('#pModal').on('show.bs.modal', function (event) {
-       console.log("hola")
-    });
 
     var pactividades = $('#pactividades').DataTable( {
-        select: {
-            style: 'single',
-            blurable: true
-        },
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ ",
+            "zeroRecords": "Datos no encontrados - upss",
+            "info": "Mostar paginas _PAGE_ de _PAGES_",
+            "infoEmpty": "Datos no encontrados",
+            "infoFiltered": "(Filtrados por _MAX_ total registros)",
+            "search":         "Buscar:",
+            "paginate": {
+                    "first":      "Primero",
+                    "last":       "Anterior",
+                    "next":       "Siguiente",
+                    "previous":   "Anterior"
+            }
+            
+        }
 /*        buttons: [
             {
                 name: 'new',
@@ -44,7 +50,7 @@ $(document).ready(function () {
     pactividades.buttons(0, null).container().appendTo('#buttons_crud', pactividades.table().container());
 
     */
-    var bedit = $( "#bedit" );
+/*    var bedit = $( "#bedit" );
     var bdelete = $( "#bdelete" );
 
     bedit.prop( "disabled", true );
@@ -100,5 +106,5 @@ $(document).ready(function () {
             rowData = null;
             $( "#bedit" ).prop( "disabled", true );
             $( "#bdelete" ).prop( "disabled", true );
-        } );
+        } );*/
 });

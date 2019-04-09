@@ -12,78 +12,93 @@
 <%--header--%>
 <jsp:include page="../components/header.jsp"/>
 
-<div class="container">
+<div class="container-fluid">
     <div class="dtable">
-        <div id="buttons_crud" class="col-sm-12 col-sm-6">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button id="bnew" type="button" class="btn btn-outline-primary">Nuevo</button>
-                <button id="bedit" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#pModal">Editar</button>
-                <button id="bdelete" type="button" class="btn btn-outline-danger">Eliminar</button>
-            </div>
-        </div>
-        <table id="pactividades" class="table table-striped" style="width:100%">
+    	<div id="buttons_crud" class="collapse">
+    		<button id="bnew" type="button" class="btn btn-outline-primary">Nuevo</button>
+		</div>
+        <table id="pactividades" class="table table-striped table-hover" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Proyecto</th>
-                    <th scope="col">Actividad</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Creado</th>
-                    <th scope="col">Entrega</th>
-                    <th scope="col">Tiempo restante</th>
-                    <th scope="col">Prioridad</th>
-                    <th scope="col">Estado</th>
+                	<c:forEach items="${requestScope.thead}" var="head">
+                		<th scope="col"><c:out value="${head}"/></th>
+                	</c:forEach>
+                	
+                	<th colspan="2">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <c:forEach items="${requestScope.listProyectosActividades}" var="pa">
-                    <tr>
-                        <td><c:out value="${pa['id']}"/></td>
-                        <td><c:out value="${pa['nombre_proyecto']}"/></td>
-                        <td><c:out value="${pa['nombre_actividad']}"/></td>
-                        <td><c:out value="${pa['username']}"/></td>
-                        <td><c:out value="${pa['fecha_creacion']}"/></td>
-                        <td><c:out value="${pa['fecha_entrega']}"/></td>
-
-                        <c:choose>
-                            <c:when test="${pa['units'] == 'Finalizada'}">
-                                <td><span class="badge badge-success"><c:out value="${pa['units']}"/></span></td>
-                            </c:when>
-                            <c:when test="${pa['units'] == 'días' || pa['units'] == 'día'}">
-                                <c:choose>
-                                    <c:when test="${pa['time'] > 3}">
-                                        <td><span class="badge badge-primary"><c:out value="${pa['time']} ${pa['units']}"/></span></td>
-                                    </c:when>
-                                    <c:when test="${pa['time'] > 1}">
-                                        <td><span class="badge badge-warning"><c:out value="${pa['time']} ${pa['units']}"/></span></td>
-                                    </c:when>
-                                    <c:when test="${pa['time'] == 1}">
-                                        <td><span class="badge badge-danger"><c:out value="${pa['time']} ${pa['units']}"/></span></td>
-                                    </c:when>
-                                </c:choose>
-
-                            </c:when>
-                        </c:choose>
-
-                        <td><c:out value="${pa['prioridad']}"/></td>
-
-                        <c:choose>
-                            <c:when test="${pa['estado'] == 1 }">
-                                <td><span class="badge badge-success">Activa</span></td>
-                            </c:when>
-                            <c:otherwise>
-                                <td><span class="badge badge-danger">No Activa</span></td>
-                            </c:otherwise>
-                        </c:choose>
-                    </tr>
-                </c:forEach>
-            </tbody>
+	            <tbody>
+	            	<c:forEach items="${requestScope.list}" var="pa">
+	                   	<tr>
+	                       <td><c:out value="${pa['id']}"/></td>
+	                       <td><c:out value="${pa['nombre_proyecto']}"/></td>
+	                       <td><c:out value="${pa['nombre_actividad']}"/></td>
+	                       <td><c:out value="${pa['username']}"/></td>
+	                       <td><c:out value="${pa['fecha_creacion']}"/></td>
+	                       <td><c:out value="${pa['fecha_entrega']}"/></td>
+	
+	                       <c:choose>
+	                           <c:when test="${pa['units'] == 'Finalizada'}">
+	                               <td><span class="badge badge-success"><c:out value="${pa['units']}"/></span></td>
+	                           </c:when>
+	                           <c:when test="${pa['units'] == 'dias' || pa['units'] == 'dia'}">
+	                               <c:choose>
+	                                   <c:when test="${pa['time'] > 3}">
+	                                       <td><span class="badge badge-primary"><c:out value="${pa['time']} ${pa['units']}"/></span></td>
+	                                   </c:when>
+	                                   <c:when test="${pa['time'] > 1}">
+	                                       <td><span class="badge badge-warning"><c:out value="${pa['time']} ${pa['units']}"/></span></td>
+	                                   </c:when>
+	                                   <c:when test="${pa['time'] == 1}">
+	                                       <td><span class="badge badge-danger"><c:out value="${pa['time']} ${pa['units']}"/></span></td>
+	                                   </c:when>
+	                               </c:choose>
+	
+	                           </c:when>
+	                       </c:choose>
+	
+	                       <td><c:out value="${pa['prioridad']}"/></td>
+	
+							<c:choose>
+								<c:when test="${pa['estado'] == 1 }">
+									<td><span class="badge badge-success">Activa</span></td>
+								</c:when>
+								<c:otherwise>
+									<td><span class="badge badge-danger">No Activa</span></td>
+								</c:otherwise>
+							</c:choose>
+	                       
+							<td>
+								<form action="<c:url value="/ProyectosActividades"/>" method="POST">
+	                                <input type="hidden" name="redirect" value="true">
+	                                <input type="hidden" name="option" value="update">
+	                                <input type="hidden" name="id" value="${pa['id']}">
+	                                <input type="hidden" name="proyecto" value="${pa['nombre_proyecto']}">
+	                                <input type="hidden" name="actividad" value="${pa['nombre_actividad']}">
+	  								<input type="hidden" name="username" value="${pa['username']}">
+	                                <input type="hidden" name="fecha_entrega" value="${pa['fecha_entrega']}">
+	                                <input type="hidden" name="prioridad" value="${pa['prioridad']}">
+	                                <input type="hidden" name="estado" value="${pa['estado']}">
+	                                <button id="bedit" type="submit" class="btn btn-outline-success">Editar</button>
+								</form>
+							</td>
+							
+							<td>
+								<form action="<c:url value="/ProyectosActividades"/>" method="POST">
+                                    <input type="hidden" name="redirect" value="true"><!-- input oculto -->
+                                    <input type="hidden" name="option" value="delete"><!-- input oculto -->
+               						<input type="hidden" name="id" value="${pa['id']}"><!-- input oculto -->
+                                    <input type="hidden" name="firstName" value="${customer.first_name}"><!-- input oculto -->
+                                    <button id="bedit" type="button" class="btn btn-outline-danger">Eliminar</button>
+								</form>
+							</td>
+							
+	                   </tr>
+                	</c:forEach>
+	            </tbody>
         </table>
     </div>
 </div>
-
-<%-- Modal --%>
-<jsp:include page="Update.jsp"/>
 
 <%-- footer--%>
 <jsp:include page="../components/footer.jsp"/>

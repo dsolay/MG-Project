@@ -39,7 +39,20 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 		switch (action) {
 			case "index":
-				request.setAttribute("listProyectosActividades", this.listar());
+				ArrayList<String> thead = new ArrayList<String>();
+				thead.add("ID");
+				thead.add("Proyecto");
+				thead.add("Actividad");
+				thead.add("Username");
+				thead.add("Creado");
+				thead.add("Entrega");
+				thead.add("Restante");
+				thead.add("Prioridad");
+				thead.add("Estado");
+				
+				request.setAttribute("list", this.listar());
+				request.setAttribute("thead", thead);
+				
 				request.getRequestDispatcher("views/proyectos_actividades/List.jsp").forward(request, response); 
 				break;
 			case "add":
@@ -55,8 +68,19 @@ public class ControllerProyectosActividades extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String option = request.getParameter("option");
+		
+		switch (option) {
+		case "add":
+			
+			break;
+		case "update":
+			
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	/**
@@ -102,7 +126,7 @@ public class ControllerProyectosActividades extends HttpServlet {
 			units = "Finalizada";
 		} else {
 			time = String.valueOf(days);
-			units = (days > 1 ) ? "días" : "día";
+			units = (days > 1 ) ? "dias" : "dia";
 		}
 
 		entrega.put("units", units);

@@ -6,73 +6,79 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%--header--%>
+<jsp:include page="../components/header.jsp"/>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<%--
-<form>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputAddress">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-        <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputState">State</label>
-            <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
-            </select>
-        </div>
-        <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-                Check me out
-            </label>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-</form>--%>
+<h1 class="text-center"> Actualizar Proyecto </h1>
+ 
+<c:url value="/ProyectosActividades" var="registerUrl" />
+ 
+<form method="POST" action="${registerUrl}" class="col-6 offset-3">
+	<c:forEach items="${datos}" var="pa">
+		<input type="hidden" name="option" value="update">
+		<input type="hidden" name="custId" value="1">
+		
+		<div class="form-row">
+			<div class="form-group col-md-6">
+			  <label for="inputId">ID</label>
+			  <input type="text" class="form-control" id="inputId" disabled>
+			</div>
+			
+			<div class="form-group col-md-6">
+			  <label for="inputProject">Proyecto</label>
+			  <input type="text" class="form-control" id="inputProject" disabled>
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="form-group col-md-6">
+			  <label for="inputActividad">Actividad</label>
+			  <input type="text" class="form-control" id="inputActividad">
+			</div>
+			
+			<div class="form-group col-md-6">
+			  <label for="inputUsername">Username</label>
+			  <input type="text" class="form-control" id="inputUsername">
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputActividad">Fecha de Entrega</label>
+				<input id="datepicker" width="276" />
+		        <script>
+			        $('#datepicker').datepicker({
+			            uiLibrary: 'bootstrap4'
+			        });
+			    </script>
+			</div>
+			
+			<div class="form-group col-md-6">
+				<label for="inputUsername">Prioridad</label>
+				<select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+				<option selected>Choose...</option>
+				<option value="1">One</option>
+				<option value="2">Two</option>
+				<option value="3">Three</option>
+				</select>
+			</div>
+		</div>
+	
+		<section>
+			<select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+	        <option selected>Choose...</option>
+	        <option value="1">One</option>
+	        <option value="2">Two</option>
+	        <option value="3">Three</option>
+	      </select>
+		</section>
+		<h1></h1>
+	</c:forEach>
+    <input type="submit" class="col-4 offset-4 btn btn-outline-success" >
+</form>
+        
+<%-- footer--%>
+<jsp:include page="../components/footer.jsp"/>
