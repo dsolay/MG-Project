@@ -7,7 +7,6 @@ public interface TipodeusuarioDao {
 
 	long saveTipodeusuario(Tipodeusuario tipodeusuario)throws Exception;
 	
-
 	void updateTipodeusuario(Tipodeusuario tipodeusuario)throws Exception;
 
     void deleteTipodeusuario(Tipodeusuario tipodeusuario)throws Exception;

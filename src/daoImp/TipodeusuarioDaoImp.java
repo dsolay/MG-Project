@@ -23,7 +23,6 @@ public class TipodeusuarioDaoImp extends MySQLi implements TipodeusuarioDao {
 		
 	}
 
-	@SuppressWarnings("finally")
 	@Override
 	public long saveTipodeusuario(Tipodeusuario tipodeusuario) throws Exception {
 	String sql ="INSERT INTO tipo_usuario(descripcion,id,tipo) values (?,?,?)";
@@ -61,8 +60,8 @@ public class TipodeusuarioDaoImp extends MySQLi implements TipodeusuarioDao {
 			  PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	          
 			     statement.setString(1, tipodeusuario.getDescripcion()); 
-				 statement.setByte  (2, tipodeusuario.getId()); 
-				 statement.setString(3, tipodeusuario.getTipo()); 
+				 statement.setByte  (3, tipodeusuario.getId()); 
+				 statement.setString(2, tipodeusuario.getTipo()); 
 				 
 				 statement.executeUpdate();
 				 System.out.println("Dato actualizado");
