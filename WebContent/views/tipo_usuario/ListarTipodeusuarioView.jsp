@@ -21,7 +21,7 @@
 	<tr>
 		<td>${tipodeusuario.id }</td>
 		<td>${tipodeusuario.descripcion }</td>
-		
+		<td>
 		<form action="<c:url value="/Tipodeusuario"/>" method="POST">
                                             <input type="hidden" name="redirect" value="true"><!-- input oculto -->
                                             <input type="hidden" name="option" value="delete"><!-- input oculto -->
@@ -36,10 +36,10 @@
                                              <input type="hidden" name="option" value="update"><!-- input oculto -->
                                              <input type="hidden" name="custId" value="${tipodeusuario.id}"><!-- input oculto -->
                                              <input type="hidden" name="descripcion" value="${tipodeusuario.descripcion}"><!-- input oculto -->
-                                             <input type="hidden" name="tipo" values="${tipodeusuario.tipo }"><!-- input oculto -->
+                                             <input type="hidden" name="tipo" value="${tipodeusuario.tipo }"><!-- input oculto -->
                                              <input type="submit" value="Update" class="btn btn-outline-success">
 					</form>
-				<td>
+				</td>
 				
 			</tr>
 		</c:forEach>

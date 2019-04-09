@@ -65,7 +65,7 @@ public class TestTipoUsuario {
 	public static void main(String[] args) {
 		TestTipoUsuario test = new TestTipoUsuario();
 		
-		// test.findAll();
+		//test.findAll();
 		// test.delete((byte) 2);
 		//test.update((byte) 2);
 

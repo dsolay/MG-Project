@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<meta charset="ISO-8859-1">
+		<meta  http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Eliminar datos </title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 				integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
@@ -16,11 +16,11 @@
 	
 	<form method="POST" action="${registerUrl}" class="col-6 offset-3">
 	
-			<c:forEach items="${datos}" var="tipodeususario">
+			<c:forEach items="${datos}" var="tipodeusuario">
                 
                     <input type="hidden" name="option" value="delete">
                     
-                    <input type="hidden" name="custId" value="${tipodeusuario.id}">
+                    <input type="hidden" name="tipoId" value="${tipodeusuario.id}">
                     
                     <h1>¿Desea eliminar este usuario? :  ${Tipodeusuario.descripcion}</h1>           
                       

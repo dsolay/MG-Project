@@ -7,9 +7,9 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 
-</head>
+	</head>
 <body class="container">
-     <h1 class="text-center">Actualizar Tipodeusuario</h1>
+     <h1 class="text-center">Actualizar Tipo  de  usuario</h1>
      <c:url value="/Tipodeusuario" var="registerUrl" />
      <form method="POST" action="${datos}" class="col-6 offset-3">
           <c:forEach items="${datos}" var="tipousuario">
