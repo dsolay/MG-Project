@@ -31,5 +31,12 @@ p {
 
 .dtable {
     padding-top: 40px;
+    padding-bottom: 40px;
     text-align: center;
+}
+
+#buttons_crud {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 0 10px;
 }

@@ -4,8 +4,10 @@ import dao.ProyectosActividadesDao;
 import daoImp.ProyectosActividadesDaoImp;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +42,10 @@ public class ControllerProyectosActividades extends HttpServlet {
 				request.setAttribute("listProyectosActividades", this.listar());
 				request.getRequestDispatcher("views/proyectos_actividades/List.jsp").forward(request, response); 
 				break;
+			case "add":
+				//request.setAttribute("listProyectosActividades", this.listar());
+				//request.getRequestDispatcher("views/proyectos_actividades/List.jsp").forward(request, response);
+				break;
 			default:
 				response.getWriter().append("Served at: ").append(request.getContextPath());
 		}
@@ -59,11 +65,49 @@ public class ControllerProyectosActividades extends HttpServlet {
 	 */
 
 	public List<Map<String, String>> listar() {
+		List<Map<String, String>> proyecos_actividades = null;
+				
 		try {
-			return pado.findAll();
+			proyecos_actividades = pado.findAll();
+
+			for (Map<String, String> actividad:
+				 proyecos_actividades) {
+
+				Map<String, String> map = this.getTimeRemaining(actividad.get("fecha_entrega"));
+				actividad.put("time", map.get("time"));
+				actividad.put("units", map.get("units"));
+			}
+
+			return  proyecos_actividades;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public Map<String, String> getTimeRemaining(String fecha_entrega) {
+		Map<String, String> entrega = new HashMap<>();
+
+		String time;
+		String units;
+
+		LocalDate fentrega = LocalDate.parse(fecha_entrega, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate current_date = LocalDate.now();
+
+		Period period = Period.between(current_date, fentrega);
+		int days = period.getDays();
+
+		if (days <= 0) {
+			time = "0";
+			units = "Finalizada";
+		} else {
+			time = String.valueOf(days);
+			units = (days > 1 ) ? "días" : "día";
+		}
+
+		entrega.put("units", units);
+		entrega.put("time", time);
+
+		return entrega;
 	}
 }
