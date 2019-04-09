@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import java.util.Map;
+
 import modelo.Usuario;
 
 public interface UsuarioDao {
@@ -12,5 +14,5 @@ public interface UsuarioDao {
 
     void deleteUsuario(Usuario usuario) throws Exception;
   
-    List<Usuario> findAllUsuario() throws Exception;
+    List<Map<String, String>> findAllUsuario() throws Exception;
 }

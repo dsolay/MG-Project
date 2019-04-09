@@ -12,13 +12,11 @@ public class Usuario {
 	
 	private String email;
 	
-	private String nombre_usuario;
+	private String username;
 	
-	private String tipo_usuario;
+	private String password;
 	
-	private String pass;
-	
-	private int id_tipo_usuario;
+	private byte id_tipo_usuario;
 	
 	//Constructor vacio
 	
@@ -58,38 +56,30 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getNombre_usuario() {
-		return nombre_usuario;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNombre_usuario(String nombre_usuario) {
-		this.nombre_usuario = nombre_usuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getTipo_usuario() {
-		return tipo_usuario;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setTipo_usuario(String tipo_usuario) {
-		this.tipo_usuario = tipo_usuario;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getPass() {
-		return pass;
-	}
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	public int getId_tipo_usuario() {
+	public byte getId_tipo_usuario() {
 		return id_tipo_usuario;
 	}
 
-	public void setId_tipo_usuario(int id_tipo_usuario) {
+	public void setId_tipo_usuario(byte id_tipo_usuario) {
 		this.id_tipo_usuario = id_tipo_usuario;
 	}
-	
+
 	
 	
 
