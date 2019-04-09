@@ -2,7 +2,7 @@ package test;
 
 import dao.ProyectosDao;
 import daoImp.ProyectosDaoImp;
-import modelo.Proyectos;
+import model.Proyectos;
 
 public class TestProyectos {
 	Proyectos po = new Proyectos();

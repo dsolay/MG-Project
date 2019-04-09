@@ -1,0 +1,42 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+/* ---------------------------------------------------
+    NAVBAR STYLE
+----------------------------------------------------- */
+
+.navbar {
+    flex-wrap: nowrap;
+}
+
+.navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
+/* ---------------------------------------------------
+    DATATABLE
+----------------------------------------------------- */
+
+.dtable {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+#buttons_crud {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 0 10px;
+}

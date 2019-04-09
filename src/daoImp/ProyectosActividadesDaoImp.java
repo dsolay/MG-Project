@@ -2,7 +2,7 @@ package daoImp;
 
 import dao.ProyectosActividadesDao;
 import db.MySQLi;
-import modelo.ProyectosActividades;
+import model.ProyectosActividades;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,8 +36,6 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 			System.out.println("Dato guardado");
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
-		} finally {
-			MySQLi.close();
 		}
     }
 
@@ -60,8 +58,6 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
             System.out.println("Dato actualizado");
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
-		} finally {
-			MySQLi.close();
 		}
     }
 
@@ -80,14 +76,13 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
                System.out.println("Dato Eliminado");
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Error al eliminar la actividad\n" + e.getMessage());
-        } finally{
-        	MySQLi.close();
         }
     }
 
     @Override
     public List<Map<String, String>> findAll() throws Exception {
     	String sql = "SELECT " +
+				"pa.id, " +
 				"po.nombre_proyecto, " +
 				"pa.nombre_actividad, " +
 				"us.username, " +
@@ -109,24 +104,24 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 	        rs = statement.executeQuery();
 
 	        actividad = new ArrayList<Map<String, String>>();
-			map = new HashMap<String, String>();
 	        
 	        while (rs.next()) {
-	        	map.put("nombre_proyecto", rs.getString(1));
-	        	map.put("nombre_actividad", rs.getString(2));
-				map.put("username", rs.getString(3));
-				map.put("fecha_creacion", rs.getString(4));
-				map.put("fecha_entrega", rs.getString(5));
-				map.put("prioridad", String.valueOf(rs.getByte(6)));
-				map.put("estado", String.valueOf(rs.getByte(7)));
+				map = new HashMap<String, String>();
+
+				map.put("id", rs.getString(1));
+	        	map.put("nombre_proyecto", rs.getString(2));
+	        	map.put("nombre_actividad", rs.getString(3));
+				map.put("username", rs.getString(4));
+				map.put("fecha_creacion", rs.getString(5));
+				map.put("fecha_entrega", rs.getString(6));
+				map.put("prioridad", String.valueOf(rs.getByte(7)));
+				map.put("estado", String.valueOf(rs.getByte(8)));
 
 				actividad.add(map);
 			}
 		} catch (SQLException e) {
-			System.out.println("Error al listar datos\n" + e.getMessage());
+			System.out.println("Method: findAll()\nError: \n" + e.getMessage());
             //throw  e;
-		} finally {
-			MySQLi.close();
 		}
     	
         return actividad;

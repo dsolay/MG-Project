@@ -1,6 +1,5 @@
 package daoImp;
 import dao.ProyectosDao;
-import modelo.Proyectos;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,7 @@ import java.util.Map;
 
 import dao.ProyectosDao;
 import db.MySQLi;
+import model.Proyectos;
 
 public class ProyectosDaoImp implements ProyectosDao{
 

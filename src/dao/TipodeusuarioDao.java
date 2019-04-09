@@ -2,7 +2,7 @@ package dao;
 
 import java.util.List;
 
-import modelo.Tipodeusuario;
+import model.Tipodeusuario;
 public interface TipodeusuarioDao {
 
 	long saveTipodeusuario(Tipodeusuario tipodeusuario)throws Exception;

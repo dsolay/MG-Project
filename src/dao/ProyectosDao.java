@@ -2,7 +2,7 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
-import  modelo.Proyectos;;
+import model.Proyectos;;
 
 public interface ProyectosDao {
 	

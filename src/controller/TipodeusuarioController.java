@@ -1,11 +1,10 @@
 package controller;
-import modelo.Tipodeusuario;
+import model.Tipodeusuario;
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.TipodeusuarioDao;
 import daoImp.TipodeusuarioDaoImp;
-import modelo.Tipodeusuario;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -2,7 +2,7 @@ package test;
 
 import java.util.List;
 import daoImp.TipodeusuarioDaoImp;
-import modelo.Tipodeusuario;
+import model.Tipodeusuario;
 
 public class TestTipoUsuario {
 	private TipodeusuarioDaoImp tudi = new TipodeusuarioDaoImp();
