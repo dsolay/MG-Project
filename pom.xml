@@ -29,6 +29,12 @@
   		<artifactId>javaee-web-api</artifactId>
   		<version>7.0</version>
   	</dependency>
+  	 <!-- java estandar tag libreria -->
+        <dependency>
+        	<groupId>jstl</groupId>
+        	<version>1.2</version>
+        	<artifactId>jstl</artifactId>
+        </dependency>
   	<dependency>
   		<groupId>mysql</groupId>
   		<artifactId>mysql-connector-java</artifactId>

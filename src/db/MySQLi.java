@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
 
 public class MySQLi extends Config {
+	
 	private static Connection cn = null;
 	
 	public MySQLi() {
