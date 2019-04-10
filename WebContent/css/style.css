@@ -29,9 +29,11 @@ p {
     DATATABLE
 ----------------------------------------------------- */
 
-.dtable {
-    padding-top: 40px;
-    padding-bottom: 40px;
+.container-fluid {
+    padding: 40px;
+}
+
+table {
     text-align: center;
 }
 

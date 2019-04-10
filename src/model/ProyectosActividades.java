@@ -10,6 +10,18 @@ public class ProyectosActividades {
     private short id_usuario;
     private short id_proyecto;
 
+    public ProyectosActividades() {}
+
+    public ProyectosActividades(short id, String nombre, byte prioridad, byte estado, String fecha_entrega, short id_usuario, short id_proyecto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.prioridad = prioridad;
+        this.estado = estado;
+        this.fecha_entrega = fecha_entrega;
+        this.id_usuario = id_usuario;
+        this.id_proyecto = id_proyecto;
+    }
+
     public short getId() {
         return id;
     }

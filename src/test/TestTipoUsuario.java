@@ -1,60 +1,67 @@
 package test;
 
+import daoImp.TipoUsuarioDaoImp;
+import model.TipoUsuario;
+
+import java.util.Iterator;
 import java.util.List;
-import daoImp.TipodeusuarioDaoImp;
-import model.Tipodeusuario;
+import java.util.Map;
 
 public class TestTipoUsuario {
-	private TipodeusuarioDaoImp tudi = new TipodeusuarioDaoImp();
-	private Tipodeusuario tu = new Tipodeusuario();
-	
+	private TipoUsuarioDaoImp tudi = new TipoUsuarioDaoImp();
+	private TipoUsuario tu = new TipoUsuario();
 
 	public void delete(byte id) {
 		tu.setId(id);
 		
 		try {
-			tudi.deleteTipodeusuario(tu);
+			tudi.delete(tu);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void save() {		
-		tu.setTipo("hgfhgf");
-		tu.setDescripcion("lhgutdhgfht");
+		tu.setTipo("guest");
+		tu.setDescripcion("usuario invitado");
 		
 		try {
-			long flag = tudi.saveTipodeusuario(tu);
-			
-			if (flag == 1) {
-				System.out.println("insertado");
-			}
+			tudi.save(tu);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public void findAll() {
+		List<Map<String, String>> tipos_usuarios;
+
 		try {
-			List<Tipodeusuario> tipousuario = tudi.findAllTipodeusuarios();
-			
-			for (Tipodeusuario tipodeusuario : tipousuario) {
-				System.out.println(tipodeusuario.getId() + " " + tipodeusuario.getTipo() + " " + tipodeusuario.getDescripcion());
-			} 
-		} catch(Exception e) {
-			e.printStackTrace();
+			tipos_usuarios = tudi.findAll();
+
+			if ( tipos_usuarios != null) {
+				for (Map<String, String> tipo_usuario:
+						tipos_usuarios) {
+					Iterator it = tipo_usuario.keySet().iterator();
+
+					while (it.hasNext()) {
+						String key = (String) it.next();
+						System.out.println("Clave: " + key + " -> Valor: " + tipo_usuario.get(key));
+					}
+					System.out.println("----------------------------------------------------------\n");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
 		}
 	}
-	
-	
+
 	public void update(byte id) {
 		tu.setId(id);
-		tu.setTipo("adninistrador");
-		tu.setDescripcion("admin");
+		tu.setTipo("admin");
+		tu.setDescripcion("usuario con todos los privilegios");
 		
 		try {
-			tudi.updateTipodeusuario(tu);
+			tudi.update(tu);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,9 +72,9 @@ public class TestTipoUsuario {
 	public static void main(String[] args) {
 		TestTipoUsuario test = new TestTipoUsuario();
 		
-		//test.findAll();
-		// test.delete((byte) 2);
-		//test.update((byte) 2);
-
+		//test.save();
+		//test.update((byte) 4);
+		//test.delete((byte) 4);
+		test.findAll();
 	}
 }

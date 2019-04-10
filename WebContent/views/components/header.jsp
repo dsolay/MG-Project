@@ -34,9 +34,6 @@
           type="text/css"
           href="https://cdn.datatables.net/v/bs4/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/r-2.2.2/sc-2.0.0/sl-1.3.0/datatables.min.css"/>
 
-    <!-- Datepicker -->
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>

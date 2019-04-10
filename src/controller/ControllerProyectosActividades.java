@@ -2,6 +2,7 @@ package controller;
 
 import dao.ProyectosActividadesDao;
 import daoImp.ProyectosActividadesDaoImp;
+import model.ProyectosActividades;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -27,7 +28,6 @@ public class ControllerProyectosActividades extends HttpServlet {
      */
     public ControllerProyectosActividades() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -39,21 +39,9 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 		switch (action) {
 			case "index":
-				ArrayList<String> thead = new ArrayList<String>();
-				thead.add("ID");
-				thead.add("Proyecto");
-				thead.add("Actividad");
-				thead.add("Username");
-				thead.add("Creado");
-				thead.add("Entrega");
-				thead.add("Restante");
-				thead.add("Prioridad");
-				thead.add("Estado");
-				
 				request.setAttribute("list", this.listar());
-				request.setAttribute("thead", thead);
-				
-				request.getRequestDispatcher("views/proyectos_actividades/List.jsp").forward(request, response); 
+
+				request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 				break;
 			case "add":
 				//request.setAttribute("listProyectosActividades", this.listar());
@@ -69,13 +57,40 @@ public class ControllerProyectosActividades extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String option = request.getParameter("option");
-		
+
+
+		boolean redirect = request.getParameter("redirect").equals("true");
+
+		Short id = request.getParameter("id") != null ?Short.parseShort(request.getParameter("id")) : 0;
+		String proyecto = request.getParameter("proyecto");
+		String username = request.getParameter("username");
+		String actividad= request.getParameter("actividad");
+		byte prioridad = request.getParameter("priroridad") != null ? Byte.parseByte(request.getParameter("prioridad")) : 0;
+		byte estado = request.getParameter("estado") != null ? Byte.parseByte(request.getParameter("estado")) : 0;
+		String entrega= request.getParameter("Entrega");
+		short id_usuario = request.getParameter("id_usuario") != null ? Short.parseShort(request.getParameter("id_usuario")) : 0;
+		short id_poyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
+
+		System.out.println(id);
+		System.out.println(prioridad);
 		switch (option) {
 		case "add":
 			
 			break;
 		case "update":
-			
+			if (redirect) {
+				request.setAttribute("datos", this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto));
+				request.getRequestDispatcher("views/proyectos_actividades/UpdateProyectosActividades.jsp").forward(request, response);
+			} else {
+				try {
+					this.update(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				String contextPath= "";
+				response.sendRedirect(response.encodeRedirectURL(contextPath + "/InfusionActivity_war_exploded/TipoUsuario?action=index"));
+			}
 			break;
 
 		default:
@@ -97,9 +112,8 @@ public class ControllerProyectosActividades extends HttpServlet {
 			for (Map<String, String> actividad:
 				 proyecos_actividades) {
 
-				Map<String, String> map = this.getTimeRemaining(actividad.get("fecha_entrega"));
-				actividad.put("time", map.get("time"));
-				actividad.put("units", map.get("units"));
+				Map<String, String> map = this.getTimeRemaining(actividad.get("entrega"));
+				actividad.put("restante", map.get("time") + " " + map.get("units"));
 			}
 
 			return  proyecos_actividades;
@@ -133,5 +147,38 @@ public class ControllerProyectosActividades extends HttpServlet {
 		entrega.put("time", time);
 
 		return entrega;
+	}
+
+	private  List<ProyectosActividades> crearLista(short id, String actividad, byte prioridad, byte estado, String entrega, short id_usuario, short id_proyecto){
+		//crear la lista
+		List<ProyectosActividades> list_tipo_usuario = new ArrayList<>();
+
+		//Objeto
+		ProyectosActividades tipo_usuario  = new ProyectosActividades(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto);
+
+		//add to list
+		list_tipo_usuario.add(tipo_usuario);
+
+		return list_tipo_usuario;
+	}
+
+	private String  save(List<ProyectosActividades> list) throws Exception{
+		//construccion del objeto
+		for (ProyectosActividades pa:
+				list) {
+			pado.save(pa);
+		}
+
+		return "ok";
+	}
+
+	private String  update(List<ProyectosActividades> list) throws Exception{
+		//construccion del objeto
+		for (ProyectosActividades pa:
+			 list) {
+			pado.update(pa);
+		}
+
+		return "ok";
 	}
 }

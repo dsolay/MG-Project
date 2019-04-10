@@ -1,12 +1,13 @@
 package controller;
-import model.Tipodeusuario;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.TipodeusuarioDao;
-import daoImp.TipodeusuarioDaoImp;
+import dao.TipoUsuarioDao;
+import daoImp.TipoUsuarioDaoImp;
+import model.TipoUsuario;
 
 import java.io.IOException;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,38 +17,32 @@ import javax.servlet.http.HttpServletResponse;
 ;
 
 
-@WebServlet(name = " Tipodeusuario", urlPatterns = {"/Tipodeusuario"})//URL del servlet
-public class TipodeusuarioController extends HttpServlet {
+@WebServlet(name = " TipoUsuario", urlPatterns = {"/TipoUsuario"})//URL del servlet
+public class ControllerTipoUsuario extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+
 	//Objeto de tipo CustomerDao
-	private final TipodeusuarioDao tipodeusuarioDao = TipodeusuarioDaoImp.getInstance();
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TipodeusuarioController() {
+	private final TipoUsuarioDao tUsuarioDao = TipoUsuarioDaoImp.getInstance();
+
+    public ControllerTipoUsuario() {
         super();
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    //captura de parametro action  //paso 2
         String action = request.getParameter("action");
+
         //Opciones
         switch (action) {
 		case "index":
-			
 			try {
-
-				request.setAttribute("tipodeusuarioList", this.listar());
-				
+				request.setAttribute("list", this.listar());
 			} catch (Exception e) {
-				
-				System.out.println("Error");
-				
+				System.out.println(e.getMessage());
 			}
 
-			
-			request.getRequestDispatcher("views/tipo_usuario/ListarTipodeusuarioView.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("views/tipo_usuario/List.jsp").forward(request, response);
 			break;
 			
 		case "add":
@@ -64,22 +59,43 @@ public class TipodeusuarioController extends HttpServlet {
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
-        String option = request.getParameter("option");
-        
-        
-        String redirect = request.getParameter("redirect");
-        String tipoDescripcion= request.getParameter("descripcion");
-        String tipoTipo = request.getParameter("tipo");
-        
-        
-        byte id = 0; 
-        
-        if(request.getParameter("tipoId") != null){
-           
-       	 id =  Byte.parseByte(request.getParameter("tipoId"));
-          
-        } 
+		String option = request.getParameter("option");
+
+
+		boolean redirect = request.getParameter("redirect").equals("true");
+		String tipo = request.getParameter("tipo");
+		String descripcion= request.getParameter("descripcion");
+
+		byte id = 0;
+
+		if(request.getParameter("id") != null){
+			id =  Byte.parseByte(request.getParameter("id"));
+		}
+
+		System.out.print("------------------------" + redirect + "-----------------------------");
+
+		switch (option) {
+			case "update":
+				if (redirect) {
+					request.setAttribute("datos", this.crearLista(id, tipo, descripcion));
+					request.getRequestDispatcher("views/tipo_usuario/UpdateTipoUsuario.jsp").forward(request, response);
+				} else {
+					try {
+						this.update(id, tipo, descripcion);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					String contextPath= "";
+					response.sendRedirect(response.encodeRedirectURL(contextPath + "/InfusionActivity_war_exploded/TipoUsuario?action=index"));
+				}
+				break;
+				default:
+					response.getWriter().append("error dato no valido");
+					break;
+		}
+
+       /*
         System.out.println("-------------------------"+option+"--------------------------------------");
         switch (option) {
            case "add":
@@ -145,65 +161,52 @@ public class TipodeusuarioController extends HttpServlet {
            default:
 			      response.getWriter().append("error dato no valido"); 
 			      break;
-		}
+		}*/
         
     }
-        
-      private void guardarTipodeusuarios(String tipoDescripcion, String tipoTipo) {
-		// TODO Auto-generated method stub
-		
-	}
 		//---------------------------------------------Metodos----------------------------------------------------- 
-        private  List<Tipodeusuario>  listar() throws Exception{
-       	 //Lista de Customer
-            List<Tipodeusuario> tipodeusuarios = tipodeusuarioDao.findAllTipodeusuarios ();
-            //Retornar Lista 
-            return tipodeusuarios ;
-            
-       }
-        private  List<Tipodeusuario>  crearLista(byte id, String tipoDescripcion, String tipoTipo){
-        	//crear la lista
-            List<Tipodeusuario> listaTipodeusuario = new ArrayList<Tipodeusuario>();
-            //Objeto
-            Tipodeusuario tipodeusuario  = new Tipodeusuario();
-            //Set  datos
-            tipodeusuario.setId(id);
+        private List<Map<String, String>> listar() throws Exception{
+    		return tUsuarioDao.findAll();
+       	}
 
-            tipodeusuario.setDescripcion(tipoDescripcion);
-            tipodeusuario.setTipo(tipoTipo);
-         
-            //add to list
-            listaTipodeusuario.add(tipodeusuario);
-            return listaTipodeusuario;
-            
-       }
-        private String  guardarCustomers(String firstName, String descripcion, String tipo) throws Exception{
-            //construccion del objeto
-        	Tipodeusuario tipodeusuario = new Tipodeusuario();
-        	tipodeusuario.setDescripcion(descripcion);
-        	tipodeusuario.setTipo(tipo);
-          
-            tipodeusuarioDao.saveTipodeusuario(tipodeusuario);
-            System.out.println("OK tipodeusuario controller");
-            
-            return "ok";
-       }
+		private  List<TipoUsuario> crearLista(byte id, String tipo, String descripcion){
+			//crear la lista
+			List<TipoUsuario> list_tipo_usuario = new ArrayList<>();
+
+			//Objeto
+			TipoUsuario tipo_usuario  = new TipoUsuario(id, tipo, descripcion);
+
+			//add to list
+			list_tipo_usuario.add(tipo_usuario);
+
+			return list_tipo_usuario;
+		}
+
+		private String  save(byte id, String tipo, String descripcion) throws Exception{
+			//construccion del objeto
+			TipoUsuario tipo_usuario = new TipoUsuario(id, tipo, descripcion);
+
+			tUsuarioDao.save(tipo_usuario);
+
+			return "ok";
+		}
+
+		private String  update(byte id, String tipo, String descripcion) throws Exception{
+			//construccion del objeto
+			TipoUsuario tipo_usuario = new TipoUsuario(id, tipo, descripcion);
+
+			tUsuarioDao.update(tipo_usuario);
+
+			return "ok";
+		}
+       /*
+
         private String deleteTipodeusario(byte id) throws Exception{
         	//System.out.println("entre---------------------delete");
         	Tipodeusuario tipodeusuario = new Tipodeusuario();
         	tipodeusuario.setId(id);
-            tipodeusuarioDao.deleteTipodeusuario(tipodeusuario);
+            tipodeusuarioDao.delete(tipodeusuario);
             return "ok"; 
        }
-        private String  updateTipodeusarios(byte id, String descripcion ,String tipo) throws Exception{
-       	 //construccion del objeto
-        	Tipodeusuario tipodeusuario=new Tipodeusuario();
-        	tipodeusuario.setId(id);
-        	tipodeusuario.setDescripcion(descripcion);
-        	tipodeusuario.setTipo(tipo);
-        
-        	tipodeusuarioDao.updateTipodeusuario(tipodeusuario);
-          
-           return "ok";
-      } 
+         */
 }

@@ -8,7 +8,7 @@ import model.Usuario;
 
 public interface UsuarioDao {
 
-    long saveUsuario(Usuario usuario) throws Exception;
+    void saveUsuario(Usuario usuario) throws Exception;
 
     void updateUsuario(Usuario usuario) throws Exception;
 

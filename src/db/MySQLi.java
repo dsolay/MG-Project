@@ -14,7 +14,7 @@ public class MySQLi extends Config {
 	}
 	
 	public static Connection connect() throws SQLException, ClassNotFoundException {
-	  if (cn == null) {
+	  if (cn == null || cn.isClosed()) {
 	     try {
 	    	 Class.forName(driver);
 	    	 cn = (Connection) DriverManager.getConnection(url, user, password);

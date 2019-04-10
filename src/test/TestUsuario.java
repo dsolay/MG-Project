@@ -25,9 +25,7 @@ public class TestUsuario {
 		 usuario.setId_tipo_usuario((byte) 2);
 		 
 		 try {
-			 
-			 UsuarioDaoImp usua = new UsuarioDaoImp();
-			 
+
 			 usua.saveUsuario(usuario);
 			 
 			 System.out.println("Dato guardado");
@@ -50,8 +48,6 @@ public class TestUsuario {
 		 
 		 try {
 			 
-			 UsuarioDaoImp usua = new UsuarioDaoImp();
-			 
 			 usua.updateUsuario(usuario);
 			 
 			 System.out.println("Dato Modificado");
@@ -69,14 +65,12 @@ public class TestUsuario {
 	     
 		 try {
 			 
-		 UsuarioDaoImp usua = new UsuarioDaoImp();
-		 
 		 usua.deleteUsuario(usuario);
 		 
-	 } catch (Exception e) {
-		 
-		 System.out.println("Error al actualizar registros:" +e.getMessage());
-	 }
+		 } catch (Exception e) {
+
+			 System.out.println("Error al actualizar registros:" + e.getMessage());
+		 }
 		
 	}
 	
@@ -102,6 +96,11 @@ public class TestUsuario {
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
-		
+	}
+
+	public static void main(String[] args) {
+		TestUsuario test = new TestUsuario();
+
+		test.findAll();
 	}
 }

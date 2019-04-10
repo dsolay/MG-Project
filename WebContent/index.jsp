@@ -10,22 +10,5 @@
 <%--header--%>
 <jsp:include page="views/components/header.jsp"/>
 
-
-<%--header--%>
-<jsp:include page="views/proyectos_actividades/List.jsp"/>
-<%--<div class="wrapper">
-
-    <!-- Sidebar -->
-    <jsp:include page="views/components/sidebar.jsp"/>
-
-    <!-- Page Content -->
-    <div id="content">
-        <jsp:include page="views/components/navbar.jsp"/>
-    </div>
-
-</div>
-
-<div class="overlay"></div>--%>
-
 <%-- footer--%>
 <jsp:include page="views/components/footer.jsp"/>

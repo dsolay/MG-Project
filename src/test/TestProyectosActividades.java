@@ -75,36 +75,10 @@ public class TestProyectosActividades {
 		}
     }
 
-	/*public Map<String, String> getTimeRemaining(String fecha_entrega) {
-		Map<String, String> entrega = new HashMap<>();
-
-		String time;
-		String units;
-
-		LocalDate fentrega = LocalDate.parse(fecha_entrega, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		LocalDate current_date = LocalDate.now();
-
-		Period period = Period.between(current_date, fentrega);
-		int days = period.getDays();
-
-		if (days <= 0) {
-			time = "0";
-			units = "Finalizada";
-		} else {
-			time = String.valueOf(days);
-			units = (days > 1 ) ? "días" : "día";
-		}
-
-		entrega.put("units", units);
-		entrega.put("time", time);
-
-		return entrega;
-	}*/
-
     public static void main(String[] args) {
     	TestProyectosActividades test = new TestProyectosActividades();
     	
-    	//test.testFindAll();
+    	test.testFindAll();
     	
     	// test.testUpdate((short) 20);
     	
