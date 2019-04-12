@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="container-fluid">
     <div id="buttons_crud" class="collapse">
@@ -20,38 +21,39 @@
                     <th scope="col"><c:out value="${head}"/></th>
                 </c:forEach>
 
-                <th scope="col">Accion</th>
-                <th scope="col">Accion</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach items="${map}" var="row">
                 <tr>
                     <c:forEach items="${thead}" var="column">
-                        <td><c:out value="${row[column]}"/></td>
+                        <c:set var="key" scope="page" value="${fn:toLowerCase(column)}"/>
+                        <td><c:out value="${row[key]}"/></td>
                     </c:forEach>
 
                     <td>
-                        <form action="<c:url value="${url}"/>" method="POST">
-                            <input type="hidden" name="redirect" value="true">
-                            <input type="hidden" name="option" value="update">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <form action="<c:url value="${url}"/>" method="POST">
+                                <input type="hidden" name="redirect" value="true">
+                                <input type="hidden" name="option" value="update">
 
-                            <c:forEach items="${thead}" var="column">
-                                <input type="hidden" name="${column}" value="${row[column]}">
-                            </c:forEach>
+                                <c:forEach items="${row}" var="column">
+                                    <input type="hidden" name="${column.key}" value="${column.value}">
+                                </c:forEach>
 
-                            <button type="submit" class="btn btn-outline-success">Editar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="<c:url value="${url}"/>" method="POST">
-                            <input type="hidden" name="redirect" value="true">
-                            <input type="hidden" name="option" value="delete">
+                                <button type="submit" class="btn btn-outline-success">Editar</button>
+                            </form>
 
-                            <input type="hidden" name="id" value="${row['id']}">
+                            <form action="<c:url value="${url}"/>" method="POST">
+                                <input type="hidden" name="redirect" value="true">
+                                <input type="hidden" name="option" value="delete">
 
-                            <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                        </form>
+                                <input type="hidden" name="id" value="${row['id']}">
+
+                                <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

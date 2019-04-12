@@ -2,13 +2,18 @@ package controller;
 
 import dao.ProyectosActividadesDao;
 import daoImp.ProyectosActividadesDaoImp;
+import daoImp.UsuarioDaoImp;
 import model.ProyectosActividades;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,38 +63,44 @@ public class ControllerProyectosActividades extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String option = request.getParameter("option");
 
-
 		boolean redirect = request.getParameter("redirect").equals("true");
 
-		Short id = request.getParameter("id") != null ?Short.parseShort(request.getParameter("id")) : 0;
-		String proyecto = request.getParameter("proyecto");
-		String username = request.getParameter("username");
-		String actividad= request.getParameter("actividad");
-		byte prioridad = request.getParameter("priroridad") != null ? Byte.parseByte(request.getParameter("prioridad")) : 0;
-		byte estado = request.getParameter("estado") != null ? Byte.parseByte(request.getParameter("estado")) : 0;
-		String entrega= request.getParameter("Entrega");
-		short id_usuario = request.getParameter("id_usuario") != null ? Short.parseShort(request.getParameter("id_usuario")) : 0;
-		short id_poyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
+		Short id = request.getParameter("id") != null ? Short.parseShort(request.getParameter("id")) : 0;
 
-		System.out.println(id);
-		System.out.println(prioridad);
 		switch (option) {
 		case "add":
 			
 			break;
 		case "update":
 			if (redirect) {
-				request.setAttribute("datos", this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto));
-				request.getRequestDispatcher("views/proyectos_actividades/UpdateProyectosActividades.jsp").forward(request, response);
-			} else {
 				try {
-					this.update(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto));
+					List<Map<String, String>> users = UsuarioDaoImp.getInstance().findAllUsuario();
+					request.setAttribute("users", users);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-				String contextPath= "";
-				response.sendRedirect(response.encodeRedirectURL(contextPath + "/InfusionActivity_war_exploded/TipoUsuario?action=index"));
+				request.getRequestDispatcher("views/proyectos_actividades/UpdateProyectosActividades.jsp").forward(request, response);
+			} else {
+				String proyecto = request.getParameter("proyecto");
+				String username = request.getParameter("username");
+				String actividad= request.getParameter("actividad");
+				byte prioridad = request.getParameter("priroridad") != null ? Byte.parseByte(request.getParameter("prioridad")) : 0;
+				byte estado = request.getParameter("estado").equals("on") ? (byte) 1 : (byte) 0;
+				String entrega= request.getParameter("Entrega");
+				short id_usuario = request.getParameter("id_usuario") != null ? Short.parseShort(request.getParameter("id_usuario")) : 0;
+				short id_poyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
+
+				try {
+					System.out.println("-------------------------------- Aqui -------------------------------------------");
+
+					this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto), "update");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				String contextPath = request.getContextPath();
+				response.sendRedirect(response.encodeRedirectURL(contextPath + "/ProyectosActividades?action=index"));
 			}
 			break;
 
@@ -162,23 +173,21 @@ public class ControllerProyectosActividades extends HttpServlet {
 		return list_tipo_usuario;
 	}
 
-	private String  save(List<ProyectosActividades> list) throws Exception{
-		//construccion del objeto
-		for (ProyectosActividades pa:
-				list) {
-			pado.save(pa);
-		}
-
-		return "ok";
-	}
-
-	private String  update(List<ProyectosActividades> list) throws Exception{
-		//construccion del objeto
+	private void doAction(List<ProyectosActividades> list, String action) {
 		for (ProyectosActividades pa:
 			 list) {
-			pado.update(pa);
+			try {
+				switch (action) {
+					case "save":
+						pado.save(pa);
+						break;
+					case "update":
+						pado.update(pa);
+						break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-
-		return "ok";
 	}
 }

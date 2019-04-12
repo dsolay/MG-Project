@@ -20,8 +20,16 @@ public class Usuario {
 	
 	//Constructor vacio
 	
-	public Usuario () {
-		
+	public Usuario () {}
+
+	public Usuario(short id, String nombres, String apellidos, String email, String username, String password, byte id_tipo_usuario) {
+		this.id = id;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.id_tipo_usuario = id_tipo_usuario;
 	}
 
 	public short getId() {
@@ -79,8 +87,4 @@ public class Usuario {
 	public void setId_tipo_usuario(byte id_tipo_usuario) {
 		this.id_tipo_usuario = id_tipo_usuario;
 	}
-
-	
-	
-
 }

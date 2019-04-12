@@ -15,4 +15,6 @@ public interface UsuarioDao {
     void deleteUsuario(Usuario usuario) throws Exception;
   
     List<Map<String, String>> findAllUsuario() throws Exception;
+
+    List<Usuario> find(String field, String value) throws Exception;
 }

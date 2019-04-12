@@ -98,9 +98,31 @@ public class TestUsuario {
 		}
 	}
 
+	public void find(String filed, String value) {
+		try {
+			List<Usuario> listUsuario = usua.find(filed, value);
+
+			for (Usuario usuario:
+				 listUsuario) {
+
+				System.out.println("id -> " + usuario.getId());
+				System.out.println("nombres -> " + usuario.getNombres());
+				System.out.println("apellidos -> " + usuario.getApellidos());
+				System.out.println("email -> " + usuario.getEmail());
+				System.out.println("username -> " + usuario.getUsername());
+				System.out.println("password -> " + usuario.getPassword());
+				System.out.println("id_tipo_usuario -> " + usuario.getId_tipo_usuario());
+
+				System.out.println("----------------------------------------------------------\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
 		TestUsuario test = new TestUsuario();
 
-		test.findAll();
+		test.find("id_tipo_usuario", "1");
 	}
 }
