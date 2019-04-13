@@ -43,7 +43,7 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 
     @Override
     public void update(ProyectosActividades pa) throws Exception {
-    	String sql = "UPDATE proyectos_actividades SET nombre_actividad = ?, prioridad = ?, estado= ?, fecha_entrega = ? WHERE id = ?";
+    	String sql = "UPDATE proyectos_actividades SET nombre_actividad = ?, prioridad = ?, estado= ?, fecha_entrega = ?, id_usuario = ? WHERE id = ?";
     	
     	try {
             PreparedStatement statment = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -52,8 +52,9 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 	        statment.setByte(2, pa.getPrioridad());
             statment.setByte(3, pa.getEstado());
 	        statment.setString(4, pa.getFecha_entrega());
+			statment.setShort(5, pa.getId_usuario());
 	        
-	        statment.setShort(5, pa.getId());
+	        statment.setShort(6, pa.getId());
 	        
             //Actualiza los valores
             statment.executeUpdate();

@@ -9,15 +9,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:set var="estado" scope="page" value="estado"/>
-<c:set var="restante" scope="page" value="restante"/>
-
-<%-- Modal update --%>
-<%--<jsp:include page="../proyectos_actividades/UpdateProyectosActividades.jsp"/>--%>
-
-<%-- Modal delete --%>
-<%--<jsp:include page="../proyectos_actividades/DeleteProyectosActividades.jsp"/>--%>
-
 <div class="container-fluid">
     <div id="buttons_crud" class="collapse">
         <a href="${uriAdd}" class="btn btn-outline-primary" role="button" aria-pressed="true">
@@ -41,7 +32,7 @@
                     <c:forEach items="${thead}" var="column">
                         <c:set var="key" scope="page" value="${fn:toLowerCase(column)}"/>
                         <c:choose>
-                            <c:when test="${key eq estado}">
+                            <c:when test="${key eq 'estado'}">
                                 <c:choose>
                                     <c:when test="${row[key] == 1}">
                                         <td><span class="badge badge-success">Activa</span></td>
@@ -49,6 +40,22 @@
                                     <c:otherwise>
                                         <td><span class="badge badge-danger">No Activa</span></td>
                                     </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                            <c:when test="${key eq 'restante'}">
+                                <c:choose>
+                                    <c:when test="${row[key] == 0}">
+                                        <td><span class="badge badge-primary">Finalizada</span></td>
+                                    </c:when>
+                                    <c:when test="${row[key] == 1}">
+                                        <td><span class="badge badge-danger"><c:out value="${row[key]} día"/></span></td>
+                                    </c:when>
+                                    <c:when test="${row[key] > 2}">
+                                        <td><span class="badge badge-secondary"><c:out value="${row[key]} días"/></span></td>
+                                    </c:when>
+                                    <c:when test="${row[key] > 1}">
+                                        <td><span class="badge badge-warning"><c:out value="${row[key]} días"/></span></td>
+                                    </c:when>
                                 </c:choose>
                             </c:when>
                             <c:otherwise>

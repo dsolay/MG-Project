@@ -94,7 +94,8 @@
 			</div>
 		</div>
 
-		<button type="submit" class="col-4 offset-4 btn btn-outline-success">Actualizar</button>
+		<a href="ProyectosActividades?action=index" class="col-3 offset-5 btn btn-secondary" role="button" aria-pressed="true">Cancelar</a>
+		<button type="submit" class="col-3 btn btn-primary">Actualizar</button>
 	</form>
 </div>
 

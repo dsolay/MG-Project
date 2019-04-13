@@ -7,7 +7,6 @@ import daoImp.UsuarioDaoImp;
 import model.ProyectosActividades;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -78,20 +77,28 @@ public class ControllerProyectosActividades extends HttpServlet {
 		Short id = request.getParameter("id") != null ? Short.parseShort(request.getParameter("id")) : 0;
 
 		String username = request.getParameter("username");
+		String proyecto = request.getParameter("proyecto");
 		String actividad= request.getParameter("actividad");
 		byte prioridad = request.getParameter("prioridad") != null ? Byte.parseByte(request.getParameter("prioridad")) : 0;
 		String estado_value = request.getParameter("estado");
 		String entrega= request.getParameter("entrega");
-		short id_poyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
+		short id_proyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
 
 		byte estado = 0;
+
+		if (estado_value != null) {
+			if (estado_value.equals("on")) {
+				estado = (byte) 1;
+			}
+		}
 
 		switch (option) {
 		case "add":
 			try {
 				short id_usuario = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
-				short id_proyecto = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
-				//this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto), "update");
+				id_proyecto = ProyectosDaoImp.getInstance().find("nombre_proyecto", proyecto).get(0).getId();
+
+				this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto), "save");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -107,15 +114,9 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 				request.getRequestDispatcher("views/proyectos_actividades/UpdateProyectosActividades.jsp").forward(request, response);
 			} else {
-				if (estado_value != null) {
-					if (estado_value.equals("on")) {
-						estado = (byte) 1;
-					}
-				}
-
 				try {
 					short id_usuario = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
-					this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto), "update");
+					this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto), "update");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -144,7 +145,7 @@ public class ControllerProyectosActividades extends HttpServlet {
 	 */
 
 	public List<Map<String, String>> listar() {
-		List<Map<String, String>> proyecos_actividades = null;
+		List<Map<String, String>> proyecos_actividades;
 				
 		try {
 			proyecos_actividades = pado.findAll();
@@ -153,7 +154,7 @@ public class ControllerProyectosActividades extends HttpServlet {
 				 proyecos_actividades) {
 
 				Map<String, String> map = this.getTimeRemaining(actividad.get("entrega"));
-				actividad.put("restante", map.get("time") + " " + map.get("units"));
+				actividad.put("restante", map.get("time"));
 			}
 
 			return  proyecos_actividades;
@@ -166,25 +167,17 @@ public class ControllerProyectosActividades extends HttpServlet {
 	public Map<String, String> getTimeRemaining(String fecha_entrega) {
 		Map<String, String> entrega = new HashMap<>();
 
-		String time;
-		String units;
-
 		LocalDate fentrega = LocalDate.parse(fecha_entrega, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		LocalDate current_date = LocalDate.now();
 
 		Period period = Period.between(current_date, fentrega);
-		int days = period.getDays();
 
-		if (days <= 0) {
-			time = "0";
-			units = "Finalizada";
+		short days = Short.parseShort(String.valueOf(period.getDays()));
+		if (days < 0) {
+			entrega.put("time", "0");
 		} else {
-			time = String.valueOf(days);
-			units = (days > 1 ) ? "dias" : "dia";
+			entrega.put("time", String.valueOf(days));
 		}
-
-		entrega.put("units", units);
-		entrega.put("time", time);
 
 		return entrega;
 	}
