@@ -12,6 +12,7 @@
 <jsp:include page="../components/header.jsp"/>
 
 <c:set var="url" scope="application" value="/ProyectosActividades"/>
+<c:set var="uriAdd" scope="application" value="ProyectosActividades?action=add"/>
 <c:set var="map" scope="application" value="${list}"/>
 <c:set var="thead" scope="application" value="${['ID', 'Proyecto', 'Actividad', 'Username', 'Entrega', 'Restante', 'Prioridad', 'Estado']}"/>
 

@@ -2,6 +2,7 @@ package controller;
 
 import dao.ProyectosActividadesDao;
 import daoImp.ProyectosActividadesDaoImp;
+import daoImp.ProyectosDaoImp;
 import daoImp.UsuarioDaoImp;
 import model.ProyectosActividades;
 
@@ -39,7 +40,6 @@ public class ControllerProyectosActividades extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 
 		switch (action) {
@@ -49,8 +49,18 @@ public class ControllerProyectosActividades extends HttpServlet {
 				request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 				break;
 			case "add":
-				//request.setAttribute("listProyectosActividades", this.listar());
-				//request.getRequestDispatcher("views/proyectos_actividades/List.jsp").forward(request, response);
+
+				try {
+					List<Map<String, String>> users = UsuarioDaoImp.getInstance().findAllUsuario();
+					List<Map<String, String>> projects = ProyectosDaoImp.getInstance().findAll();
+
+					request.setAttribute("users", users);
+					request.setAttribute("projects", projects);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				request.getRequestDispatcher("views/proyectos_actividades/AddProyectosActividades.jsp").forward(request, response);
 				break;
 			default:
 				response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -67,9 +77,24 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 		Short id = request.getParameter("id") != null ? Short.parseShort(request.getParameter("id")) : 0;
 
+		String username = request.getParameter("username");
+		String actividad= request.getParameter("actividad");
+		byte prioridad = request.getParameter("prioridad") != null ? Byte.parseByte(request.getParameter("prioridad")) : 0;
+		String estado_value = request.getParameter("estado");
+		String entrega= request.getParameter("entrega");
+		short id_poyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
+
+		byte estado = 0;
+
 		switch (option) {
 		case "add":
-			
+			try {
+				short id_usuario = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
+				short id_proyecto = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
+				//this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto), "update");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			break;
 		case "update":
 			if (redirect) {
@@ -82,31 +107,35 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 				request.getRequestDispatcher("views/proyectos_actividades/UpdateProyectosActividades.jsp").forward(request, response);
 			} else {
-				String proyecto = request.getParameter("proyecto");
-				String username = request.getParameter("username");
-				String actividad= request.getParameter("actividad");
-				byte prioridad = request.getParameter("priroridad") != null ? Byte.parseByte(request.getParameter("prioridad")) : 0;
-				byte estado = request.getParameter("estado").equals("on") ? (byte) 1 : (byte) 0;
-				String entrega= request.getParameter("Entrega");
-				short id_usuario = request.getParameter("id_usuario") != null ? Short.parseShort(request.getParameter("id_usuario")) : 0;
-				short id_poyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
+				if (estado_value != null) {
+					if (estado_value.equals("on")) {
+						estado = (byte) 1;
+					}
+				}
 
 				try {
-					System.out.println("-------------------------------- Aqui -------------------------------------------");
-
+					short id_usuario = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
 					this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_poyecto), "update");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+			break;
 
-				String contextPath = request.getContextPath();
-				response.sendRedirect(response.encodeRedirectURL(contextPath + "/ProyectosActividades?action=index"));
+		case "delete":
+			if (redirect) {
+				request.getRequestDispatcher("views/proyectos_actividades/DeleteProyectosActividades.jsp").forward(request, response);
+			} else {
+				this.doAction(this.crearLista(id, null, (byte) 0, (byte) 0, null, (short) 0, (short) 0), "delete");
 			}
 			break;
 
 		default:
 			break;
 		}
+
+		String contextPath = request.getContextPath();
+		response.sendRedirect(response.encodeRedirectURL(contextPath + "/ProyectosActividades?action=index"));
 	}
 
 	/**
@@ -183,6 +212,9 @@ public class ControllerProyectosActividades extends HttpServlet {
 						break;
 					case "update":
 						pado.update(pa);
+						break;
+					case "delete":
+						pado.delete(pa);
 						break;
 				}
 			} catch (Exception e) {

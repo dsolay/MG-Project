@@ -13,5 +13,7 @@ public interface ProyectosDao {
 	void delete(Proyectos proyectos) throws Exception;
 
 	List<Map<String,String>> findAll() throws Exception;
+
+	List<Proyectos> find(String field, String value) throws Exception;
 }
 

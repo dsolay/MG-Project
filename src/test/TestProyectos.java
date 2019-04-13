@@ -70,6 +70,25 @@ public class TestProyectos {
 		}
 	}
 
+	public void find(String filed, String value) {
+		try {
+			List<Proyectos> listProyecto = pdi.find(filed, value);
+
+			for (Proyectos proyecto:
+					listProyecto) {
+
+				System.out.println("id -> " + proyecto.getId());
+				System.out.println("nombre -> " + proyecto.getNombre_proyecto());
+				System.out.println("descripcion -> " + proyecto.getDescripcion());
+				System.out.println("id_usuario -> " + proyecto.getId_usuario());
+
+				System.out.println("----------------------------------------------------------\n");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
 		TestProyectos test = new TestProyectos();
 		
@@ -79,7 +98,9 @@ public class TestProyectos {
 
 		//test.delete((short) 21);
 
-		test.findAll();
+		//test.findAll();
+
+		test.find("nombre_proyecto", "Daltfresh");
 	}
 
 }

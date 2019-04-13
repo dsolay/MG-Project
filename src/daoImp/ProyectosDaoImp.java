@@ -123,8 +123,55 @@ public class ProyectosDaoImp implements ProyectosDao{
         return proyectos;
 
 	}
-	
+
+	@Override
+	public List<Proyectos> find(String field, String value) throws Exception {
+		String sql = "SELECT * FROM proyectos WHERE " + field + " = ?";
+
+		List<Proyectos> list = null;
+		Proyectos pro = null;
+		ResultSet rs;
+
+		try {
+			PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, field);
+
+			if (field.equals("id") || field.equals("id_usuario")) {
+				statement.setShort(1, Short.parseShort(value));
+			} else {
+				statement.setString(1, value);
+			}
+
+			rs = statement.executeQuery();
+			list = new ArrayList<>();
+
+			while (rs.next()) {
+				pro = new Proyectos();
+
+				pro.setId(rs.getShort(1));
+				pro.setNombre_proyecto(rs.getString(2));
+				pro.setDescripcion(rs.getString(3));
+				pro.setId_usuario(rs.getShort(4));
+
+				list.add(pro);
+			}
+
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			MySQLi.close();
+		}
+
+		return list;
 	}
+
+	public static ProyectosDao getInstance() {
+		if (proyectosDaoImp == null) {
+			proyectosDaoImp = new ProyectosDaoImp();
+		}
+		return proyectosDaoImp;
+	}
+}
 			
 		
 	
