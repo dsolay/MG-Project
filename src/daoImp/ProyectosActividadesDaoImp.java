@@ -87,13 +87,21 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
     }
 
     @Override
-    public List<Map<String, String>> findAll() throws Exception {
-    	String sql = "SELECT " +
+    public List<Map<String, String>> findAll(short limit) throws Exception {
+    	return this.search("1", "1", limit);
+    }
+
+	@Override
+	public List<Map<String, String>> find(String field, String value, short limit) throws Exception {
+		return this.search(field, value, limit);
+	}
+
+	private List<Map<String, String>> search(String field, String value, short limit) throws Exception {
+		String sql = "SELECT " +
 				"pa.id, " +
 				"po.nombre_proyecto, " +
 				"pa.nombre_actividad, " +
 				"us.username, " +
-				"pa.fecha_creacion, " +
 				"pa.fecha_entrega, " +
 				"pa.prioridad, " +
 				"pa.estado, " +
@@ -101,32 +109,38 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 				"pa.id_proyecto " +
 				"FROM proyectos_actividades AS pa " +
 				"INNER JOIN proyectos po ON pa.id_proyecto = po.id " +
-				"INNER JOIN usuarios us ON pa.id_usuario = us.id ";
-    	
-    	List<Map<String, String>> actividad = null;
-		Map<String, String> map;
-    	
-    	ResultSet rs;
-    	
-    	try {
-    		PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	        rs = statement.executeQuery();
+				"INNER JOIN usuarios us ON pa.id_usuario = us.id " +
+				"WHERE " + field + " LIKE ? " +
+				"ORDER BY pa.id ASC";
 
-	        actividad = new ArrayList<Map<String, String>>();
-	        
-	        while (rs.next()) {
-				map = new HashMap<String, String>();
+		if (limit > 0) {
+			sql += " LIMIT " + limit;
+		}
+
+		List<Map<String, String>> actividad = null;
+		Map<String, String> map;
+
+		ResultSet rs;
+
+		try {
+			PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, "%" + value + "%");
+			rs = statement.executeQuery();
+
+			actividad = new ArrayList<>();
+
+			while (rs.next()) {
+				map = new HashMap<>();
 
 				map.put("id", rs.getString(1));
-	        	map.put("proyecto", rs.getString(2));
-	        	map.put("actividad", rs.getString(3));
+				map.put("proyecto", rs.getString(2));
+				map.put("actividad", rs.getString(3));
 				map.put("username", rs.getString(4));
-				map.put("creado", rs.getString(5));
-				map.put("entrega", rs.getString(6));
-				map.put("prioridad", rs.getString(7));
-				map.put("estado", rs.getString(8));
-				map.put("id_usuario", rs.getString(9));
-				map.put("id_proyecto", rs.getString(10));
+				map.put("entrega", rs.getString(5));
+				map.put("prioridad", rs.getString(6));
+				map.put("estado", rs.getString(7));
+				map.put("id_usuario", rs.getString(8));
+				map.put("id_proyecto", rs.getString(9));
 
 				actividad.add(map);
 			}
@@ -135,11 +149,11 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 		} finally {
 			MySQLi.close();
 		}
-    	
-        return actividad;
-    }
-    
-    public static ProyectosActividadesDao getInstance() {
+
+		return actividad;
+	}
+
+	public static ProyectosActividadesDao getInstance() {
 		if (pado == null) {
 			pado = new ProyectosActividadesDaoImp();
 		}	

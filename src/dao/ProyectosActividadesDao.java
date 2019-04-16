@@ -13,5 +13,7 @@ public interface ProyectosActividadesDao {
 
     void delete(ProyectosActividades pa) throws Exception;
 
-    List<Map<String, String>> findAll() throws  Exception;
+    List<Map<String, String>> findAll(short limit) throws  Exception;
+
+    List<Map<String, String>> find(String field, String value, short limit) throws Exception;
 }

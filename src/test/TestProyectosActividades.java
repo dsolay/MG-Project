@@ -13,7 +13,7 @@ public class TestProyectosActividades {
 	ProyectosActividadesDaoImp pado = new ProyectosActividadesDaoImp();
 	ProyectosActividades pa = new ProyectosActividades();
 	
-    public void testSave() {
+    public void Save() {
     	pa.setNombre("actividad 2");
     	pa.setPrioridad((byte) 1);
     	pa.setEstado((byte) 1);
@@ -28,7 +28,7 @@ public class TestProyectosActividades {
 		}
     }
 
-    public void testUpdate(short id) {
+    public void Update(short id) {
     	pa.setId(id);
     	pa.setNombre("actividad 1");
     	pa.setPrioridad((byte) 2);
@@ -42,7 +42,7 @@ public class TestProyectosActividades {
 		}
     }
 
-    public void testDelete(short id) {
+    public void Delete(short id) {
     	pa.setId(id);
     	
     	try {
@@ -52,11 +52,11 @@ public class TestProyectosActividades {
 		}
     }
 
-    public void testFindAll() {
+    public void FindAll(short limit) {
 		List<Map<String, String>> actividades;
 
 		try {
-			actividades = pado.findAll();
+			actividades = pado.findAll(limit);
 
 			if ( actividades != null) {
 				for (Map<String, String> actividad:
@@ -75,25 +75,40 @@ public class TestProyectosActividades {
 		}
     }
 
+	public void find(String filed, String value, short limit) {
+		List<Map<String, String>> actividades;
+
+		try {
+			actividades = pado.find(filed, value, limit);
+
+			if ( actividades != null) {
+				for (Map<String, String> actividad:
+						actividades) {
+					Iterator it = actividad.keySet().iterator();
+
+					while (it.hasNext()) {
+						String key = (String) it.next();
+						System.out.println("Clave: " + key + " -> Valor: " + actividad.get(key));
+					}
+					System.out.println("----------------------------------------------------------\n");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
     public static void main(String[] args) {
     	TestProyectosActividades test = new TestProyectosActividades();
     	
-    	test.testFindAll();
+    	//test.FindAll((short) 0);
+
+		//test.find("fecha_entrega", "2019", (short) 2);
     	
     	// test.testUpdate((short) 20);
     	
     	// test.testSave();
     	
     	 // test.testDelete((short) 20);
-
-		/*Map<String, String> testf = test.getTimeRemaining("2018-06-08");
-
-		Iterator it = testf.keySet().iterator();
-
-		while (it.hasNext()) {
-			String key = (String) it.next();
-			System.out.println("Clave: " + key + " -> Valor: " + testf.get(key));
-		}
-		System.out.println("----------------------------------------------------------\n");*/
     }
 }

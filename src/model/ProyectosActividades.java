@@ -5,7 +5,6 @@ public class ProyectosActividades {
     private String nombre;
     private byte prioridad;
     private byte estado;
-    private String fecha_creacion;
     private String fecha_entrega;
     private short id_usuario;
     private short id_proyecto;
@@ -52,14 +51,6 @@ public class ProyectosActividades {
 
     public void setEstado(byte estado) {
         this.estado = estado;
-    }
-
-    public String getFecha_creacion() {
-        return fecha_creacion;
-    }
-
-    public void setFecha_creacion(String fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
     }
 
     public String getFecha_entrega() {
