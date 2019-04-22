@@ -87,8 +87,7 @@ public class ProyectosDaoImp implements ProyectosDao{
 				"po.id, " +
 				"po.nombre_proyecto, " +
 				"po.descripcion, " +
-				"us.username, " +
-				"po.id_usuario " +
+				"us.username " +
 				"FROM proyectos AS po " +
 				"INNER JOIN usuarios us ON po.id_usuario = us.id ";
     	
@@ -109,7 +108,7 @@ public class ProyectosDaoImp implements ProyectosDao{
 				map.put("id", String.valueOf(rs.getShort(1)));
 	        	map.put("nombre_proyecto", rs.getString(2));
 	        	map.put("descripcion", rs.getString(3));
-	        	map.put("id_usuario", String.valueOf(rs.getShort(1)));
+	        	map.put("username", rs.getString(4));
 				
 
 				proyectos.add(map);
@@ -123,7 +122,17 @@ public class ProyectosDaoImp implements ProyectosDao{
         return proyectos;
 
 	}
-	
+	public static ProyectosDao getInstance() {
+		
+		if(proyectosDaoImp == null) {
+			
+			
+			proyectosDaoImp = new ProyectosDaoImp();
+		}
+		
+		return proyectosDaoImp; 
+		
+	}
 	}
 			
 		

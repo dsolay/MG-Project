@@ -74,6 +74,7 @@ public class ControllerProyectosActividades extends HttpServlet {
 		System.out.println(id);
 		System.out.println(prioridad);
 		switch (option) {
+		
 		case "add":
 			
 			break;

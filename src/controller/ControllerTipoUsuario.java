@@ -95,7 +95,7 @@ public class ControllerTipoUsuario extends HttpServlet {
 					break;
 		}
 
-       /*
+       
         System.out.println("-------------------------"+option+"--------------------------------------");
         switch (option) {
            case "add":
@@ -133,7 +133,7 @@ public class ControllerTipoUsuario extends HttpServlet {
 	                    
 	                    }
 	                    String contextPath= "";
-	                    response.sendRedirect(response.encodeRedirectURL(contextPath + contextPath + "/CrudJsp/Customer?action=index"));
+	                    response.sendRedirect(response.encodeRedirectURL(contextPath + contextPath + "/infusion-Activity?action=index"));
                }
               
            break;
@@ -147,7 +147,7 @@ public class ControllerTipoUsuario extends HttpServlet {
 	
 		               try {
 		                    
-		                     this.deleteTipodeusario(id);
+		                     this.deleteTipoUsario(id);
 		                    } catch (Exception ex) {
 		                        System.out.println(ex+".............---");
 		                       // Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,7 +161,7 @@ public class ControllerTipoUsuario extends HttpServlet {
            default:
 			      response.getWriter().append("error dato no valido"); 
 			      break;
-		}*/
+		}
         
     }
 		//---------------------------------------------Metodos----------------------------------------------------- 
