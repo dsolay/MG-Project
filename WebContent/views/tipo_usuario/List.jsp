@@ -1,67 +1,83 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%--header--%>
+<c:url var="url" value="/TipoUsuario"/>
+<c:set var="uriAdd" scope="application" value="TipoUsuario?action=add"/>
+
+<%-- Header --%>
 <jsp:include page="../components/header.jsp"/>
 
-    <c:set var="url" scope="application" value="/TipoUsuario"/>
-    <c:set var="map" scope="application" value="${list}"/>
-    <c:set var="thead" scope="application" value="${['id','tipo','descripcion']}"/>
+<div class="container-fluid">
+    <div id="buttons_crud">
+        <a href="${uriAdd}" class="btn btn-outline-primary" role="button" aria-pressed="true">
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
 
-    <%-- Datatable --%>
-    <jsp:include page="../components/datatable.jsp"/>
+    <table id="dtableProjects" class="table table-striped table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Tipo</td>
+                <td>Descripcion</td>
+                <td>accion</td>
+            </tr>
+        </thead>
+        
+         <tbody>
+            <c:forEach items="${list}" var="item">
+                <tr>
+                    <td><c:out value="${item.id}"/></td>
+                    <td><c:out value="${item.tipo}"/></td>
+                    <td><c:out value="${item.descripcion}"/></td>
+                    
 
-<%-- footer--%>
+                    <td>
+                        <div class="btn-group">
+                            
+
+                            <form action="${url}" method="POST">
+                                <input type="hidden" name="redirect" value="true">
+                                <input type="hidden" name="option" value="update">
+
+                                <input type="hidden" name="id" value="${item.id}">
+                                <input type="hidden" name="tipo" value="${item.tipo}">
+                                <input type="hidden" name="descripcion" value="${item.descripcion}">
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                            </form>
+
+                            <form action="${url}" method="POST">
+                                <input type="hidden" name="redirect" value="true">
+                                <input type="hidden" name="option" value="delete">
+
+                                <input type="hidden" name="id" value="${item.id}">
+
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody> 
+
+        <tfoot>
+            <tr>
+                <td>ID</td>
+                <td>Tipo</td>
+                <td>Descripcion</td>
+                <td>accion</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<%-- Header --%>
 <jsp:include page="../components/footer.jsp"/>
-
-
-<%--
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
- <!DOCTYPE html>
-<html>
-<head>
-<meta  http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Servlet, JSP and JDBC CRUD Operations</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	<title>Insert title here</title>
-</head>
-
-<body class="container">
-	<h1 class="text-center">Listado De Tipo De Usuarios</h1>
-	<table class="table table-striped text-center">
-	<tr>
-		<th>ID</th>
-		<th>Descripcion</th>
-		<th>Tipo</th>
-	</tr>
-	<c:forEach items="${tipodeusuarioList}" var="tipodeusuario">
-	<tr>
-		<td>${tipodeusuario.id }</td>
-		<td>${tipodeusuario.descripcion }</td>
-		<td>
-		<form action="<c:url value="/Tipodeusuario"/>" method="POST">
-                                            <input type="hidden" name="redirect" value="true"><!-- input oculto -->
-                                            <input type="hidden" name="option" value="delete"><!-- input oculto -->
-						                    <input type="hidden" name="custId" value="${tipodeusuario.id}"><!-- input oculto -->
-                                            <input type="hidden" name="descripcion" value="${tipodeusuario.descripcion}"><!-- input oculto -->
-								   			<input type="submit" value="Delete" class="btn btn-outline-danger">
-					</form>
-				</td>
-				<td>
-					<form action="<c:url value="/Tipodeusuario"/>" method="POST">
-                                             <input type="hidden" name="redirect" value="true"><!-- input oculto -->
-                                             <input type="hidden" name="option" value="update"><!-- input oculto -->
-                                             <input type="hidden" name="custId" value="${tipodeusuario.id}"><!-- input oculto -->
-                                             <input type="hidden" name="descripcion" value="${tipodeusuario.descripcion}"><!-- input oculto -->
-                                             <input type="hidden" name="tipo" value="${tipodeusuario.tipo }"><!-- input oculto -->
-                                             <input type="submit" value="Update" class="btn btn-outline-success">
-					</form>
-				</td>
-				
-			</tr>
-		</c:forEach>
-	</table>
-
-</body>
-</html>--%>
+    

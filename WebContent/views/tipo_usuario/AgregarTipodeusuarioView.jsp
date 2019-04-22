@@ -11,24 +11,20 @@
 	<body class ="container">
 		<h1 class="tex-center">${mensaje}</h1>
 	
-		<c:url value="/Tipodeusuario" var="registerUrl"/> <!-- URL petición-->
+	   <c:url value="/TipoUsuario" var="registerUrl"/> <!-- URL petición-->
 		<form method="POST" action="${registerUrl}" class="col-6 offset-3">
 		   <input type="hidden" name="option" value="add">
+		   <input type="hidden" name="redirect" value="false">
 		
-		  	<section class="form-group">
+		    <section class="form-group">
+			    <label>Tipo</label>
+				<input type="text" name="tipo" class="form-control">
+		    </section>
+		    		
+		    <section class="form-group">
 			    <label>Descripcion</label>
 				<input type="text" name="descripcion" class="form-control">
 		 	</section>
-		 	
-		   	<section class="form-group">
-			    <label>Id</label>
-				<input type="text" name="id" class="form-control">
-		 	</section>
-		 	
-		    <section class="form-group">
-			    <label>Tipo</label>
-				<input type="text" name="id" class="form-control">
-		    </section>
 		    
 		   	<input type="submit" class="col-4 offset-4 btn btn-outline-success" >
 		</form>

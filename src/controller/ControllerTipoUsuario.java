@@ -22,7 +22,7 @@ public class ControllerTipoUsuario extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
-	//Objeto de tipo CustomerDao
+	
 	private final TipoUsuarioDao tUsuarioDao = TipoUsuarioDaoImp.getInstance();
 
     public ControllerTipoUsuario() {
@@ -47,7 +47,7 @@ public class ControllerTipoUsuario extends HttpServlet {
 			
 		case "add":
 			
-			 request.getRequestDispatcher("AgregarTipodeusuarioView.jsp").forward(request, response);
+			 request.getRequestDispatcher("views/tipo_usuario/AgregarTipodeusuarioView.jsp").forward(request, response);
 				
 	    break;	
 		default:
@@ -74,86 +74,63 @@ public class ControllerTipoUsuario extends HttpServlet {
 
 		System.out.print("------------------------" + redirect + "-----------------------------");
 
-		switch (option) {
-			case "update":
-				if (redirect) {
-					request.setAttribute("datos", this.crearLista(id, tipo, descripcion));
-					request.getRequestDispatcher("views/tipo_usuario/UpdateTipoUsuario.jsp").forward(request, response);
-				} else {
-					try {
-						this.update(id, tipo, descripcion);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-					String contextPath= "";
-					response.sendRedirect(response.encodeRedirectURL(contextPath + "/InfusionActivity_war_exploded/TipoUsuario?action=index"));
-				}
-				break;
-				default:
-					response.getWriter().append("error dato no valido");
-					break;
-		}
 
        
-        System.out.println("-------------------------"+option+"--------------------------------------");
         switch (option) {
            case "add":
            	try {
-                    this.guardarTipodeusuarios(tipoDescripcion, tipoTipo );
+                    this.guardarTipoUsuarios(tipo, descripcion);
                     request.setAttribute("mensaje", "dato agregado");
                } catch (Exception ex) {
                	request.setAttribute("mensaje", "Error al guardar el dato");
                	System.out.println("Error al guardar el dato");
                }
-           	 request.getRequestDispatcher("AgregarTipodeusuarioView.jsp").forward(request, response);
            	break;  
            	
            case "update":
          
         	   System.out.print("------------------------"+redirect+"-----------------------------");
-               if("true".equals(redirect)){
+               if(redirect){
                    try {
-						request.setAttribute("datos", this.crearLista(id, tipoDescripcion, tipoTipo));
+						request.setAttribute("datos", this.crearLista(id, tipo,descripcion));
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                   request.getRequestDispatcher("UpdateTipodeusuarioView.jsp").forward(request, response);
+                   System.out.println("sadasd");
+                   request.getRequestDispatcher("views/tipo_usuario/UpdateTipoUsuario.jsp").forward(request, response);
                }else{
                   
                    request.setAttribute("mensaje", "test");
 	               try {
 	                    
-	                     this.updateTipodeusarios(id , tipoDescripcion, tipoTipo);
+	                     this.updateTipoUsarios(id , tipo,descripcion);
 	                     
 	                    } catch (Exception ex) {
 	                        System.out.println(ex+".............---");
 
 	                    
 	                    }
-	                    String contextPath= "";
-	                    response.sendRedirect(response.encodeRedirectURL(contextPath + contextPath + "/infusion-Activity?action=index"));
+	                    
                }
               
            break;
-           	 //Delete Customer
+           	 
 	            case "delete":   
 	            	System.out.print("------------------------"+redirect+"-----------------------------");
 	                if("true".equals(redirect)){    
-	                	request.setAttribute("datos", this.crearLista((byte) id, 	tipoDescripcion, tipoTipo));
-	                    request.getRequestDispatcher("DeleteTipodeusuarioView.jsp").forward(request, response);
+	                	request.setAttribute("datos", this.crearLista((byte) id, 	tipo,descripcion));
+	                    request.getRequestDispatcher("views/tipo_usuario/DeleteTipodeusuario.jsp").forward(request, response);
 	                }else{
 	
 		               try {
 		                    
-		                     this.deleteTipoUsario(id);
+		                     this.deleteTipoUsarios(id);
 		                    } catch (Exception ex) {
 		                        System.out.println(ex+".............---");
 		                       // Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
 		                    }
-		                    String contextPath= "";
-		                    response.sendRedirect(response.encodeRedirectURL(contextPath + "/CrudJsp/Tipodeusuario?action=index"));
+		                    
 		               }
 	               
 	            break;
@@ -162,6 +139,9 @@ public class ControllerTipoUsuario extends HttpServlet {
 			      response.getWriter().append("error dato no valido"); 
 			      break;
 		}
+        
+        String contextPath= request.getContextPath();
+        response.sendRedirect(response.encodeRedirectURL(contextPath + "/TipoUsuario?action=index"));
         
     }
 		//---------------------------------------------Metodos----------------------------------------------------- 
@@ -182,31 +162,36 @@ public class ControllerTipoUsuario extends HttpServlet {
 			return list_tipo_usuario;
 		}
 
-		private String  save(byte id, String tipo, String descripcion) throws Exception{
+		private String  guardarTipoUsuarios(String tipo, String descripcion) throws Exception{
 			//construccion del objeto
-			TipoUsuario tipo_usuario = new TipoUsuario(id, tipo, descripcion);
+			TipoUsuario tipo_usuario = new TipoUsuario();
+			tipo_usuario.setTipo(tipo);
+			tipo_usuario.setDescripcion(descripcion);
 
 			tUsuarioDao.save(tipo_usuario);
 
 			return "ok";
 		}
 
-		private String  update(byte id, String tipo, String descripcion) throws Exception{
+		private String  updateTipoUsarios(byte id, String tipo, String descripcion) throws Exception{
 			//construccion del objeto
-			TipoUsuario tipo_usuario = new TipoUsuario(id, tipo, descripcion);
+			TipoUsuario tipo_usuario = new TipoUsuario();
+			tipo_usuario.setId(id);
+			tipo_usuario.setTipo(tipo);
+			tipo_usuario.setDescripcion(descripcion);
 
 			tUsuarioDao.update(tipo_usuario);
 
 			return "ok";
 		}
-       /*
+       
 
-        private String deleteTipodeusario(byte id) throws Exception{
+        private String deleteTipoUsarios(byte id) throws Exception{
         	//System.out.println("entre---------------------delete");
-        	Tipodeusuario tipodeusuario = new Tipodeusuario();
+        	TipoUsuario tipodeusuario = new TipoUsuario();
         	tipodeusuario.setId(id);
-            tipodeusuarioDao.delete(tipodeusuario);
+        	tUsuarioDao.delete(tipodeusuario);
             return "ok"; 
        }
-         */
+         
 }

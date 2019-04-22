@@ -48,6 +48,7 @@ public class TipoUsuarioDaoImp extends MySQLi implements TipoUsuarioDao {
 				statement.setString(2, tipodeusuario.getDescripcion());
 				statement.setByte  (3, tipodeusuario.getId());
 				 
+				System.out.println(statement);
 				 statement.executeUpdate();
 				 System.out.println("Dato actualizado");
 		}catch (ClassNotFoundException | SQLException e) {
