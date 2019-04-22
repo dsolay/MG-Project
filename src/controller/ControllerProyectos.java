@@ -1,10 +1,10 @@
 package controller;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dao.ProyectosDao;
 import daoImp.ProyectosDaoImp;
 import model.Proyectos;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -14,20 +14,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import dao.ProyectosDao;
 
 
-@WebServlet(name = "Proyectos", urlPatterns = {"/Proyectos"})
+
+/**
+* Servlet implementation class CustomerController
+*/                            //Paso 1
+@WebServlet(name = "Proyectos", urlPatterns = {"/Proyectos"})//URL del servlet
 public class ControllerProyectos extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	private final ProyectosDao proyectosDao = ProyectosDaoImp.getInstance();
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ControllerProyectos() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+  /**
+   * @return 
+ * @return 
+ * @see HttpServlet#HttpServlet()
+   */
+  public  ControllerProyectos() {
+      super();
+      // TODO Auto-generated constructor stub
+  }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,8 +46,6 @@ public class ControllerProyectos extends HttpServlet {
 		switch (action) {
 			case "index":
 				request.setAttribute("listProyectos", this.listar());
-				System.out.println(this.listar());
-				//response.getWriter().print(this.listar());
 				request.getRequestDispatcher("views/proyectos/ListProyectos.jsp").forward(request, response);
 				break;
 			case "ajax"://Listado de Customer
@@ -64,9 +70,34 @@ public class ControllerProyectos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+			 //captura de parametro action  //paso 2
+	       String option = request.getParameter("option");
+	       
+
+			boolean redirect = request.getParameter("redirect").equals("true");
+
+			Short Id = request.getParameter("id") != null ?Short.parseShort(request.getParameter("id")) : 0;
+			String Nombre_proyecto = request.getParameter("nombre_proyecto");
+			String Descripcion = request.getParameter("descripcion");
+			short Id_usuario = request.getParameter("id_usuario") != null ? Short.parseShort(request.getParameter("id_usuario")) : 0;
+		
+			System.out.println(Id);
+			System.out.println(Id_usuario);
+			switch (option) {
+			
+			case "add":
+				
+				break;
+			case "update":
+				break;
+
+			default:
+				break;
+			}
 	}
+	
+	//---------------------------------------------Metodos----------------------------------------------------- 
 
 	private List<Map<String, String>> listar() {
 		try {

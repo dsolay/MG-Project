@@ -12,6 +12,7 @@
          <h1 class="text-center"> Actualizar Evaluacion </h1>
          <c:url value="/Evaluacion" var="registerUrl" /> <!-- URL petición-->
          <form method="POST" action="${registerUrl}" class="col-6 offset-3">
+         		<input type="hidden" name="redirect" value="false">
                 <c:forEach items="${datos}" var="evaluacion">
                     <input type="hidden" name="option" value="update">
                     <input type="hidden" name="evaid" value="${evaluacion.id}">

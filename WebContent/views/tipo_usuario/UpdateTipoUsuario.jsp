@@ -10,13 +10,14 @@
 
     <c:set var="data" scope="application" value="${datos}"/>
 
-     <form method="POST" action="${data}" class="col-6 offset-3">
+     <form method="POST" action="<c:url value="/TipoUsuario"/>" class="col-6 offset-3">
           <c:forEach items="${data}" var="tipo_usuario">
             <input type="hidden" name="option" value="update">
+            <input type="hidden" name="redirect" value="false">
 
                 <section class="form-group">
                     <label>Id:</label>
-                    <input type="text" name="id" class="form-control" value="${tipo_usuario.id}" disabled>
+                    <input type="text" name="id" class="form-control" value="${tipo_usuario.id}" readonly>
                 </section>
 
                 <section class="form-group">
