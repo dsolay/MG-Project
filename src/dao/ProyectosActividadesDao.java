@@ -7,13 +7,22 @@ import java.util.Map;
 
 public interface ProyectosActividadesDao {
 
-    void save(ProyectosActividades pa) throws Exception;
+    int save(ProyectosActividades pa) throws Exception;
 
-    void update(ProyectosActividades pa) throws Exception;
+    int update(ProyectosActividades pa) throws Exception;
 
-    void delete(ProyectosActividades pa) throws Exception;
+    int delete(short id) throws Exception;
 
-    List<Map<String, String>> findAll(short limit) throws  Exception;
+    int getNumRecords(String value) throws Exception;
 
-    List<Map<String, String>> find(String field, String value, short limit) throws Exception;
+    /*
+    * [key] -- [value]
+    * field
+    * value
+    * order
+    * limit
+    * offset
+    * project
+    * */
+    List<Map<String, String>> find(Map<String, String> params, boolean filter) throws Exception;
 }

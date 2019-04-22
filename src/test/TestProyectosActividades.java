@@ -30,33 +30,33 @@ public class TestProyectosActividades {
 
     public void Update(short id) {
     	pa.setId(id);
-    	pa.setNombre("actividad 1");
+    	pa.setNombre("test update");
     	pa.setPrioridad((byte) 2);
     	pa.setEstado((byte) 1);
     	pa.setFecha_entrega("2019/05/20");
+		pa.setId_usuario((short) 1);
+		pa.setId_proyecto((short) 3);
     	
     	try {
-			pado.update(pa);
+			System.out.println(pado.update(pa));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
     }
 
     public void Delete(short id) {
-    	pa.setId(id);
-    	
     	try {
-			pado.delete(pa);
+			pado.delete(id);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
     }
 
-    public void FindAll(short limit) {
+	public void find(Map<String, String> params, boolean filter) {
 		List<Map<String, String>> actividades;
 
 		try {
-			actividades = pado.findAll(limit);
+			actividades = pado.find(params, filter);
 
 			if ( actividades != null) {
 				for (Map<String, String> actividad:
@@ -71,31 +71,25 @@ public class TestProyectosActividades {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
-    }
+	}
 
-	public void find(String filed, String value, short limit) {
-		List<Map<String, String>> actividades;
-
-		try {
-			actividades = pado.find(filed, value, limit);
-
-			if ( actividades != null) {
-				for (Map<String, String> actividad:
-						actividades) {
-					Iterator it = actividad.keySet().iterator();
-
-					while (it.hasNext()) {
-						String key = (String) it.next();
-						System.out.println("Clave: " + key + " -> Valor: " + actividad.get(key));
-					}
-					System.out.println("----------------------------------------------------------\n");
-				}
-			}
+	public void getNumRecords(String value) {
+    	try {
+    		System.out.println(pado.getNumRecords(value));
 		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
+	}
+
+	public int getTimeRemaining(String fecha_entrega) {
+		LocalDate fentrega = LocalDate.parse(fecha_entrega, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate current_date = LocalDate.now();
+
+		Period period = Period.between(current_date, fentrega);
+
+		return Integer.parseInt(String.valueOf(period.getDays()));
 	}
 
     public static void main(String[] args) {
@@ -103,12 +97,24 @@ public class TestProyectosActividades {
     	
     	//test.FindAll((short) 0);
 
-		//test.find("fecha_entrega", "2019", (short) 2);
+		Map<String, String> params = new HashMap<>();
+
+		//params.put("field", "id");
+		params.put("value", "latux");
+		params.put("project", "latlux");
+		params.put("order", "ASC");
+		params.put("limit", "10");
+		params.put("offset", "0");
+		test.find(params, true);
     	
-    	// test.testUpdate((short) 20);
+    	//test.Update((short) 24);
     	
     	// test.testSave();
     	
-    	 // test.testDelete((short) 20);
+		// test.testDelete((short) 20);
+
+		//test.getNumRecords("a");
+
+		//System.out.println(test.getTimeRemaining("2019-04-21"));
     }
 }

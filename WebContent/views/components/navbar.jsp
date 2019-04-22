@@ -5,7 +5,7 @@
   Time: 7:23 AM
   To change this template use File | Settings | File Templates.
 --%>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #29434e;">
     <a class="navbar-brand" href="#">
         <img src="img/infusion-activity.png" alt="">
     </a>
@@ -29,14 +29,14 @@
                     Proyectos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Proyecto</a>
+                    <a class="dropdown-item" href="Proyectos?action=index">Proyecto</a>
                     <a class="dropdown-item" href="ProyectosActividades?action=index">Actividades</a>
                 </div>
             </li>
         </ul>
         <ul class="navbar-nav my-2 my-lg-0">
             <li class="nav-item dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">

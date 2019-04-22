@@ -25,10 +25,13 @@
 
     <!-- Datatable js -->
     <script type="text/javascript"
-        src="https://cdn.datatables.net/v/bs4/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/r-2.2.2/sc-2.0.0/sl-1.3.0/datatables.min.js"></script>
+            src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/sl-1.3.0/datatables.min.js"></script>
+
+    <!-- Selectpicker JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
     <!-- Custom js -->
-    <script type="text/javascript"
-            src="js/app.js"></script>
+    <script type="module"
+            src="./js/app.js"></script>
 </body>
 </html>

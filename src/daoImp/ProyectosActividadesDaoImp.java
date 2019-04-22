@@ -17,7 +17,7 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 	private static ProyectosActividadesDaoImp pado = null;
 	
     @Override
-    public void save(ProyectosActividades pa) throws Exception {
+    public int save(ProyectosActividades pa) throws Exception {
     	String sql = "INSERT INTO proyectos_actividades(nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES(?,?,?,?,?,?)";
     	
     	try {
@@ -32,17 +32,16 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 			statement.setShort(6, pa.getId_proyecto());
 						 
 			//Ejecutar las sentencias sql
-			statement.executeUpdate();
-			System.out.println("Dato guardado");
+			return statement.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
+			throw e;
 		} finally {
 			MySQLi.close();
 		}
     }
 
     @Override
-    public void update(ProyectosActividades pa) throws Exception {
+    public int update(ProyectosActividades pa) throws Exception {
     	String sql = "UPDATE proyectos_actividades SET nombre_actividad = ?, prioridad = ?, estado= ?, fecha_entrega = ?, id_usuario = ? WHERE id = ?";
     	
     	try {
@@ -57,64 +56,119 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 	        statment.setShort(6, pa.getId());
 	        
             //Actualiza los valores
-            statment.executeUpdate();
-            System.out.println("Dato actualizado");
+            return statment.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
+			throw e;
 		} finally {
 			MySQLi.close();
 		}
     }
 
     @Override
-    public void delete(ProyectosActividades pa) throws Exception {
+    public int delete(short id) throws Exception {
     	String sql = "DELETE FROM proyectos_actividades WHERE id = ?";
     	
     	try {
     		 PreparedStatement statment = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
              
-    		 statment.setShort(1, pa.getId());
+    		 statment.setShort(1, id);
              
              //Actualiza los valores
-             statment.executeUpdate();
-             
-               System.out.println("Dato Eliminado");
+             return statment.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("Error al eliminar la actividad\n" + e.getMessage());
+			throw e;
         } finally {
 			MySQLi.close();
 		}
     }
 
-    @Override
-    public List<Map<String, String>> findAll(short limit) throws Exception {
-    	return this.search("1", "1", limit);
-    }
-
 	@Override
-	public List<Map<String, String>> find(String field, String value, short limit) throws Exception {
-		return this.search(field, value, limit);
+	public int getNumRecords(String value) throws Exception {
+    	String sql = "SELECT " +
+				"COUNT(pa.id) AS regitros " +
+				"FROM proyectos_actividades AS pa " +
+				"INNER JOIN proyectos po ON pa.id_proyecto = po.id " +
+				"INNER JOIN usuarios us ON pa.id_usuario = us.id ";
+
+		String sql_where_all = "WHERE pa.id " + " LIKE ? " +
+				"OR po.nombre_proyecto LIKE ? " +
+				"OR pa.nombre_actividad LIKE ? " +
+				"OR us.username LIKE ? " +
+				"OR pa.fecha_entrega LIKE ? " +
+				"OR pa.prioridad LIKE ? " +
+				"OR pa.estado LIKE ? ";
+
+		sql += (!value.isEmpty()) ? sql_where_all : "";
+
+    	ResultSet rs;
+
+    	try {
+			PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			if (!value.isEmpty()) {
+				statement.setString(1, "%" + value + "%");
+				statement.setString(2, "%" + value + "%");
+				statement.setString(3, "%" + value + "%");
+				statement.setString(4, "%" + value + "%");
+				statement.setString(5, "%" + value + "%");
+				statement.setString(6, "%" + value + "%");
+				statement.setString(7, "%" + value + "%");
+			}
+			rs = statement.executeQuery();
+			rs.first();
+
+			return rs.getInt(1);
+		} catch(SQLException e) {
+			throw e;
+		} finally {
+    		MySQLi.close();
+		}
 	}
 
-	private List<Map<String, String>> search(String field, String value, short limit) throws Exception {
+	@Override
+	public List<Map<String, String>> find(Map<String, String> params, boolean filter) throws Exception {
 		String sql = "SELECT " +
 				"pa.id, " +
 				"po.nombre_proyecto, " +
 				"pa.nombre_actividad, " +
-				"us.username, " +
 				"pa.fecha_entrega, " +
+				"concat_ws(', ', us.nombres, us.apellidos) as usuario_actividad, " +
+				"(SELECT concat_ws(', ', nombres, apellidos) FROM usuarios WHERE id = po.id_usuario) as usuario_proyecto," +
 				"pa.prioridad, " +
 				"pa.estado, " +
 				"pa.id_usuario, " +
-				"pa.id_proyecto " +
+				"pa.id_proyecto, " +
+				"po.descripcion " +
 				"FROM proyectos_actividades AS pa " +
 				"INNER JOIN proyectos po ON pa.id_proyecto = po.id " +
-				"INNER JOIN usuarios us ON pa.id_usuario = us.id " +
-				"WHERE " + field + " LIKE ? " +
-				"ORDER BY pa.id ASC";
+				"INNER JOIN usuarios us ON pa.id_usuario = us.id ";
 
-		if (limit > 0) {
-			sql += " LIMIT " + limit;
+		String sql_where_all = "WHERE ( pa.id " + " LIKE ? " +
+				"OR pa.nombre_actividad LIKE ? " +
+				"OR concat_ws(' ', us.nombres, us.apellidos) LIKE ? " +
+				"OR pa.fecha_entrega LIKE ? " +
+				"OR pa.prioridad LIKE ? " +
+				"OR pa.estado LIKE ? ) ";
+
+		String sql_where_field = "WHERE ( pa." + params.get("field") + " like ? ) ";
+
+		String sql_where_project = "AND po.nombre_proyecto = ? ";
+
+		String sql_order = "ORDER BY pa.id " + params.get("order");
+
+		String sql_limit = " LIMIT " + params.get("limit");
+
+		String sql_offset = " OFFSET " + params.get("offset");
+
+		if (filter) {
+			sql += (params.containsKey("field")) ? sql_where_field : sql_where_all;
+			sql += (params.containsKey("project")) ? sql_where_project : "";
+		}
+
+		sql += (params.containsKey("order")) ? sql_order : "";
+
+		if (params.containsKey("limit")) {
+			sql += sql_limit;
+			sql += (params.containsKey("offset")) ? sql_offset : "";
 		}
 
 		List<Map<String, String>> actividad = null;
@@ -124,7 +178,27 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 
 		try {
 			PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			statement.setString(1, "%" + value + "%");
+			if (filter) {
+				if (params.containsKey("field")) {
+					statement.setString(1, "%" + params.get("value") + "%");
+
+					if (params.containsKey("project")) {
+						statement.setString(2, params.get("project"));
+					}
+				} else {
+					statement.setString(1, "%" + params.get("value") + "%");
+					statement.setString(2, "%" + params.get("value") + "%");
+					statement.setString(3, "%" + params.get("value") + "%");
+					statement.setString(4, "%" + params.get("value") + "%");
+					statement.setString(5, "%" + params.get("value") + "%");
+					statement.setString(6, "%" + params.get("value") + "%");
+
+					if (params.containsKey("project")) {
+						statement.setString(7, params.get("project"));
+					}
+				}
+			}
+			System.out.println(statement);
 			rs = statement.executeQuery();
 
 			actividad = new ArrayList<>();
@@ -135,12 +209,14 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 				map.put("id", rs.getString(1));
 				map.put("proyecto", rs.getString(2));
 				map.put("actividad", rs.getString(3));
-				map.put("username", rs.getString(4));
-				map.put("entrega", rs.getString(5));
-				map.put("prioridad", rs.getString(6));
-				map.put("estado", rs.getString(7));
-				map.put("id_usuario", rs.getString(8));
-				map.put("id_proyecto", rs.getString(9));
+				map.put("entrega", rs.getString(4));
+				map.put("usuario_actividad", rs.getString(5));
+				map.put("usuario_proyecto", rs.getString(6));
+				map.put("prioridad", rs.getString(7));
+				map.put("estado", rs.getString(8));
+				map.put("id_usuario", rs.getString(9));
+				map.put("id_proyecto", rs.getString(10));
+				map.put("descripcion_proyecto", rs.getString(11));
 
 				actividad.add(map);
 			}

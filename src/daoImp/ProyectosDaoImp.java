@@ -87,7 +87,7 @@ public class ProyectosDaoImp implements ProyectosDao{
 				"po.id, " +
 				"po.nombre_proyecto, " +
 				"po.descripcion, " +
-				"us.username, " +
+				"concat_ws(', ', us.nombres, us.apellidos) as usuario_actividad, " +
 				"po.id_usuario " +
 				"FROM proyectos AS po " +
 				"INNER JOIN usuarios us ON po.id_usuario = us.id ";
@@ -109,7 +109,8 @@ public class ProyectosDaoImp implements ProyectosDao{
 				map.put("id", String.valueOf(rs.getShort(1)));
 	        	map.put("nombre_proyecto", rs.getString(2));
 	        	map.put("descripcion", rs.getString(3));
-	        	map.put("id_usuario", String.valueOf(rs.getShort(1)));
+				map.put("usuario_proyecto", rs.getString(4));
+	        	map.put("id_usuario", String.valueOf(rs.getShort(5)));
 				
 
 				proyectos.add(map);
@@ -126,40 +127,52 @@ public class ProyectosDaoImp implements ProyectosDao{
 
 	@Override
 	public List<Proyectos> find(String field, String value) throws Exception {
-		String sql = "SELECT * FROM proyectos WHERE " + field + " = ?";
-
 		List<Proyectos> list = null;
-		Proyectos pro = null;
+		Proyectos po;
 		ResultSet rs;
 
-		try {
-			PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			statement.setString(1, field);
+		if (! value.isEmpty()) {
+			String sql = "SELECT * FROM proyectos ";
 
-			if (field.equals("id") || field.equals("id_usuario")) {
-				statement.setShort(1, Short.parseShort(value));
-			} else {
-				statement.setString(1, value);
+			String sql_where_all = "WHERE id LIKE ? " +
+					"OR nombre_proyecto LIKE ? " +
+					"OR descripcion LIKE ? ";
+
+			String sql_where_field = "WHERE " + field + " LIKE ? ";
+
+			sql += (field.equals("all")) ? sql_where_all : sql_where_field;
+
+			try {
+				PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				statement.setString(1, field);
+
+				if (field.equals("all")) {
+					statement.setString(1, "%" + value + "%");
+					statement.setString(2, "%" + value + "%");
+					statement.setString(3, "%" + value + "%");
+				} else {
+					statement.setString(1, "%" + value + "%");
+				}
+
+				rs = statement.executeQuery();
+				list = new ArrayList<>();
+
+				while (rs.next()) {
+					po = new Proyectos();
+
+					po.setId(rs.getShort(1));
+					po.setNombre_proyecto(rs.getString(2));
+					po.setDescripcion(rs.getString(3));
+					po.setId_usuario(rs.getShort(4));
+
+					list.add(po);
+				}
+
+			} catch (SQLException e) {
+				throw e;
+			} finally {
+				MySQLi.close();
 			}
-
-			rs = statement.executeQuery();
-			list = new ArrayList<>();
-
-			while (rs.next()) {
-				pro = new Proyectos();
-
-				pro.setId(rs.getShort(1));
-				pro.setNombre_proyecto(rs.getString(2));
-				pro.setDescripcion(rs.getString(3));
-				pro.setId_usuario(rs.getShort(4));
-
-				list.add(pro);
-			}
-
-		} catch (SQLException e) {
-			throw e;
-		} finally {
-			MySQLi.close();
 		}
 
 		return list;

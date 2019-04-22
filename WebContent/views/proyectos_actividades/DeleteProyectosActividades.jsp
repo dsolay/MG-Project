@@ -8,26 +8,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%--header--%>
-<jsp:include page="../components/header.jsp"/>
-
 <c:url value="${url}" var="registerUrl" />
 
-<div class="container">
-    <h1 class="text-center"> Eliminar Actividad </h1>
+<!-- Modal delete -->
+<div class="modal fade" id="deleteProyectosActividades" tabindex="-1" role="dialog" aria-labelledby="deleteProyectosActividadesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProyectosActividadesLabel">Eliminar Actividad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid form_modal">
+                    <form id="deletePA" method="POST" action="${registerUrl}">
+                        <input type="hidden" name="action" value="delete">
 
-    <form method="POST" action="${registerUrl}" class="col-6 offset-3">
-        <input type="hidden" name="redirect" value="false">
-        <input type="hidden" name="option" value="delete">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>ID</label>
+                                <p><span id="idDeletePA" class="badge badge-secondary"></span></p>
+                               <input type="hidden" name="id" class="form-control" id="inputIDDeletePA">
+                            </div>
+                        </div>
 
-        <input type="hidden" name="id" value="${param.id}" readonly>
-
-        <h6>¿Desea eliminar esta Actividad? :  ${param.actividad}</h6>
-
-        <a href="ProyectosActividades?action=index" class="col-3 offset-5 btn btn-secondary" role="button" aria-pressed="true">Cancelar</a>
-        <button type="submit" class="col-3 btn btn-danger">Eliminar</button>
-    </form>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Actividad</label>
+                                <p><span id="actividadDeletePA" class="badge badge-secondary large_text"></span></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger" form="deletePA">Eliminar</button>
+            </div>
+        </div>
+    </div>
 </div>
-
-<%-- footer--%>
-<jsp:include page="../components/footer.jsp"/>

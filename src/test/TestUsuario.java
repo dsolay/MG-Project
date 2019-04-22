@@ -123,6 +123,6 @@ public class TestUsuario {
 	public static void main(String[] args) {
 		TestUsuario test = new TestUsuario();
 
-		test.find("id_tipo_usuario", "1");
+		test.find("all", "");
 	}
 }

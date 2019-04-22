@@ -74,16 +74,21 @@ public class TestProyectos {
 		try {
 			List<Proyectos> listProyecto = pdi.find(filed, value);
 
-			for (Proyectos proyecto:
-					listProyecto) {
+			if (listProyecto != null) {
+				for (Proyectos proyecto:
+						listProyecto) {
 
-				System.out.println("id -> " + proyecto.getId());
-				System.out.println("nombre -> " + proyecto.getNombre_proyecto());
-				System.out.println("descripcion -> " + proyecto.getDescripcion());
-				System.out.println("id_usuario -> " + proyecto.getId_usuario());
+					System.out.println("id -> " + proyecto.getId());
+					System.out.println("nombre -> " + proyecto.getNombre_proyecto());
+					System.out.println("descripcion -> " + proyecto.getDescripcion());
+					System.out.println("id_usuario -> " + proyecto.getId_usuario());
 
-				System.out.println("----------------------------------------------------------\n");
+					System.out.println("----------------------------------------------------------\n");
+				}
+			} else {
+				System.out.println("null");
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,9 +103,9 @@ public class TestProyectos {
 
 		//test.delete((short) 21);
 
-		//test.findAll();
+		test.findAll();
 
-		test.find("nombre_proyecto", "Daltfresh");
+		//test.find("id", "1");
 	}
 
 }

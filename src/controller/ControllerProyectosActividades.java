@@ -1,19 +1,18 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import dao.ProyectosActividadesDao;
 import daoImp.ProyectosActividadesDaoImp;
-import daoImp.ProyectosDaoImp;
-import daoImp.UsuarioDaoImp;
 import model.ProyectosActividades;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,23 +42,46 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 		switch (action) {
 			case "index":
-				request.setAttribute("list", this.listar());
-
+				request.setAttribute("search", request.getParameter("search[value]"));
 				request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 				break;
-			case "add":
+			case "ajax":
+				Gson gson = new Gson();
+				JsonObject jsonResponse = new JsonObject();
 
-				try {
-					List<Map<String, String>> users = UsuarioDaoImp.getInstance().findAllUsuario();
-					List<Map<String, String>> projects = ProyectosDaoImp.getInstance().findAll();
+				String value = request.getParameter("search[value]");
+				short limit = (request.getParameter("length") == null) ? (short) 10: Short.parseShort(request.getParameter("length"));
+				String field = (request.getParameter("field") == null) ? "" : request.getParameter("field");
+				String project = (request.getParameter("project") == null) ? "" : request.getParameter("project");
 
-					request.setAttribute("users", users);
-					request.setAttribute("projects", projects);
-				} catch (Exception e) {
-					e.printStackTrace();
+				int draw = (request.getParameter("draw") != null ) ? Integer.parseInt(request.getParameter("draw")) : 1;
+				short offset = this.validateParameter(request.getParameter("start"));
+
+				jsonResponse.addProperty("draw", draw);
+				Map<String, String> params = new HashMap<>();
+
+				if (! field.isEmpty()) {
+					params.put("field", field);
 				}
 
-				request.getRequestDispatcher("views/proyectos_actividades/AddProyectosActividades.jsp").forward(request, response);
+				params.put("project", project);
+				params.put("value", value);
+				params.put("order", "ASC");
+				params.put("limit", String.valueOf(limit));
+				params.put("offset", String.valueOf(offset));
+
+				List<Map<String, String>> data = this.listar(params, true);
+
+				int records = this.getNumRecords(value);
+
+				jsonResponse.addProperty("recordsTotal", records);
+				jsonResponse.addProperty("recordsFiltered", records);
+
+				jsonResponse.add("data", gson.toJsonTree(data));
+
+				response.setContentType("application/json");
+				response.setHeader("Cache-Control", "no-store");
+				response.getWriter().print(jsonResponse);
 				break;
 			default:
 				response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -70,69 +92,45 @@ public class ControllerProyectosActividades extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String option = request.getParameter("option");
+		String action = request.getParameter("action");
 
-		boolean redirect = request.getParameter("redirect").equals("true");
-
-		Short id = request.getParameter("id") != null ? Short.parseShort(request.getParameter("id")) : 0;
-
-		String username = request.getParameter("username");
-		String proyecto = request.getParameter("proyecto");
+		short id = this.validateParameter(request.getParameter("id"));
+		short id_usuario = this.validateParameter(request.getParameter("usuario"));
 		String actividad= request.getParameter("actividad");
-		byte prioridad = request.getParameter("prioridad") != null ? Byte.parseByte(request.getParameter("prioridad")) : 0;
-		String estado_value = request.getParameter("estado");
+		byte prioridad = Byte.parseByte(String.valueOf(this.validateParameter(request.getParameter("prioridad"))));
 		String entrega= request.getParameter("entrega");
-		short id_proyecto = request.getParameter("id_proyecto") != null ? Short.parseShort(request.getParameter("id_proyecto")) : 0;
+		short id_proyecto = this.validateParameter(request.getParameter("id_proyecto"));
+		byte estado = Byte.parseByte(String.valueOf(this.validateParameter(request.getParameter("estado"))));
 
-		byte estado = 0;
-
-		if (estado_value != null) {
-			if (estado_value.equals("on")) {
-				estado = (byte) 1;
-			}
-		}
-
-		switch (option) {
-		case "add":
-			try {
-				short id_usuario = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
-				id_proyecto = ProyectosDaoImp.getInstance().find("nombre_proyecto", proyecto).get(0).getId();
-
-				this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto), "save");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		switch (action) {
+			case "index":
+				doGet(request, response);
 			break;
-		case "update":
-			if (redirect) {
+			case "add":
 				try {
-					List<Map<String, String>> users = UsuarioDaoImp.getInstance().findAllUsuario();
-					request.setAttribute("users", users);
+					this.doAction(this.createPA(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto), "save");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
-				request.getRequestDispatcher("views/proyectos_actividades/UpdateProyectosActividades.jsp").forward(request, response);
-			} else {
+				break;
+			case "update":
 				try {
-					short id_usuario = UsuarioDaoImp.getInstance().find("username", username).get(0).getId();
-					this.doAction(this.crearLista(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto), "update");
+					this.doAction(this.createPA(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto), "update");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			break;
+				break;
 
-		case "delete":
-			if (redirect) {
-				request.getRequestDispatcher("views/proyectos_actividades/DeleteProyectosActividades.jsp").forward(request, response);
-			} else {
-				this.doAction(this.crearLista(id, null, (byte) 0, (byte) 0, null, (short) 0, (short) 0), "delete");
-			}
-			break;
+			case "delete":
+				try {
+					this.doAction(this.createPA(id), "delete");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 
 		String contextPath = request.getContextPath();
@@ -144,17 +142,25 @@ public class ControllerProyectosActividades extends HttpServlet {
 	 * @return
 	 */
 
-	public List<Map<String, String>> listar() {
+	public List<Map<String, String>> listar(Map<String, String> params, boolean filter) {
 		List<Map<String, String>> proyecos_actividades;
 				
 		try {
-			proyecos_actividades = pado.findAll();
+			proyecos_actividades = pado.find(params, filter);
 
 			for (Map<String, String> actividad:
 				 proyecos_actividades) {
 
-				Map<String, String> map = this.getTimeRemaining(actividad.get("entrega"));
-				actividad.put("restante", map.get("time"));
+				int days = this.getTimeRemaining(actividad.get("entrega"));
+
+				if (days == 0 && actividad.get("estado").equals("1")) {
+					actividad.put("estado", "0");
+				} else if (days > 0 && actividad.get("estado").equals("0")) {
+					actividad.put("estado", "1");
+				}
+
+				this.doAction(this.createPA(actividad), "update");
+				actividad.put("restante", String.valueOf(days));
 			}
 
 			return  proyecos_actividades;
@@ -164,55 +170,71 @@ public class ControllerProyectosActividades extends HttpServlet {
 		}
 	}
 
-	public Map<String, String> getTimeRemaining(String fecha_entrega) {
-		Map<String, String> entrega = new HashMap<>();
-
+	public int getTimeRemaining(String fecha_entrega) {
 		LocalDate fentrega = LocalDate.parse(fecha_entrega, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		LocalDate current_date = LocalDate.now();
 
 		Period period = Period.between(current_date, fentrega);
 
-		short days = Short.parseShort(String.valueOf(period.getDays()));
-		if (days < 0) {
-			entrega.put("time", "0");
-		} else {
-			entrega.put("time", String.valueOf(days));
-		}
-
-		return entrega;
+		return Integer.parseInt(String.valueOf(period.getDays()));
 	}
 
-	private  List<ProyectosActividades> crearLista(short id, String actividad, byte prioridad, byte estado, String entrega, short id_usuario, short id_proyecto){
-		//crear la lista
-		List<ProyectosActividades> list_tipo_usuario = new ArrayList<>();
-
-		//Objeto
-		ProyectosActividades tipo_usuario  = new ProyectosActividades(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto);
-
-		//add to list
-		list_tipo_usuario.add(tipo_usuario);
-
-		return list_tipo_usuario;
+	private  ProyectosActividades createPA(short id, String actividad, byte prioridad, byte estado, String entrega, short id_usuario, short id_proyecto){
+		return new ProyectosActividades(id, actividad, prioridad, estado, entrega, id_usuario, id_proyecto);
 	}
 
-	private void doAction(List<ProyectosActividades> list, String action) {
-		for (ProyectosActividades pa:
-			 list) {
-			try {
-				switch (action) {
-					case "save":
-						pado.save(pa);
-						break;
-					case "update":
-						pado.update(pa);
-						break;
-					case "delete":
-						pado.delete(pa);
-						break;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+	private  ProyectosActividades createPA(short id){
+		ProyectosActividades pa = new ProyectosActividades();
+
+		pa.setId(id);
+		return pa;
+	}
+
+	private ProyectosActividades createPA(Map<String, String> mapPA){
+		ProyectosActividades pa = new ProyectosActividades();
+
+		pa.setId_usuario(Short.parseShort(mapPA.get("id")));
+		pa.setNombre(mapPA.get("actividad"));
+		pa.setPrioridad(Byte.parseByte(mapPA.get("prioridad")));
+		pa.setEstado(Byte.parseByte(mapPA.get("estado")));
+		pa.setFecha_entrega(mapPA.get("entrega"));
+		pa.setId_usuario(Short.parseShort(mapPA.get("id_usuario")));
+		pa.setId_proyecto(Short.parseShort(mapPA.get("id_proyecto")));
+
+		return pa;
+	}
+
+	private void doAction(ProyectosActividades pa, String action) {
+		try {
+			switch (action) {
+				case "save":
+					pado.save(pa);
+					break;
+				case "update":
+					pado.update(pa);
+					break;
+				case "delete":
+					pado.delete(pa.getId());
+					break;
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+	private int getNumRecords(String value) {
+		try {
+			return pado.getNumRecords(value);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	private short validateParameter(String param) {
+		if (param != null && ! param.isEmpty()) {
+			return Short.parseShort(param);
+		}
+		return 0;
 	}
 }

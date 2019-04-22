@@ -142,45 +142,59 @@ public class UsuarioDaoImp implements UsuarioDao{
 
 	@Override
 	public List<Usuario> find(String field, String value) throws Exception {
-		String sql = "SELECT * FROM usuarios WHERE " + field + " = ?";
-
 		List<Usuario> list = null;
-		Usuario us = null;
+		Usuario us;
 		ResultSet rs;
 
-		try {
-			PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			statement.setString(1, field);
+		if (! value.isEmpty()) {
+			String sql = "SELECT * FROM usuarios ";
 
-			if (field.equals("id")) {
-				statement.setShort(1, Short.parseShort(value));
-			} else if (field.equals("id_tipo_usuario")) {
-				statement.setByte(1, Byte.parseByte(value));
-			} else {
-				statement.setString(1, value);
+			String sql_where_all = "WHERE id LIKE ? " +
+					"OR nombres LIKE ? " +
+					"OR apellidos LIKE ? " +
+					"OR email LIKE ? " +
+					"OR username LIKE ? ";
+
+			String sql_where_field = "WHERE " + field + " LIKE ? ";
+
+			sql += (field.equals("all")) ? sql_where_all : sql_where_field;
+
+			try {
+				PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				statement.setString(1, field);
+
+				if (field.equals("all")) {
+					statement.setString(1, "%" + value + "%");
+					statement.setString(2, "%" + value + "%");
+					statement.setString(3, "%" + value + "%");
+					statement.setString(4, "%" + value + "%");
+					statement.setString(5, "%" + value + "%");
+				} else {
+					statement.setString(1, "%" + value + "%");
+				}
+
+				rs = statement.executeQuery();
+				list = new ArrayList<>();
+
+				while (rs.next()) {
+					us = new Usuario();
+
+					us.setId(rs.getShort(1));
+					us.setNombres(rs.getString(2));
+					us.setApellidos(rs.getString(3));
+					us.setEmail(rs.getString(4));
+					us.setUsername(rs.getString(5));
+					us.setPassword(rs.getString(6));
+					us.setId_tipo_usuario(rs.getByte(7));
+
+					list.add(us);
+				}
+
+			} catch (SQLException e) {
+				throw e;
+			} finally {
+				MySQLi.close();
 			}
-
-			rs = statement.executeQuery();
-			list = new ArrayList<>();
-
-			while (rs.next()) {
-				us = new Usuario();
-
-				us.setId(rs.getShort(1));
-				us.setNombres(rs.getString(2));
-				us.setApellidos(rs.getString(3));
-				us.setEmail(rs.getString(4));
-				us.setUsername(rs.getString(5));
-				us.setPassword(rs.getString(6));
-				us.setId_tipo_usuario(rs.getByte(7));
-
-				list.add(us);
-			}
-
-		} catch (SQLException e) {
-			throw e;
-		} finally {
-			MySQLi.close();
 		}
 
 		return list;
