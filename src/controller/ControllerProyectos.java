@@ -91,6 +91,10 @@ public class ControllerProyectos extends HttpServlet {
             case "add":
 
                 break;
+            case "login":
+            	request.setAttribute("listProyectos", this.listar());
+            	request.getRequestDispatcher("views/proyectos/ListProyectos.jsp").forward(request, response);
+                break;
             case "update":
                 if (redirect) {
                     request.setAttribute("datos", this.crearLista(Id, Nombre_proyecto,Descripcion,Id_usuario));
@@ -146,13 +150,13 @@ public class ControllerProyectos extends HttpServlet {
     }
 
     //Guardar
-    private String guardarProyectos(short proId, String proNombre_proyecto, String proDescripcion, short proId_usuario) throws Exception {
+    private String guardarProyectos(short Id, String Nombre_proyecto, String Descripcion, short Id_usuario) throws Exception {
         //construccion del objeto
         Proyectos proyectos = new Proyectos();
 
-        proyectos.setNombre_proyecto(proNombre_proyecto);
-        proyectos.setDescripcion(proDescripcion);
-        proyectos.setId_usuario(proId_usuario);
+        proyectos.setNombre_proyecto(Nombre_proyecto);
+        proyectos.setDescripcion(Descripcion);
+        proyectos.setId_usuario(Id_usuario);
 
         proyectosDao.save(proyectos);
 
@@ -168,13 +172,13 @@ public class ControllerProyectos extends HttpServlet {
         return "ok";
     }
 
-    private String updateProyectos(short proId, String proNombre_proyecto, String proDescripcion, short proId_usuario) throws Exception {
+    private String updateProyectos(short Id, String Nombre_proyecto, String Descripcion, short Id_usuario) throws Exception {
         //construccion del objeto
         Proyectos proyectos = new Proyectos();
-        proyectos.setId(proId);
-        proyectos.setNombre_proyecto(proNombre_proyecto);
-        proyectos.setDescripcion(proDescripcion);
-        proyectos.setId_usuario(proId_usuario);
+        proyectos.setId(Id);
+        proyectos.setNombre_proyecto(Nombre_proyecto);
+        proyectos.setDescripcion(Descripcion);
+        proyectos.setId_usuario(Id_usuario);
 
         proyectosDao.update(proyectos);
 

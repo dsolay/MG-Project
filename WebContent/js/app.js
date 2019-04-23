@@ -24,6 +24,7 @@ function disableButtonsActions() {
 
 var script_arr = [
     'DOMElements.js',
+    'login.js',
     'datatable.js',
     'select2PA.js'
 ];

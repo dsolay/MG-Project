@@ -83,22 +83,24 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
     }
 
 	@Override
-	public int getNumRecords(String value) throws Exception {
+	public int getNumRecords(String value, String project) throws Exception {
     	String sql = "SELECT " +
 				"COUNT(pa.id) AS regitros " +
 				"FROM proyectos_actividades AS pa " +
 				"INNER JOIN proyectos po ON pa.id_proyecto = po.id " +
 				"INNER JOIN usuarios us ON pa.id_usuario = us.id ";
 
-		String sql_where_all = "WHERE pa.id " + " LIKE ? " +
-				"OR po.nombre_proyecto LIKE ? " +
+		String sql_where_all = "WHERE (pa.id " + " LIKE ? " +
 				"OR pa.nombre_actividad LIKE ? " +
 				"OR us.username LIKE ? " +
 				"OR pa.fecha_entrega LIKE ? " +
 				"OR pa.prioridad LIKE ? " +
-				"OR pa.estado LIKE ? ";
+				"OR pa.estado LIKE ? )";
+		
+		String sql_where_project = " AND po.nombre_proyecto = ? ";
 
 		sql += (!value.isEmpty()) ? sql_where_all : "";
+		sql += (!project.isEmpty()) ? sql_where_project : "";
 
     	ResultSet rs;
 
@@ -111,8 +113,14 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 				statement.setString(4, "%" + value + "%");
 				statement.setString(5, "%" + value + "%");
 				statement.setString(6, "%" + value + "%");
-				statement.setString(7, "%" + value + "%");
+				
+				if (! project.isEmpty()) {
+					statement.setString(7, project);
+				}
+			} else if (! project.isEmpty()) {
+				statement.setString(1, project);
 			}
+			
 			rs = statement.executeQuery();
 			rs.first();
 

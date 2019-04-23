@@ -75,9 +75,9 @@ public class TestProyectosActividades {
 		}
 	}
 
-	public void getNumRecords(String value) {
+	public void getNumRecords(String value, String project) {
     	try {
-    		System.out.println(pado.getNumRecords(value));
+    		System.out.println(pado.getNumRecords(value, project));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -103,7 +103,7 @@ public class TestProyectosActividades {
 		params.put("value", "latux");
 		params.put("project", "latlux");
 		params.put("order", "ASC");
-		params.put("limit", "10");
+		params.put("limit", "0");
 		params.put("offset", "0");
 		test.find(params, true);
     	

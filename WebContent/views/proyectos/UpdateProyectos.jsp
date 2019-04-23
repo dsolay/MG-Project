@@ -10,6 +10,9 @@
 <%--header--%>
 <jsp:include page="../components/header.jsp"/>
 
+<%-- navbar --%>
+<jsp:include page="../components/navbar.jsp"/>
+
 <div class="container col-12 col-md-4 offset-md-4 pt-4">
     <h2 class="text-center">Editar Proyecto</h2>
 
@@ -20,7 +23,7 @@
         <c:forEach items="${data}" var="proyectos">
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label><strong class="asterisk-required">*</strong> Proyecto</label>
+                    <label><strong class="asterisk-required">*</strong> proyectos</label>
                     <input type="text" name="nombre_proyecto" class="form-control" value="${proyectos.nombre_proyecto}" required>
                     <div class="invalid-feedback">
                         Debe ingresar un nombre para el proyecto.

@@ -7,6 +7,9 @@
 <%-- Header --%>
 <jsp:include page="../components/header.jsp"/>
 
+<%-- navbar --%>
+<jsp:include page="../components/navbar.jsp"/>
+
 <div class="container col-12 col-md-4 offset-md-4 pt-4">
 	<h2 class="tex-center">Nuevo Tipo de Usuario</h2>
 

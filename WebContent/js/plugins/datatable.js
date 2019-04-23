@@ -5,6 +5,8 @@ $.extend( true, $.fn.dataTable.defaults, {
     responsive: true,
     paging: true,
     filter: true,
+    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+    pageLength: 5,
     language: {
         "lengthMenu": "Mostrar _MENU_ ",
         "zeroRecords": "Datos no encontrados - upss",

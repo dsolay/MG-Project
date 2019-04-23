@@ -13,7 +13,7 @@ public interface ProyectosActividadesDao {
 
     int delete(short id) throws Exception;
 
-    int getNumRecords(String value) throws Exception;
+    int getNumRecords(String value, String project) throws Exception;
 
     /*
     * [key] -- [value]

@@ -51,7 +51,7 @@ public class ControllerProyectosActividades extends HttpServlet {
 				JsonObject jsonResponse = new JsonObject();
 
 				String value = request.getParameter("search[value]");
-				short limit = (request.getParameter("length") == null) ? (short) 10: Short.parseShort(request.getParameter("length"));
+				short limit = (request.getParameter("length") == null) ? (short) 5: Short.parseShort(request.getParameter("length"));
 				String field = (request.getParameter("field") == null) ? "" : request.getParameter("field");
 				String project = (request.getParameter("project") == null) ? "" : request.getParameter("project");
 
@@ -68,12 +68,15 @@ public class ControllerProyectosActividades extends HttpServlet {
 				params.put("project", project);
 				params.put("value", value);
 				params.put("order", "ASC");
-				params.put("limit", String.valueOf(limit));
-				params.put("offset", String.valueOf(offset));
+				
+				if (limit != -1) {
+					params.put("limit", String.valueOf(limit));
+					params.put("offset", String.valueOf(offset));
+				}
 
 				List<Map<String, String>> data = this.listar(params, true);
 
-				int records = this.getNumRecords(value);
+				int records = this.getNumRecords(value, project);
 
 				jsonResponse.addProperty("recordsTotal", records);
 				jsonResponse.addProperty("recordsFiltered", records);
@@ -108,6 +111,9 @@ public class ControllerProyectosActividades extends HttpServlet {
 				estado = 1;
 			}
 		}
+		
+		request.setAttribute("project_name", request.getParameter("project_name"));
+		request.setAttribute("project_id", id_proyecto);
 
 		switch (action) {
 			case "index":
@@ -119,6 +125,7 @@ public class ControllerProyectosActividades extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 				break;
 			case "update":
 				try {
@@ -126,24 +133,20 @@ public class ControllerProyectosActividades extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 				break;
-
 			case "delete":
 				try {
 					this.doAction(this.createPA(id), "delete");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 				break;
 
 			default:
 				break;
 		}
-
-		request.setAttribute("project_name", request.getParameter("project_name"));
-		request.setAttribute("project_id", id_proyecto);
-
-		request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 	}
 
 	/**
@@ -162,7 +165,7 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 				int days = this.getTimeRemaining(actividad.get("entrega"));
 
-				if (days == 0 && actividad.get("estado").equals("1")) {
+				if (days <= 0 && actividad.get("estado").equals("1")) {
 					actividad.put("estado", "0");
 				} else if (days > 0 && actividad.get("estado").equals("0")) {
 					actividad.put("estado", "1");
@@ -231,9 +234,9 @@ public class ControllerProyectosActividades extends HttpServlet {
 		}
 	}
 
-	private int getNumRecords(String value) {
+	private int getNumRecords(String value, String project) {
 		try {
-			return pado.getNumRecords(value);
+			return pado.getNumRecords(value, project);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;

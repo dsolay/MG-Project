@@ -7,9 +7,9 @@
 <%-- Header --%>
 <jsp:include page="../components/header.jsp"/>
 
-<div class="container-fluid">
+<div class="container-fluid col-10 offset-1">
 	<div class="row">
-		<div class="col-12 col-md-6">
+		<div class="col-12">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item active"><a href="Proyectos?action=index">Usuario</a></li>
