@@ -95,22 +95,26 @@ public class UsuarioController extends HttpServlet {
         byte usuariid_tipo_usuario = (request.getParameter("id_tipo_usuario") != null) ? Byte.parseByte(request.getParameter("id_tipo_usuario")) : 0;
         int id = 0;
 
-        if (request.getParameter("usuari") != null) {
+        if (request.getParameter("id") != null) {
 
-            id = Integer.parseInt(request.getParameter("usuari"));
+            id = Integer.parseInt(request.getParameter("id"));
 
         }
+        
+        String contextPath = request.getContextPath();
         System.out.println("-------------------------" + option + "--------------------------------------");
         switch (option) {
             case "add"://Listado de Evaluacion
+            	System.out.println("aqui");
                 try {
                     this.guardarUsuario(usuarinombres, usuariapellidos, usuariemail, usuariusername, usuaripassword, usuariid_tipo_usuario);
                     request.setAttribute("mensaje", "dato agregado");
                 } catch (Exception ex) {
                     request.setAttribute("mensaje", "Error al guardar el dato");
-                    System.out.println("Error al guardar el dato");
+                    System.out.println(ex.getMessage());
                 }
-                request.getRequestDispatcher("views/usuario/AddUsuario.jsp").forward(request, response);
+                
+                response.sendRedirect(response.encodeRedirectURL(contextPath + "/Usuario?action=index"));
                 break;
             //UpdateEvaluacion
             case "update":
@@ -134,8 +138,8 @@ public class UsuarioController extends HttpServlet {
                         System.out.println(ex + ".............---");
                         // Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    String contextPath = "";
-                    response.sendRedirect(response.encodeRedirectURL(contextPath + contextPath + "/Infusion-Activity/Usuario?action=index"));
+                    
+                    response.sendRedirect(response.encodeRedirectURL(contextPath + "/Usuario?action=index"));
                 }
 
                 break;
@@ -154,8 +158,8 @@ public class UsuarioController extends HttpServlet {
                         System.out.println(ex + ".............---");
                         // Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    String contextPath = "";
-                    response.sendRedirect(response.encodeRedirectURL(contextPath + "/CrudJsp/Evaluacion?action=index"));
+              
+                    response.sendRedirect(response.encodeRedirectURL(contextPath + "/Usuario?action=index"));
                 }
 
                 break;

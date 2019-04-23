@@ -34,6 +34,7 @@ public class UsuarioDaoImp implements UsuarioDao{
 			statement.setString(5, usuario.getPassword());
 			statement.setByte(6, usuario.getId_tipo_usuario());
 
+			System.out.println(statement);
 			statement.executeUpdate();
 			System.out.println("Dato insertado");
 		} catch (ClassNotFoundException | SQLException e) {

@@ -1,57 +1,100 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="o" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>JSP Page</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	</head>
-	
-	<body class="container">
-	
-	<h1 class="tex-center"> ${mensaje} </h1>
-	
-	<o:url value="/Usuarios" var="registerUrl"/> <!-- URL peticion -->
-	
-	<form method="POST" action="${registerUrl}" class="col-6 offset-3">
-	
-		 <input type="hidden" name="option" value="add">
-	
- 		<section class="form-group"> 
- 			<label>Nombres</label>
- 			<input type="text" name="Nombres" class="form-control">
- 		</section>
- 			
- 		<section class="form-group"> 
- 			<label>Apellidos</label>
- 			<input type="text" name="apellidos" class="form-control">
- 		</section>		
- 			
- 		<section class="form-group"> 
- 			<label>Email</label>
- 			<input type="text" name="email" class="form-control">
- 		</section>	
- 			
- 		<section class="form-group"> 
- 			<label>Username</label>
- 			<input type="text" name="username" class="form-control">
- 		</section>	
- 		
- 		
- 		<section class="form-group"> 
- 			<label>Password</label>
- 			<input type="text" name="password" class="form-control">
- 		</section>	
- 	
- 	
- 		<section class="form-group"> 
- 			<label>id_tipo_usuario</label>
- 			<input type="text" name="id_tipo_usuario" class="form-control">
- 		</section>	
- 		
- 		<input type="submit" class="col-4 offset-4 btn btn-outline-success">
- 	</form>
-</body>
-</html>
- 
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
+<%@ page import="daoImp.TipoUsuarioDaoImp" %>
+<%@ page import="model.TipoUsuario" %>
+
+<%@ page isELIgnored="false" language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>}
+
+<c:url value="/Usuario" var="registerUrl" />
+<c:set var="data" scope="application" value="${datos}"/>
+
+<%--header--%>
+<jsp:include page="../components/header.jsp"/>
+
+<div class="container col-12 col-md-4 offset-md-4 pt-4">
+
+	<h2 class="text-center">Nuevo Usuario</h2>
+                    <form method="POST" action="${registerUrl}" class="needs-validation" novalidate>
+                        <input id="action" type="hidden" name="option" value="update">
+						
+						<div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label><strong class="asterisk-required">*</strong> Nombres </label>
+                        		<input type="text" name="nombres" class="form-control" required>
+                        		<div class="invalid-feedback">
+                                    Debe ingresar un nombre para el usuario.
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+	                            <label><strong class="asterisk-required">*</strong> Apellidos</label>
+	                            <input type="text" name="apellidos" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Debe ingresar un nombre para el usuario.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                        	<div class="form-group col-md-4">
+	                            <label><strong class="asterisk-required">*</strong> Email</label>
+	                            <input type="text" name="email" class="form-control" id="inputEmail" required/>
+                                <div class="invalid-feedback">
+                                    Debe ingresar un email.
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-md-4">
+	                            <label><strong class="asterisk-required">*</strong> Username</label>
+	                            <input type="text" name="username" class="form-control" id="inputUsername" required/>
+                                <div class="invalid-feedback">
+                                    Debe ingresar un nombre de usuario.
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-4">
+	                            <label><strong class="asterisk-required">*</strong> Password</label>
+	                            <input type="text" name="password" class="form-control" required>
+	                            <div class="invalid-feedback">
+                                    Debe ingresar una contraseña.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+				            <div class="form-group col-md-6">
+				                <label><strong class="asterisk-required">*</strong> Tipo Usuario</label>
+				                <%
+				                    try {
+				                        List<Map<String, String>> type_users = TipoUsuarioDaoImp.getInstance().findAll();
+				                        request.setAttribute("type_users", type_users);
+				                    } catch (Exception e) {
+				                        e.printStackTrace();
+				                    }
+				                %>
+				                <select name="id_tipo_usuario" id="selectUserUsuario" class="custom-select" style="width: 100%" required>
+				                    <c:forEach items="${type_users}" var="type_user">
+		                            	<option value="${type_user['id']}"><c:out value="${type_user['tipo']}"/></option>
+				                    </c:forEach>
+				                </select>
+				                <div class="invalid-feedback">
+				                    Debe seleccionar un usuario para el proyecto.
+				                </div>
+				            </div>
+				        </div>
+
+                        <section>
+                            <label class="required"><strong>* Campo requerido</strong></label>
+                        </section>
+                        
+                        <div class="row pt-3">
+				            <a href="Usuario?action=index" class="col-12 col-md-3 offset-md-5 btn btn-secondary" role="button" aria-pressed="true">Cancelar</a>
+				            <button type="submit" class="col-12 col-md-3 offset-md-1 btn btn-primary">Actualizar</button>
+				        </div>
+                    </form>
+</div>
+
+<%--header--%>
+<jsp:include page="../components/footer.jsp"/>

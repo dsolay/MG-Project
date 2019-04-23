@@ -12,6 +12,14 @@ selectUserProject.select2({
     allowClear: true
 });
 
+selectUserUsuario.select2({
+    placeholder: {
+        id: '-1',
+        text: 'Eliga un usuario'
+    },
+    allowClear: true
+});
+
 /*selectProject.select2({
     dropdownParent: $('#addUpdateProyectosActividades'),
     placeholder: {
