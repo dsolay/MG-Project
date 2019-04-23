@@ -105,8 +105,7 @@ public class UsuarioController extends HttpServlet {
         System.out.println("-------------------------" + option + "--------------------------------------");
         switch (option) {
             case "add"://Listado de Evaluacion
-            	System.out.println("aqui");
-                try {
+            	try {
                     this.guardarUsuario(usuarinombres, usuariapellidos, usuariemail, usuariusername, usuaripassword, usuariid_tipo_usuario);
                     request.setAttribute("mensaje", "dato agregado");
                 } catch (Exception ex) {

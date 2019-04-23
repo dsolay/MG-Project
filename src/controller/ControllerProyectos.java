@@ -86,10 +86,17 @@ public class ControllerProyectos extends HttpServlet {
         String Descripcion = request.getParameter("descripcion");
         short Id_usuario = request.getParameter("id_usuario") != null ? Short.parseShort(request.getParameter("id_usuario")) : 0;
 
+        String contextPath = request.getContextPath();
         switch (option) {
 
             case "add":
-
+            	try {
+                    this.guardarProyectos(Nombre_proyecto, Descripcion, Id_usuario);
+                } catch (Exception ex) {
+                    ex.getStackTrace();
+                }
+                
+                response.sendRedirect(response.encodeRedirectURL(contextPath + "/Proyectos?action=index"));
                 break;
             case "login":
             	request.setAttribute("listProyectos", this.listar());
@@ -101,12 +108,11 @@ public class ControllerProyectos extends HttpServlet {
                     request.getRequestDispatcher("views/proyectos/UpdateProyectos.jsp").forward(request, response);
                 } else {
                     try {
-                        this.updateProyectos(Id,Nombre_proyecto,Descripcion,Id_usuario);
+                        this.updateProyectos(Id, Nombre_proyecto, Descripcion, Id_usuario);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    String contextPath = request.getContextPath();
                     response.sendRedirect(response.encodeRedirectURL(contextPath + "/Proyectos?action=index"));
                 }
                 break;
@@ -121,7 +127,6 @@ public class ControllerProyectos extends HttpServlet {
                         e.printStackTrace();
                     }
                 }
-                    String contextPath = request.getContextPath();
                     response.sendRedirect(response.encodeRedirectURL(contextPath + "/Proyectos?action=index"));
                 break;
             default:
@@ -150,7 +155,7 @@ public class ControllerProyectos extends HttpServlet {
     }
 
     //Guardar
-    private String guardarProyectos(short Id, String Nombre_proyecto, String Descripcion, short Id_usuario) throws Exception {
+    private String guardarProyectos(String Nombre_proyecto, String Descripcion, short Id_usuario) throws Exception {
         //construccion del objeto
         Proyectos proyectos = new Proyectos();
 

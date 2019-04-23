@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ernest
-  Date: 4/7/19
-  Time: 7:23 AM
-  To change this template use File | Settings | File Templates.
---%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,6 +12,9 @@
           href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
           crossorigin="anonymous">
+          
+    <%-- Quicksand fonts --%>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"> 
 
     <%-- Bootstrap 4 --%>
     <link rel="stylesheet"

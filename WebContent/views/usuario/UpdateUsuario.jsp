@@ -5,7 +5,7 @@
 
 <%@ page isELIgnored="false" language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>}
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:url value="/Usuario" var="registerUrl" />
 <c:set var="data" scope="application" value="${datos}"/>
@@ -13,7 +13,10 @@
 <%--header--%>
 <jsp:include page="../components/header.jsp"/>
 
-<div class="container col-12 col-md-4 offset-md-4 pt-4">
+<%-- navbar --%>
+<jsp:include page="../components/navbar.jsp"/>
+
+<div class="container container-crud col-12 col-md-4 offset-md-4 pt-4">
 
 	<h2 class="text-center">Editar Usuario</h2>
                     <form method="POST" action="${registerUrl}" class="needs-validation" novalidate>

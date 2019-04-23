@@ -7,6 +7,9 @@
 <%-- Header --%>
 <jsp:include page="../components/header.jsp"/>
 
+<%-- navbar --%>
+<jsp:include page="../components/navbar.jsp"/>
+
 <div class="container-fluid col-10 offset-1">
 	<div class="row">
 		<div class="col-12">

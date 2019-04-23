@@ -13,14 +13,15 @@
 <%-- navbar --%>
 <jsp:include page="../components/navbar.jsp"/>
 
-<div class="container col-12 col-md-4 offset-md-4 pt-4">
+<div class="container container-crud col-12 col-md-4 offset-md-4 pt-4">
     <h2 class="text-center">Editar Proyecto</h2>
 
     <form method="POST" action="${registerUrl}" class="needs-validation pt-3" novalidate>
-        <input type="hidden" name="option" value="add">
+        <input type="hidden" name="option" value="update">
         <input type="hidden" name="redirect" value="false">
 
         <c:forEach items="${data}" var="proyectos">
+        	<input type="hidden" name="id" value="${proyectos.id}">
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label><strong class="asterisk-required">*</strong> proyectos</label>
@@ -77,7 +78,7 @@
 
         <div class="row pt-3">
             <a href="Proyectos?action=index" class="col-12 col-md-3 offset-md-5 btn btn-secondary" role="button" aria-pressed="true">Cancelar</a>
-            <button type="submit" class="col-12 col-md-3 offset-md-1 btn btn-primary">Agregar</button>
+            <button type="submit" class="col-12 col-md-3 offset-md-1 btn btn-primary">Actualizar</button>
         </div>
     </form>
 </div>

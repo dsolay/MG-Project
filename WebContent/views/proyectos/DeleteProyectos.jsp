@@ -10,7 +10,7 @@
 <%-- navbar --%>
 <jsp:include page="../components/navbar.jsp"/>
 
-<div class="container col-12 col-md-4 offset-md-4 pt-4">
+<div class="container container-crud col-12 col-md-4 offset-md-4 pt-4">
     <%--<h2 class="text-center">Eliminar Tipo de Usuarios</h2>--%>
     <form method="POST" action="${registerUrl}">
         <c:forEach items="${datos}" var="proyectos">
