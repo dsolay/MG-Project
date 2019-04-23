@@ -198,7 +198,7 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 					}
 				}
 			}
-			System.out.println(statement);
+
 			rs = statement.executeQuery();
 
 			actividad = new ArrayList<>();

@@ -1,13 +1,3 @@
-<%@ page import="java.util.Map" %>
-<%@ page import="daoImp.ProyectosDaoImp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="daoImp.UsuarioDaoImp" %><%--
-  Created by IntelliJ IDEA.
-  User: ernest
-  Date: 4/12/19
-  Time: 6:06 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -31,17 +21,15 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="selectProject">Proyecto</label>
-                                <select id="selectProject" name="id_proyecto" class="custom-select" required></select>
-                                <div class="invalid-feedback">
-                                    Debe selecccionar un proyecto
-                                </div>
+                                <label for="inputProjectName">Proyecto</label>
+                                <input type="hidden" name="project_id" value="${project_id}">
+                                <input id="inputProjectName" type="text" name="project_name" class="form-control" value="${project_name}" readonly>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="inputActividad">Actividad</label>
+                                <label for="inputActividad"><strong class="asterisk-required">*</strong> Actividad</label>
                                 <input type="text" name="actividad" class="form-control" id="inputActividad" placeholder="Nombre de actividad" required>
                                 <div class="invalid-feedback">
                                     Debe ingresar un nombre para la actividad.
@@ -51,7 +39,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="selectUsuario">Usuario</label>
+                                <label for="selectUsuario"><strong class="asterisk-required">*</strong> Usuario</label>
                                 <select id="selectUsuario" name="usuario" class="custom-select mr-sm-2" style="width: 100%" required></select>
                                 <div class="invalid-feedback">
                                     Eliga un usuario.
@@ -59,7 +47,7 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="dateEntrega">Fecha de Entrega</label>
+                                <label for="dateEntrega"><strong class="asterisk-required">*</strong> Fecha de Entrega</label>
                                 <input type="date" name="entrega" class="form-control" id="dateEntrega" required/>
                                 <div class="invalid-feedback">
                                     Debe selecccionar fecha de entrega.
@@ -67,7 +55,7 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="selectPrioridad">Prioridad</label>
+                                <label for="selectPrioridad"><strong class="asterisk-required">*</strong> Prioridad</label>
                                 <select id="selectPrioridad" name="prioridad" class="custom-select mr-sm-2">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -84,6 +72,10 @@
                                 <label class="custom-control-label" for="checkEstado">Activa</label>
                             </div>
                         </div>
+
+                        <section>
+                            <label class="required"><strong>* Campo requerido</strong></label>
+                        </section>
                     </form>
                 </div>
             </div>

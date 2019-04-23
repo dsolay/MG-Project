@@ -6,6 +6,8 @@ var btnDelete   = $('#btn_delete');
 // Datatable
 var dTablePA = $('#pro');
 var dTableProjects = $('#dtableProjects');
+var dTableTypeUsers = $('#dtableTypeUsers');
+var dTableUser = $('#dtableUser');
 var formSearchPA = $('form.form-search');
 
 // Form
@@ -36,7 +38,6 @@ var remaining          = $('#restante');
 var action                  = $('#action');
 var btnAction               = $('#btn_action');
 var idPA                    = $('#idPA');
-var selectProject           = $('#selectProject');
 var inputActivity           = $('#inputActividad');
 var selectUser              = $('#selectUsuario');
 var dateDeliver             = $('#dateEntrega');
@@ -45,3 +46,4 @@ var checkState              = $('#checkEstado');
 var inputDeleteIDPA         = $('#inputIDDeletePA');
 var idDeletePA              = $('#idDeletePA');
 var inputDeleteActivityPA   = $('#actividadDeletePA');
+var selectUserProject       = $('#selectUserProject');

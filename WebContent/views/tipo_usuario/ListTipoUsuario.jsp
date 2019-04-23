@@ -11,19 +11,28 @@
 <jsp:include page="../components/header.jsp"/>
 
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a href="Proyectos?action=index">Tipo de Usuario</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
     <div id="buttons_crud">
         <a href="${uriAdd}" class="btn btn-outline-primary" role="button" aria-pressed="true">
             <i class="fas fa-plus"></i>
         </a>
     </div>
 
-    <table id="dtableProjects" class="table table-striped table-hover" style="width:100%">
+    <table id="dtableTypeUsers" class="table table-striped table-hover" style="width:100%">
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Tipo</td>
-                <td>Descripcion</td>
-                <td>accion</td>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         
@@ -69,10 +78,10 @@
 
         <tfoot>
             <tr>
-                <td>ID</td>
-                <td>Tipo</td>
-                <td>Descripcion</td>
-                <td>accion</td>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Acciones</th>
             </tr>
         </tfoot>
     </table>

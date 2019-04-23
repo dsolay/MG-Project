@@ -21,8 +21,8 @@
         <div class="col-12 col-md-6">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Proyecto</a></li>
-                    <li id="searchProject" class="breadcrumb-item active" aria-current="page" value="${search}"><c:out value="${search}"/></li>
+                    <li class="breadcrumb-item"><a href="Proyectos?action=index">Proyecto</a></li>
+                    <li id="searchProject" class="breadcrumb-item active" aria-current="page"><c:out value="${project_name}"/></li>
                 </ol>
             </nav>
         </div>
@@ -55,13 +55,13 @@
             <th>Actividad</th>
             <th>Entrega</th>
             <th>Usuario</th>
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
         </tr>
         </thead>
         <tfoot>
@@ -70,13 +70,13 @@
             <th>Actividad</th>
             <th>Entrega</th>
             <th>Usuario</th>
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
-            <td style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
+            <th style="display:none;">
         </tr>
         </tfoot>
     </table>

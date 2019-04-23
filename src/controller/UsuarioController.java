@@ -49,16 +49,16 @@ public class UsuarioController extends HttpServlet {
             case "index": //Listado de evaluacion
                 try {
                     //Seteo de la lista
-                    request.setAttribute("usuarioList", this.listar());
+                    request.setAttribute("listUsuarios", this.listar());
                 } catch (Exception e) {
                     System.out.println("Error");
                 }
 
                 //redirect y paso de la lista a la vista
-                request.getRequestDispatcher("ListarUsuarioView.jsp").forward(request, response);
+                request.getRequestDispatcher("views/usuario/ListarUsuario.jsp").forward(request, response);
                 break;
             case "add"://Listado de Customer
-                request.getRequestDispatcher("AgregarUsuarioView.jsp").forward(request, response);
+                request.getRequestDispatcher("views/usuario/AddUsuario.jsp").forward(request, response);
                 break;
             case "ajax"://Listado de Customer
                 Gson gson = new Gson();
@@ -92,7 +92,7 @@ public class UsuarioController extends HttpServlet {
         String usuariemail = request.getParameter("email");
         String usuariusername = request.getParameter("username");
         String usuaripassword = request.getParameter("password");
-        byte usuariid_tipo_usuario = Byte.parseByte(request.getParameter("id_tipo_usuario"));
+        byte usuariid_tipo_usuario = (request.getParameter("id_tipo_usuario") != null) ? Byte.parseByte(request.getParameter("id_tipo_usuario")) : 0;
         int id = 0;
 
         if (request.getParameter("usuari") != null) {
@@ -110,7 +110,7 @@ public class UsuarioController extends HttpServlet {
                     request.setAttribute("mensaje", "Error al guardar el dato");
                     System.out.println("Error al guardar el dato");
                 }
-                request.getRequestDispatcher("AgregarEvaluacionView.jsp").forward(request, response);
+                request.getRequestDispatcher("views/usuario/AddUsuario.jsp").forward(request, response);
                 break;
             //UpdateEvaluacion
             case "update":
@@ -122,7 +122,7 @@ public class UsuarioController extends HttpServlet {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    request.getRequestDispatcher("UpdateEvaluacionView.jsp").forward(request, response);
+                    request.getRequestDispatcher("views/usuario/UpdateUsuario.jsp").forward(request, response);
                 } else {
 
                     request.setAttribute("mensaje", "test");
@@ -144,7 +144,7 @@ public class UsuarioController extends HttpServlet {
                 System.out.print("------------------------" + redirect + "-----------------------------");
                 if ("true".equals(redirect)) {
                     request.setAttribute("datos", this.crearLista(id, usuarinombres, usuariapellidos, usuariemail, usuariusername, usuaripassword, usuariid_tipo_usuario));
-                    request.getRequestDispatcher("DeleteEvaluacionView.jsp").forward(request, response);
+                    request.getRequestDispatcher("views/usuario/DeleteUsuario.jsp").forward(request, response);
                 } else {
 
                     try {

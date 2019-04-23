@@ -5,10 +5,6 @@ $.extend( true, $.fn.dataTable.defaults, {
     responsive: true,
     paging: true,
     filter: true,
-    select: {
-        style: 'single',
-        blurable: true
-    },
     language: {
         "lengthMenu": "Mostrar _MENU_ ",
         "zeroRecords": "Datos no encontrados - upss",
@@ -26,17 +22,16 @@ $.extend( true, $.fn.dataTable.defaults, {
 } );
 
 dTablePA = dTablePA.DataTable({
+    select: {
+        style: 'single',
+        blurable: true
+    },
     serverSide: true,
     processing: true,
     deferLoading: 0,
     ajax: {
         url: "ProyectosActividades?action=ajax",
         data: function ( d ) {
-
-            if (d.search.value === liSearch.text().toLowerCase()) {
-                console.log(d.search.value);
-                d.search.value = "";
-            }
             return $.extend( {}, d, {
                "project": liSearch.text().toLowerCase()
             });
@@ -95,7 +90,7 @@ dTablePA = dTablePA.DataTable({
     ]
 });
 
-dTableProjects = dTableProjects.DataTable({
-
-});
+dTableProjects = dTableProjects.DataTable();
+dTableTypeUsers = dTableTypeUsers.DataTable();
+dTableUser = dTableUser.DataTable();
 

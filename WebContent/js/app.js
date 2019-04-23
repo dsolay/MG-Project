@@ -36,8 +36,6 @@ $.getMultiScripts(script_arr, './js/plugins/').done(function() {
     btnAdd.on("click", function () {
         action.val('add');
         btnAction.text('Agregar');
-
-        selectProject.prop('disabled', false);
     });
 
     btnInfo.on("click", function () {
@@ -94,8 +92,10 @@ $.getMultiScripts(script_arr, './js/plugins/').done(function() {
         btnAction.text('Actualizar');
 
         idPA.val(rowData['id']);
-        selectProject.append(new Option(rowData['proyecto'], rowData['id_proyecto'], true, true)).trigger('change');
+        /*projectId.val(rowData['id_proyecto']);
+        projectName.val(rowData['proyecto']);*/
         inputActivity.val(rowData['actividad']);
+        inputActivity.text(rowData['actividad']);
         selectUser.append(new Option(rowData['usuario_actividad'], rowData['id_usuario'], true, true)).trigger('change');
         dateDeliver.val(rowData['entrega']);
         selectPriority.val(rowData['prioridad']).trigger('change');
@@ -105,8 +105,6 @@ $.getMultiScripts(script_arr, './js/plugins/').done(function() {
         } else {
             checkState.prop("checked", false);
         }
-
-        selectProject.prop('disabled', true);
     });
 
     btnDelete.on("click", function () {
@@ -122,7 +120,6 @@ $.getMultiScripts(script_arr, './js/plugins/').done(function() {
         formPA.removeClass('was-validated');
         formPA.trigger("reset").change();
 
-        selectProject.val('').trigger('change');
         inputActivity.val("");
         selectUser.val('').trigger('change');
         dateDeliver.val("");
@@ -156,10 +153,7 @@ $.getMultiScripts(script_arr, './js/plugins/').done(function() {
         buttonClick = false;
     });
 
-    var search = liSearch.text();
-    if (search !== "") {
-        dTablePA.search( search.toLowerCase() ).draw();
-    }
+    dTablePA.search( '' ).draw();
 
     dTablePA
         .on( 'select', function ( e, dt, type, indexes ) {

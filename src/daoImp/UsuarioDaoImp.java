@@ -97,7 +97,6 @@ public class UsuarioDaoImp implements UsuarioDao{
 					"us.apellidos, " +
 					"us.email, " +
 					"us.username, " +
-					"us.password, " +
 					"us.id_tipo_usuario, " +
 					"tu.tipo " +
 				"FROM usuarios AS us " +
@@ -124,9 +123,8 @@ public class UsuarioDaoImp implements UsuarioDao{
 	        	map.put("apellidos", rs.getString(3));
 				map.put("email", rs.getString(4));
 				map.put("username", rs.getString(5));
-				map.put("password", rs.getString(6));
-				map.put("id_tipo_usuario", rs.getString(7));
-				map.put("tipo_usuario", rs.getString(8));
+				map.put("id_tipo_usuario", rs.getString(6));
+				map.put("tipo_usuario", rs.getString(7));
 				
 
 				actividad.add(map);

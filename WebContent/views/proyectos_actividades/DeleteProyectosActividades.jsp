@@ -24,6 +24,7 @@
                 <div class="container-fluid form_modal">
                     <form id="deletePA" method="POST" action="${registerUrl}">
                         <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="project_name" value="${project_name}">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">

@@ -42,7 +42,8 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 		switch (action) {
 			case "index":
-				request.setAttribute("search", request.getParameter("search[value]"));
+				request.setAttribute("project_name", request.getParameter("project_name"));
+				request.setAttribute("project_id", request.getParameter("project_id"));
 				request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 				break;
 			case "ajax":
@@ -96,11 +97,17 @@ public class ControllerProyectosActividades extends HttpServlet {
 
 		short id = this.validateParameter(request.getParameter("id"));
 		short id_usuario = this.validateParameter(request.getParameter("usuario"));
-		String actividad= request.getParameter("actividad");
+		String actividad = request.getParameter("actividad");
 		byte prioridad = Byte.parseByte(String.valueOf(this.validateParameter(request.getParameter("prioridad"))));
 		String entrega= request.getParameter("entrega");
-		short id_proyecto = this.validateParameter(request.getParameter("id_proyecto"));
-		byte estado = Byte.parseByte(String.valueOf(this.validateParameter(request.getParameter("estado"))));
+		short id_proyecto = this.validateParameter(request.getParameter("project_id"));
+		byte estado = 0;
+
+		if (request.getParameter("estado") != null) {
+			if (request.getParameter("estado").equals("on")) {
+				estado = 1;
+			}
+		}
 
 		switch (action) {
 			case "index":
@@ -133,8 +140,10 @@ public class ControllerProyectosActividades extends HttpServlet {
 				break;
 		}
 
-		String contextPath = request.getContextPath();
-		response.sendRedirect(response.encodeRedirectURL(contextPath + "/ProyectosActividades?action=index"));
+		request.setAttribute("project_name", request.getParameter("project_name"));
+		request.setAttribute("project_id", id_proyecto);
+
+		request.getRequestDispatcher("views/proyectos_actividades/ListProyectosActividades.jsp").forward(request, response);
 	}
 
 	/**
@@ -232,8 +241,10 @@ public class ControllerProyectosActividades extends HttpServlet {
 	}
 
 	private short validateParameter(String param) {
-		if (param != null && ! param.isEmpty()) {
-			return Short.parseShort(param);
+		if (param != null) {
+			if (! param.isEmpty()) {
+				return Short.parseShort(param);
+			}
 		}
 		return 0;
 	}

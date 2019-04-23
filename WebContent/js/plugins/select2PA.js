@@ -4,7 +4,15 @@ selectPriority.select2({
     dropdownParent: $('#addUpdateProyectosActividades'),
 });
 
-selectProject.select2({
+selectUserProject.select2({
+    placeholder: {
+        id: '-1',
+        text: 'Eliga un usuario'
+    },
+    allowClear: true
+});
+
+/*selectProject.select2({
     dropdownParent: $('#addUpdateProyectosActividades'),
     placeholder: {
         id: '-1', // the value of the option
@@ -36,7 +44,7 @@ selectProject.select2({
             };
         }
     }
-});
+});*/
 
 selectUser.select2({
     dropdownParent: $('#addUpdateProyectosActividades'),
