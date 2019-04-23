@@ -10,7 +10,8 @@
 <%-- navbar --%>
 <jsp:include page="../components/navbar.jsp"/>
 
-<div class="container-fluid col-10 offset-1">
+<div class="content">
+	<div class="container-fluid col-10 offset-1">
     <div class="row">
         <div class="col-12">
             <nav aria-label="breadcrumb">
@@ -99,6 +100,7 @@
             </tr>
         </tfoot>
     </table>
+</div>
 </div>
 
 <%-- Header --%>
