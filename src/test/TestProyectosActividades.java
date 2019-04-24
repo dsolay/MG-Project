@@ -97,15 +97,15 @@ public class TestProyectosActividades {
     	
     	//test.FindAll((short) 0);
 
-		/*Map<String, String> params = new HashMap<>();
+		Map<String, String> params = new HashMap<>();
 
 		//params.put("field", "id");
-		params.put("value", "latux");
-		params.put("project", "latlux");
+		params.put("value", "");
+		params.put("project", "2");
 		params.put("order", "ASC");
-		params.put("limit", "0");
-		params.put("offset", "0");
-		test.find(params, true);*/
+		//params.put("limit", "0");
+		//params.put("offset", "0");
+		test.find(params, true);
     	
     	//test.Update((short) 24);
     	
@@ -115,6 +115,6 @@ public class TestProyectosActividades {
 
 		//test.getNumRecords("a");
 
-		System.out.println(test.getTimeRemaining("2019-04-23"));
+		//System.out.println(test.getTimeRemaining("2019-04-23"));
     }
 }

@@ -159,7 +159,7 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 
 		String sql_where_field = "WHERE ( pa." + params.get("field") + " like ? ) ";
 
-		String sql_where_project = "AND po.nombre_proyecto = ? ";
+		String sql_where_project = "AND pa.id_proyecto = ? ";
 
 		String sql_order = "ORDER BY pa.id " + params.get("order");
 

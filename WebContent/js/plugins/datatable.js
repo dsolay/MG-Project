@@ -10,7 +10,7 @@ $.extend( true, $.fn.dataTable.defaults, {
     language: {
         "lengthMenu": "Mostrar _MENU_ ",
         "zeroRecords": "Datos no encontrados - upss",
-        "info": "Mostar paginas _PAGE_ de _PAGES_",
+        "info": "Mostar páginas _PAGE_ de _PAGES_",
         "infoEmpty": "Datos no encontrados",
         "infoFiltered": "(Filtrados por _MAX_ total registros)",
         "search": "Buscar:",
@@ -39,7 +39,7 @@ dTablePA = dTablePA.DataTable({
         url: "ProyectosActividades?action=ajax",
         data: function ( d ) {
             return $.extend( {}, d, {
-               "project": liSearch.text().toLowerCase()
+               "project": liSearch.val()
             });
         },
         type: "GET"

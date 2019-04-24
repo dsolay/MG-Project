@@ -22,7 +22,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputProjectName">Proyecto</label>
-                                <input type="hidden" name="project_id" value="${project_id}">
+                                <input id="searchProject" type="hidden" name="project_id" value="${project_id}">
                                 <input id="inputProjectName" type="text" name="project_name" class="form-control" value="${project_name}" readonly>
                             </div>
                         </div>

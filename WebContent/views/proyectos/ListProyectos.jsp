@@ -36,7 +36,7 @@
             <tr>
                 <th>Correlativo</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Usuario</th>
                 <th>Acciones</th>
             </tr>

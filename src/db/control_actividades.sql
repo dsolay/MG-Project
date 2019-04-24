@@ -82,27 +82,27 @@ INSERT INTO tipo_usuario (tipo, descripcion) VALUES('administrador', 'usuario co
 INSERT INTO tipo_usuario (tipo, descripcion) VALUES('normal', 'usuario solo con la capacidad de visualizar actividades');
 
 /* usuarios */
-INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Roman', 'Gonzalez', 'solay2516@gmail.com', 'solay2516', 'abcd1234', 1);
-INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Antonio', 'Juarez', 'acaisleye@biblegateway.com', 'acaisleye', 'sFdGBbej038N', 1);
+INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Roman', 'Gonzalez', 'roman.gonzalez@proyectosfgk.org', 'solay2516', 'abcd1234', 1);
+INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Antonio', 'Juarez', 'antonio.rodriguez@proyectosfgk.org', 'acaisleye', 'sFdGBbej038N', 1);
 INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Wendy', 'Medina', 'aprettjohnf@blogspot.com', 'aprettjohnf', '2zoaAbSrw8Xc', 1);
 INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Cristian', 'Otoniel', 'aprettjohnf@blogspot.com', 'aprettjohnf', '2zoaAbSrw8Xc', 1);
 INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Anderson', 'Otoniel', 'aprettjohnf@blogspot.com', 'aprettjohnf', '2zoaAbSrw8Xc', 1);
 
 /* proyectos */
 INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Keylex', 'Sistema de manejo de inventarios', 1);
-INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Bootstrap', 'Framework CSS, HTML y JS para diseÃ±o web responsivo.', 2);
+INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Bootstrap', 'Framework CSS, HTML y JS para diseño web responsivo.', 2);
 INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('DevelopSY', 'Entorno de desarrollo web con docker', 1);
 INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('MailSY', 'Servidor de mensajeria basado en el protocolo XMPP', 1);
 
 /* proyectos_actividades */
 INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Hacer vista de existencias.', 4, 1, '2019-05-18', 1, 1);
 INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Programar metodo para salidas y entradas de inventarios.', 1, 1, '2019-06-07', 2, 1);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('DiseÃ±o de la base datos.', 5, 1, '2019-05-26', 3, 1);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Diseño de la base datos.', 5, 1, '2019-05-26', 3, 1);
 INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Hacer pruebas unitarias.', 5, 1, '2019-05-11', 4, 1);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseÃ±o de grilla.', 2, 1, '2019-05-08', 2, 1);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseÃ±o de barra de navegacion.', 1, 1, '2019-05-05', 2, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Escoger paleta de colores.', 2, 1, '2019-06-05', 2, 3);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseÃ±o de formularios.', 3, 1, '2019-05-11', 2, 4);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseño de grilla.', 2, 1, '2019-05-08', 1, 2);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseño de barra de navegacion.', 1, 1, '2019-05-05', 2, 2);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Escoger paleta de colores.', 2, 1, '2019-06-05', 3, 2);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseño de formularios.', 3, 1, '2019-05-11', 4, 2);
 INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Configura contenedor con servidor de base de datos.', 4, 1, '2019-05-23', 1, 3);
 INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('configurar contenedor con intefez web para administracion.', 1, 1, '2019-06-28', 2, 3);
 INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Configurar contenedor con php.', 5, 1, '2019-06-02', 3, 3);

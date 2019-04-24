@@ -26,7 +26,7 @@
 	            <nav aria-label="breadcrumb">
 	                <ol class="breadcrumb">
 	                    <li class="breadcrumb-item"><a href="Proyectos?action=index">Administración de Proyectos</a></li>
-	                    <li id="searchProject" class="breadcrumb-item active" aria-current="page"><c:out value="${project_name}"/></li>
+	                    <li class="breadcrumb-item active" aria-current="page"><c:out value="${project_name}"/></li>
 	                </ol>
 	                
 	                <div class="flex-reverse">
