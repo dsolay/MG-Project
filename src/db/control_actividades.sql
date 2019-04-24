@@ -78,37 +78,36 @@ CREATE TABLE proyectos_actividades(
 /* Datos */
 
 /* tipo_usuario */
-INSERT INTO tipo_usuario (tipo, descripcion) VALUES("administrador", "usuario con la capacidad de crear, eliminar, acualizar y asignar proyectos y actividades");
-INSERT INTO tipo_usuario (tipo, descripcion) VALUES("normal", "usuario solo con la capacidad de visualizar actividades");
+INSERT INTO tipo_usuario (tipo, descripcion) VALUES('administrador', 'usuario con la capacidad de crear, eliminar, acualizar y asignar proyectos y actividades');
+INSERT INTO tipo_usuario (tipo, descripcion) VALUES('normal', 'usuario solo con la capacidad de visualizar actividades');
 
 /* usuarios */
-INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Kathi', 'Dymock', 'kdymockd@nytimes.com', 'kdymockd', 'qwGR4I87', 1);
-INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Alleyn', 'Caisley', 'acaisleye@biblegateway.com', 'acaisleye', 'sFdGBbej038N', 1);
-INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Ashley', 'Prettjohn', 'aprettjohnf@blogspot.com', 'aprettjohnf', '2zoaAbSrw8Xc', 1);
+INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Roman', 'Gonzalez', 'solay2516@gmail.com', 'solay2516', 'abcd1234', 1);
+INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Antonio', 'Juarez', 'acaisleye@biblegateway.com', 'acaisleye', 'sFdGBbej038N', 1);
+INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Wendy', 'Medina', 'aprettjohnf@blogspot.com', 'aprettjohnf', '2zoaAbSrw8Xc', 1);
+INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Cristian', 'Otoniel', 'aprettjohnf@blogspot.com', 'aprettjohnf', '2zoaAbSrw8Xc', 1);
+INSERT INTO usuarios (nombres, apellidos, email, username, password, id_tipo_usuario) VALUES ('Anderson', 'Otoniel', 'aprettjohnf@blogspot.com', 'aprettjohnf', '2zoaAbSrw8Xc', 1);
 
 /* proyectos */
-INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Keylex', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.', 1);
-INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Latlux', 'Cras pellentesque volutpat dui.', 2);
-INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Alpha', 'Nullam varius.', 3);
+INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Keylex', 'Sistema de manejo de inventarios', 1);
+INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('Bootstrap', 'Framework CSS, HTML y JS para diseño web responsivo.', 2);
+INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('DevelopSY', 'Entorno de desarrollo web con docker', 1);
+INSERT INTO proyectos (nombre_proyecto, descripcion, id_usuario) VALUES ('MailSY', 'Servidor de mensajeria basado en el protocolo XMPP', 1);
 
 /* proyectos_actividades */
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Nunc purus.', 4, 1, '2019-05-18', 1, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Quisque ut erat.', 1, 1, '2019-06-07', 3, 3);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Integer a nibh.', 5, 1, '2019-05-26', 3, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('In est risus, auctor sed, tristique in, tempus sit amet, sem.', 5, 1, '2019-05-11', 2, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 2, 0, '2019-05-08', 1, 1);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('In sagittis dui vel nisl.', 1, 0, '2019-05-05', 1, 1);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Aenean fermentum.', 2, 0, '2019-06-05', 1, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Vestibulum ac est lacinia nisi venenatis tristique.', 3, 0, '2019-05-11', 2, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Suspendisse ornare consequat lectus.', 4, 0, '2019-05-23', 2, 1);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Donec vitae nisi.', 1, 1, '2019-06-28', 2, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Integer non velit.', 5, 0, '2019-06-02', 3, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Duis bibendum.', 1, 0, '2019-06-13', 3, 3);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Proin at turpis a pede posuere nonummy.', 5, 0, '2019-04-23', 3, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Vivamus vestibulum sagittis sapien.', 1, 0, '2019-06-03', 1, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Sed sagittis.', 5, 1, '2019-06-15', 1, 3);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Vivamus vel nulla eget eros elementum pellentesque.', 3, 0, '2019-05-26', 2, 3);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Proin risus.', 1, 1, '2019-06-26', 1, 3);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 3, 1, '2019-06-10', 2, 1);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Nullam molestie nibh in lectus.', 4, 1, '2019-06-05', 3, 2);
-INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Praesent blandit.', 4, 0, '2019-05-06', 1, 1);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Hacer vista de existencias.', 4, 1, '2019-05-18', 1, 1);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Programar metodo para salidas y entradas de inventarios.', 1, 1, '2019-06-07', 2, 1);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Diseño de la base datos.', 5, 1, '2019-05-26', 3, 1);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Hacer pruebas unitarias.', 5, 1, '2019-05-11', 4, 1);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseño de grilla.', 2, 1, '2019-05-08', 2, 1);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseño de barra de navegacion.', 1, 1, '2019-05-05', 2, 2);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Escoger paleta de colores.', 2, 1, '2019-06-05', 2, 3);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Realizar diseño de formularios.', 3, 1, '2019-05-11', 2, 4);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Configura contenedor con servidor de base de datos.', 4, 1, '2019-05-23', 1, 3);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('configurar contenedor con intefez web para administracion.', 1, 1, '2019-06-28', 2, 3);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Configurar contenedor con php.', 5, 1, '2019-06-02', 3, 3);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Integrar contendores en un archivo docker-compose.yml.', 1, 1, '2019-06-13', 4, 3);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('configurar base de datos.', 5, 1, '2019-04-23', 1, 4);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Configurar modulo para intercambio de archivos.', 1, 1, '2019-06-03', 2, 4);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Configurar servidor proxy.', 5, 1, '2019-06-15', 3, 4);
+INSERT INTO proyectos_actividades (nombre_actividad, prioridad, estado, fecha_entrega, id_usuario, id_proyecto) VALUES ('Configurar modulo para compartir estados.', 3, 1, '2019-05-26', 4, 4);

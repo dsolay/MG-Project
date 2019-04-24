@@ -13,7 +13,7 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="infoProyectosActividadesLabel">Información Detallada</h5>
+                <h5 class="modal-title text-center text-primary" id="infoProyectosActividadesLabel">Información Detallada</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -30,26 +30,26 @@
                                 </h2>
                             </div>
 
-                            <div id="collapseProject" class="collapse" aria-labelledby="headingOne" data-parent="#accordionInfoPA">
+                            <div id="collapseProject" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionInfoPA">
                                 <div class="card-body">
                                    <div class="row">
                                        <div class="col-12 body_info">
-                                           <label>
-                                               ID
-                                               <p><span id="id_proyecto" class="badge badge-secondary"></span></p>
-                                           </label>
-                                           <label>
-                                               Nombre
-                                               <p><span id="nombre_proyecto" class="badge badge-secondary"></span></p>
-                                           </label>
-                                           <label>
-                                               Encargado
-                                               <p><span id="usuario_proyecto" class="badge badge-secondary"></span></p>
-                                           </label>
-                                           <label>
-                                               Descripción
-                                               <p><span id="descripcion_proyecto" class="badge badge-secondary large_text"></span></p>
-                                           </label>
+                                           <div class="row">
+                                               <p class="col-4">Correlativo:</p>
+                                               <p class="col-8"><span id="id_proyecto" class="badge badge-secondary"></span></p>
+                                           </div>
+                                           <div class="row">
+                                               <p class="col-4">Nombre:</p>
+                                               <p class="col-8"><span id="nombre_proyecto" class="badge badge-secondary"></span></p>
+                                           </div>
+                                           <div class="row">
+                                               <p class="col-4">Encargado/a:</p>
+                                               <p class="col-8"><span id="usuario_proyecto" class="badge badge-secondary"></span></p>
+                                           </div>
+                                           <div class="row">
+                                               <p class="col-4">Descripción:</p>
+                                               <p class="col-8"><span id="descripcion_proyecto" class="badge badge-secondary large_text"></span></p>
+                                           </div>
                                        </div>
                                    </div>
                                 </div>
@@ -67,33 +67,34 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 body_info">
-                                            <label>
-                                                ID
-                                                <p><span id="id_proyecto_actividad" class="badge badge-secondary"></span></p>
-                                            </label>
-                                                Actividad
-                                                <p><span id="nombre_actividad" class="badge badge-secondary large_text"></span></p>
-                                            </label>
-                                            <label>
-                                                Asignado a
-                                                <p><span id="usuario_actividad" class="badge badge-secondary"></span></p>
-                                            </label>
-                                            <label>
-                                                Prioridad
-                                                <p><span id="prioridad" class="badge badge-secondary"></span></p>
-                                            </label>
-                                            <label>
-                                                Estado
-                                                <p><span id="estado" class="badge"></span></p>
-                                            </label>
-                                            <label>
-                                                Fecha de entrega
-                                                <p><span id="entrega" class="badge badge-secondary"></span></p>
-                                            </label>
-                                            <label>
-                                                Tiempo restante
-                                                <p><span id="restante" class="badge"></span></p>
-                                            </label>
+                                            <div class="row">
+                                                <p class="col-5">Correlativo:</p>
+                                                <p class="col-7"><span id="id_proyecto_actividad" class="badge badge-secondary"></span></p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-5">Actividad:</p>
+                                                <p class="col-7"><span id="nombre_actividad" class="badge badge-secondary large_text"></span></p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5">Asignado a:</div>
+                                                <p class="col-7"><span id="usuario_actividad" class="badge badge-secondary"></span></p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-5">Prioridad:</p>
+                                                <p class="col-7"><span id="prioridad" class="badge badge-secondary"></span></p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-5">Estado:</p>
+                                                <p class="col-7"><span id="estado" class="badge"></span></p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-5">Fecha de entrega:</p>
+                                                <p class="col-7"><span id="entrega" class="badge badge-secondary"></span></p>
+                                            </div>
+                                            <div class="row">
+                                                <p class="col-5">Tiempo restante:</p>
+                                                <p class="col-7"><span id="restante" class="badge"></span></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -23,6 +23,10 @@ $.extend( true, $.fn.dataTable.defaults, {
     }
 } );
 
+dTableProjects = dTableProjects.DataTable();
+dTableTypeUsers = dTableTypeUsers.DataTable();
+dTableUser = dTableUser.DataTable();
+
 dTablePA = dTablePA.DataTable({
     select: {
         style: 'single',
@@ -92,7 +96,18 @@ dTablePA = dTablePA.DataTable({
     ]
 });
 
-dTableProjects = dTableProjects.DataTable();
-dTableTypeUsers = dTableTypeUsers.DataTable();
-dTableUser = dTableUser.DataTable();
+dTablePA.search( '' ).draw();
+
+dTablePA
+    .on( 'select', function ( e, dt, type, indexes ) {
+        setProperty('.btn-crud-actions', 'disabled', false);
+
+        rowData = ArraytoJson(dTablePA.rows( indexes ).data().toArray())[0];
+    })
+    .on( 'deselect', function ( e, dt, type, indexes ) {
+        if (!buttonClick) {
+            setProperty('.btn-crud-actions', 'disabled', true);
+        }
+        rowData = null;
+    } );
 

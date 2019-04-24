@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -11,34 +12,37 @@
 <jsp:include page="../components/navbar.jsp"/>
 
 <div class="content">
-	<div class="container-fluid col-10 offset-1">
-    <div class="row">
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a href="Proyectos?action=index">Proyecto</a></li>
-                </ol>
-            </nav>
+    <div class="container-fluid col-10 offset-1">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a href="Proyectos?action=index">Administración de Proyectos</a></li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </div>
-    <div id="buttons_crud">
-        <a href="${uriAdd}" class="btn btn-outline-primary" role="button" aria-pressed="true">
-            <i class="fas fa-plus"></i>
-        </a>
-    </div>
 
-    <table id="dtableProjects" class="table table-striped table-hover" style="width:100%">
-        <thead>
+        <div id="buttons_crud" class="row justify-content-end mb-3">
+            <div class="col-3">
+                <a href="${uriAdd}" class="btn btn-outline-primary" role="button" aria-pressed="true" style="width: 100%">
+                    <i class="fas fa-plus"></i> Nuevo proyecto
+                </a>
+            </div>
+        </div>
+
+        <table id="dtableProjects" class="table table-striped table-hover" style="width:100%">
+            <thead>
             <tr>
-                <th>ID</th>
+                <th>Correlativo</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Usuario</th>
                 <th>Acciones</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
+            <tbody>
             <c:forEach items="${listProyectos}" var="item">
                 <tr>
                     <td><c:out value="${item['id']}"/></td>
@@ -54,7 +58,7 @@
                                 <input type="hidden" name="project_name" value="${item['nombre_proyecto']}">
                                 <input type="hidden" name="project_id" value="${item['id']}">
 
-                                <button type="submit" class="btn btn-outline-primary">
+                                <button type="submit" class="btn btn-outline-primary" data-tooltip="tooltip" title="Ver actividades">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </form>
@@ -68,7 +72,7 @@
                                 <input type="hidden" name="descripcion" value="${item['descripcion']}">
                                 <input type="hidden" name="id_usuario" value="${item['id_usuario']}">
 
-                                <button type="submit" class="btn btn-outline-primary">
+                                <button type="submit" class="btn btn-outline-primary" data-tooltip="tooltip" title="Editar">
                                     <i class="fas fa-pen"></i>
                                 </button>
                             </form>
@@ -80,7 +84,7 @@
                                 <input type="hidden" name="id" value="${item['id']}">
                                 <input type="hidden" name="nombre_proyecto" value="${item['nombre_proyecto']}">
 
-                                <button type="submit" class="btn btn-outline-danger">
+                                <button type="submit" class="btn btn-outline-danger" data-tooltip="tooltip" title="Editar">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -88,19 +92,19 @@
                     </td>
                 </tr>
             </c:forEach>
-        </tbody>
+            </tbody>
 
-        <tfoot>
+            <tfoot>
             <tr>
-                <th>ID</th>
+                <th>Correlativo</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Usuario</th>
                 <th>Acciones</th>
             </tr>
-        </tfoot>
-    </table>
-</div>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
 <%-- Header --%>

@@ -15,7 +15,7 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteProyectosActividadesLabel">Eliminar Actividad</h5>
+                <h5 class="modal-title text-center text-primary" id="deleteProyectosActividadesLabel">¿Desea Eliminar este registro?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-danger" form="deletePA">Eliminar</button>
             </div>
         </div>

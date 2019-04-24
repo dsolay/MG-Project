@@ -4,12 +4,16 @@ body, html {
 
 body {
 	padding: 0;
+    overflow-x: hidden;
 }
 
 .content {
 	height: 100%;
 	background-color: #fafafa;
-	padding-top: 40px;
+}
+
+.wrapper {
+
 }
 
 /* ---------------------------------------------------
@@ -94,11 +98,30 @@ table {
 
 .required {
     color: tomato;
-    font-size: 0.5rem;
+    font-size: 0.6rem;
 }
 
 .asterisk-required {
-    font-size: 0.6rem;
+    color: tomato;
+    font-size: 0.8rem;
+}
+
+.modal-title {
+    width: 100%;
+}
+
+div.body_info > div.row {
+    padding-bottom: 10px;
+}
+
+div.body_info > div.row > p {
+    color: black;
+}
+
+.badge-secondary {
+    background-color: #eceff1;
+    color: #29434e;
+    font-size: 0.8em;
 }
 
 .was-validated .custom-select:invalid + .select2 .select2-selection {

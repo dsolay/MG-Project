@@ -32,10 +32,10 @@
 
     <!-- Select2 bootstrat theme -->
     <link rel="stylesheet"
-          href="css/select2-bootstrap4.min.css">
+          href="css/select2-bootstrap4.css">
 
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/my-login.css">
     
     <link rel="stylesheet" href="css/style.css">
 </head>

@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUpdateProyectosActividadesLabel">Agregar Actividad</h5>
+                <h5 class="modal-title text-center text-primary" id="addUpdateProyectosActividadesLabel"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -39,8 +39,8 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="selectUsuario"><strong class="asterisk-required">*</strong> Usuario</label>
-                                <select id="selectUsuario" name="usuario" class="custom-select mr-sm-2" style="width: 100%" required></select>
+                                <label for="selectUserPA"><strong class="asterisk-required">*</strong> Usuario</label>
+                                <select id="selectUserPA" name="usuario" class="custom-select mr-sm-2" style="width: 100%" required></select>
                                 <div class="invalid-feedback">
                                     Eliga un usuario.
                                 </div>
@@ -80,8 +80,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btn_close" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="btn_action" type="submit" class="btn btn-primary" form="formPA"></button>
+                <button id="btn_close" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id="btn_action" type="submit" class="btn btn-success" form="formPA"></button>
             </div>
         </div>
     </div>

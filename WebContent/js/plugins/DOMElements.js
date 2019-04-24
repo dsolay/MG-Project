@@ -22,6 +22,7 @@ var modalPAInfo = $('#infoProyectosActividades');
 var modalPADelete = $('#deleteProyectosActividades');
 
 // Modal Info
+var modalTitle          = $('#addUpdateProyectosActividadesLabel');
 var idProject           = $('#id_proyecto');
 var nameProject         = $('#nombre_proyecto');
 var userProject         = $('#usuario_proyecto');
@@ -35,16 +36,17 @@ var deliver             = $('#entrega');
 var remaining          = $('#restante');
 
 // Modal Add, Update and Delete
-var action                  = $('#action');
-var btnAction               = $('#btn_action');
-var idPA                    = $('#idPA');
-var inputActivity           = $('#inputActividad');
-var selectUserProject       = $('#selectUsuario');
-var selectUserUsuario       = $('#selectUserUsuario');
-var dateDeliver             = $('#dateEntrega');
-var selectPriority          = $('#selectPrioridad');
-var checkState              = $('#checkEstado');
-var inputDeleteIDPA         = $('#inputIDDeletePA');
-var idDeletePA              = $('#idDeletePA');
-var inputDeleteActivityPA   = $('#actividadDeletePA');
-var selectUserProject       = $('#selectUserProject');
+var action                      = $('#action');
+var btnAction                   = $('#btn_action');
+var idPA                        = $('#idPA');
+var inputActivity               = $('#inputActividad');
+var selectUserUpdate            = $('#selectTypeUserUpdate');
+var selectTypeUserAdd           = $('#selectTypeUserAdd');
+var selectUserPA                = $('#selectUserPA');
+var dateDeliver                 = $('#dateEntrega');
+var selectPriority              = $('#selectPrioridad');
+var checkState                  = $('#checkEstado');
+var inputDeleteIDPA             = $('#inputIDDeletePA');
+var idDeletePA                  = $('#idDeletePA');
+var inputDeleteActivityPA       = $('#actividadDeletePA');
+var selectUserProject           = $('#selectUserProject');

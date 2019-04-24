@@ -10,33 +10,22 @@ $.getMultiScripts = function(arr, path) {
     return $.when.apply($, _arr);
 };
 
-function enableButtonsActions() {
-    btnInfo.prop('disabled', false);
-    btnUpdate.prop('disabled', false);
-    btnDelete.prop('disabled', false);
-}
-
-function disableButtonsActions() {
-    btnInfo.prop('disabled', true);
-    btnUpdate.prop('disabled', true);
-    btnDelete.prop('disabled', true);
-}
-
 var script_arr = [
+    'functions.js',
     'DOMElements.js',
-    'login.js',
+    'globalVariables.js',
+    'my-login.js',
     'datatable.js',
     'select2PA.js'
 ];
 
 $.getMultiScripts(script_arr, './js/plugins/').done(function() {
-
-    var rowData;
-    var buttonClick = false;
+    $('[data-tooltip="tooltip"]').tooltip();
 
     btnAdd.on("click", function () {
         action.val('add');
         btnAction.text('Agregar');
+        modalTitle.text('Agregar Actividad');
     });
 
     btnInfo.on("click", function () {
@@ -92,12 +81,12 @@ $.getMultiScripts(script_arr, './js/plugins/').done(function() {
         action.val('update');
         btnAction.text('Actualizar');
 
+        modalTitle.text('Actualizar Actividad');
+
         idPA.val(rowData['id']);
-        /*projectId.val(rowData['id_proyecto']);
-        projectName.val(rowData['proyecto']);*/
         inputActivity.val(rowData['actividad']);
         inputActivity.text(rowData['actividad']);
-        selectUser.append(new Option(rowData['usuario_actividad'], rowData['id_usuario'], true, true)).trigger('change');
+        selectUserPA.append(new Option(rowData['usuario_actividad'], rowData['id_usuario'], true, true)).trigger('change');
         dateDeliver.val(rowData['entrega']);
         selectPriority.val(rowData['prioridad']).trigger('change');
 
@@ -122,53 +111,33 @@ $.getMultiScripts(script_arr, './js/plugins/').done(function() {
         formPA.trigger("reset").change();
 
         inputActivity.val("");
-        selectUser.val('').trigger('change');
+        selectUserPA.val('').trigger('change');
         dateDeliver.val("");
         selectPriority.val("1").trigger('change');
         checkState.prop("checked", true);
 
-        disableButtonsActions();
-
         buttonClick = false;
+
+        setProperty('.btn-crud-actions', 'disabled', true);
     });
 
     modalPADelete.on('hidden.bs.modal', function () {
-        disableButtonsActions();
+        setProperty('.btn-crud-actions', 'disabled', true);
 
         buttonClick = false;
     });
 
     modalPAInfo.on('hidden.bs.modal', function () {
-        btnInfo.prop('disabled', true);
-        btnUpdate.prop('disabled', true);
-        btnDelete.prop('disabled', true);
+        setProperty('.btn-crud-actions', 'disabled', true);
 
         buttonClick = false;
     });
 
     $('div.modal-footer > button.btn.btn-secondary').on("click", function () {
-        $('#btn_view').prop('disabled', true);
-        $('#btn_update').prop('disabled', true);
-        $('#btn_delete').prop('disabled', true);
+        setProperty('.btn-crud-actions', 'disabled', true);
 
         buttonClick = false;
     });
-
-    dTablePA.search( '' ).draw();
-
-    dTablePA
-        .on( 'select', function ( e, dt, type, indexes ) {
-            enableButtonsActions();
-
-            rowData = JSON.stringify(dTablePA.rows( indexes ).data().toArray()[0]);
-            rowData = JSON.parse(rowData);
-        })
-        .on( 'deselect', function ( e, dt, type, indexes ) {
-            if (!buttonClick) {
-                disableButtonsActions();
-            }
-            rowData = null;
-        } );
 
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission

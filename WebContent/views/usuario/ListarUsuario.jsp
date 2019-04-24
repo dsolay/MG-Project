@@ -16,15 +16,18 @@
 			<div class="col-12">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="Proyectos?action=index">Usuario</a></li>
+						<li class="breadcrumb-item active"><a href="Usuario?action=index">Administración de Usuarios</a></li>
 					</ol>
 				</nav>
 			</div>
 		</div>
-		<div id="buttons_crud">
-			<a href="${uriAdd}" class="btn btn-outline-primary" role="button" aria-pressed="true">
-				<i class="fas fa-plus"></i>
-			</a>
+
+		<div id="buttons_crud" class="row justify-content-end mb-3">
+			<div class="col-3">
+				<a href="${uriAdd}" class="btn btn-outline-primary" role="button" aria-pressed="true" style="width: 100%">
+					<i class="fas fa-plus"></i> Nuevo usuario
+				</a>
+			</div>
 		</div>
 	
 		<table id="dtableUser" class="table table-striped table-hover" style="width:100%">
@@ -62,7 +65,7 @@
 								<input type="hidden" name="username" value="${item['username']}">
 								<input type="hidden" name="id_tipo_usuario" value="${item['id_tipo_usuario']}">
 	
-								<button type="submit" class="btn btn-outline-primary">
+								<button type="submit" class="btn btn-outline-primary" data-tooltip="tooltip" title="Editar">
 									<i class="fas fa-pen"></i>
 								</button>
 							</form>
@@ -75,7 +78,7 @@
 								<input type="hidden" name="nombres" value="${item['nombres']}">
 								<input type="hidden" name="apellidos" value="${item['apellidos']}">
 	
-								<button type="submit" class="btn btn-outline-danger">
+								<button type="submit" class="btn btn-outline-danger" data-tooltip="tooltip" title="Eliminar">
 									<i class="fas fa-trash"></i>
 								</button>
 							</form>

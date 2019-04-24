@@ -170,9 +170,9 @@ public class ControllerProyectosActividades extends HttpServlet {
 				} else if (days > 0 && actividad.get("estado").equals("0")) {
 					actividad.put("estado", "1");
 				}
-
 				this.doAction(this.createPA(actividad), "update");
-				actividad.put("restante", String.valueOf(days));
+
+				actividad.put("restante", String.valueOf((days < 0) ? 0 : days));
 			}
 
 			return  proyecos_actividades;

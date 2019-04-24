@@ -11,7 +11,7 @@
 <jsp:include page="views/components/header.jsp"/>
 
 <%-- Login --%>
-<jsp:include page="views/components/login.jsp"/>
+<jsp:include page="views/login/sign-in.jsp"/>
 
 <%-- footer--%>
 <jsp:include page="views/components/footer.jsp"/>

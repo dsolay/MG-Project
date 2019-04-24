@@ -6,11 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #29434e;">
-    <a class="navbar-brand" href="#">
+   <%-- <a class="navbar-brand" href="#">
         <img src="img/infusion-activity.png" alt="">
-    </a>
+    </a>--%>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <i class="fas fa-align-left"></i>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -34,11 +34,11 @@
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"><strong>User</strong></a>
+                    <a class="dropdown-item" href="#"><strong>Usuario</strong></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="#">Perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="#">Salir</a>
                 </div>
             </li>
         </ul>

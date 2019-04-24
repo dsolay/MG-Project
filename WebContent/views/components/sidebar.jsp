@@ -8,17 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <nav id="sidebar">
     <div class="sidebar-header">
-        <h5>Infusion Activity</h5>
+        <h3>Infusion Activity</h3>
     </div>
 
     <ul class="list-unstyled components">
-        <p>Dashboard</p>
         <li>
-            <a href="#">Proyectos</a>
+            <a href="Proyectos?action=index">Home</a>
         </li>
-
-        <li>
-            <a href="#">Usuarios</a>
+        <li class="active">
+            <a href="Usuario?action=index" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usuarios</a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a href="TipoUsuario?action=index">Tipo de Usuario</a>
+                </li>
+            </ul>
         </li>
     </ul>
 </nav>
+
