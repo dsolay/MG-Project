@@ -97,7 +97,7 @@ public class ProyectosActividadesDaoImp implements ProyectosActividadesDao {
 				"OR pa.prioridad LIKE ? " +
 				"OR pa.estado LIKE ? )";
 		
-		String sql_where_project = " AND po.nombre_proyecto = ? ";
+		String sql_where_project = " AND pa.id_proyecto = ? ";
 
 		sql += (!value.isEmpty()) ? sql_where_all : "";
 		sql += (!project.isEmpty()) ? sql_where_project : "";

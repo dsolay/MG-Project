@@ -19,8 +19,8 @@
 <%-- Modal info --%>
 <jsp:include page="InfoProyectoAcrividades.jsp"/>
 
-<div class="content">
-	<div class="container-fluid col-10 offset-1">
+<div class="full-height col-12">
+	<div class="content full-height col-10 offset-1">
 	    <div class="row">
 	        <div class="col-12">
 	            <nav aria-label="breadcrumb">
@@ -88,6 +88,39 @@
 	    </table>
 	</div>
 </div>
+
+<!-- jQuery CDN -->
+<script src="js/vendor/jquery.js"></script>
+
+<!-- Popper.JS -->
+<script src="js/vendor/popper.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="js/vendor/bootstrap.js"></script>
+
+<!-- Datatable js -->
+<script src="js/vendor/datatables.js"></script>
+
+<!-- Select2 -->
+<script src="js/vendor/select2.js"></script>
+
+<!-- Language Spanish -->
+<script src="js/app/lib/functions.js"></script>
+
+<!-- variables-->
+<script src="js/app/lib/globalVariables.js"></script>
+
+<!-- config select2PA -->
+<script src="js/app/lib/select2PA.js"></script>
+
+<!-- config datatable -->
+<script src="js/app/lib/datatable.js"></script>
+
+<!-- DOM elements -->
+<script src="js/app/DOM/activity/ListPA.js"></script>
+
+<!-- app -->
+<script src="js/app.js"></script>
 
 <%-- footer--%>
 <jsp:include page="../components/footer.jsp"/>

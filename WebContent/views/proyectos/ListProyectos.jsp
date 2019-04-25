@@ -11,13 +11,13 @@
 <%-- navbar --%>
 <jsp:include page="../components/navbar.jsp"/>
 
-<div class="content">
-    <div class="container-fluid col-10 offset-1">
+<div class="full-height col-12">
+    <div class="content full-height col-10 offset-1">
         <div class="row">
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="Proyectos?action=index">Administración de Proyectos</a></li>
+                        <li class="breadcrumb-item active"><a class="breadcrumbParentProject" href="Proyectos?action=index">Administración de proyectos</a></li>
                     </ol>
                 </nav>
             </div>
@@ -98,7 +98,7 @@
             <tr>
                 <th>Correlativo</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Usuario</th>
                 <th>Acciones</th>
             </tr>
@@ -106,6 +106,28 @@
         </table>
     </div>
 </div>
+
+<!-- jQuery CDN -->
+<script src="js/vendor/jquery.js"></script>
+
+<!-- Popper.JS -->
+<script src="js/vendor/popper.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="js/vendor/bootstrap.js"></script>
+
+<!-- Datatable js -->
+<script src="js/vendor/datatables.js"></script>
+
+<!-- config datatable -->
+<script src="js/app/lib/datatable.js"></script>
+
+<!-- DOM elements -->
+<script src="js/app/DOM/project/ListProject.js"></script>
+
+<!-- app -->
+<script src="js/app.js"></script>
+
 
 <%-- Header --%>
 <jsp:include page="../components/footer.jsp"/>

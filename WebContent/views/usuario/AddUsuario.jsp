@@ -16,8 +16,8 @@
 <%-- navbar --%>
 <jsp:include page="../components/navbar.jsp"/>
 
-<div class="content">
-    <div class="container-fluid col-10 offset-1">
+<div class="full-height col-12">
+    <div class="content full-height col-10 offset-1">
         <div class="row">
             <div class="col-12">
                 <nav aria-label="breadcrumb">
@@ -31,7 +31,7 @@
 
         <div class="container col-12 col-12 col-md-9 offset-md-1 pt-4">
             <form method="POST" action="${registerUrl}" class="needs-validation" novalidate>
-                <input id="action" type="hidden" name="option" value="update">
+                <input id="action" type="hidden" name="option" value="add">
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -104,15 +104,37 @@
                     <label class="required"><strong>* Campo requerido</strong></label>
                 </section>
 
-                <div class="row pt-3">
+                <div class="row pt-3 justify-content-end">
                     <a href="Usuario?action=index" class="col-12 col-md-3 offset-md-5 mr-3 btn btn-danger" role="button"
                        aria-pressed="true">Cancelar</a>
-                    <button type="submit" class="col-12 col-md-3 mr-3 btn btn-success">Actualizar</button>
+                    <button type="submit" class="col-12 col-md-3 mr-3 btn btn-success">Agregar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- jQuery CDN -->
+<script src="js/vendor/jquery.js"></script>
+
+<!-- Popper.JS -->
+<script src="js/vendor/popper.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="js/vendor/bootstrap.js"></script>
+
+<!-- Select2 -->
+<script src="js/vendor/select2.js"></script>
+
+<!-- config select2 -->
+<script src="js/app/lib/select2PA.js"></script>
+
+<!-- DOM elements -->
+<script src="js/app/DOM/user/AddUser.js"></script>
+
+<!-- app -->
+<script src="js/app.js"></script>
+
 
 <%--header--%>
 <jsp:include page="../components/footer.jsp"/>

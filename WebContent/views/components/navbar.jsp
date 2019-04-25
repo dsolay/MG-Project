@@ -5,7 +5,7 @@
   Time: 7:23 AM
   To change this template use File | Settings | File Templates.
 --%>
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #29434e;">
+<nav class="navbar navbar-expand-lg navbar-dark col-12" style="background-color: #29434e;">
    <%-- <a class="navbar-brand" href="#">
         <img src="img/infusion-activity.png" alt="">
     </a>--%>

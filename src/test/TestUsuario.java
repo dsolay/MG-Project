@@ -22,7 +22,7 @@ public class TestUsuario {
 		 
 		 usuario.setPassword("48520520");
 		 
-		 usuario.setId_tipo_usuario((byte) 2);
+		 usuario.setId_tipo_usuario((byte) 1);
 		 
 		 try {
 
@@ -123,6 +123,8 @@ public class TestUsuario {
 	public static void main(String[] args) {
 		TestUsuario test = new TestUsuario();
 
-		test.find("all", "");
+		//test.find("all", "");
+
+		test.save();
 	}
 }

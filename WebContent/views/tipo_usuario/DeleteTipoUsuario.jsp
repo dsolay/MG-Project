@@ -10,8 +10,8 @@
 <%-- navbar --%>
 <jsp:include page="../components/navbar.jsp"/>
 
-<div class="content">
-	<div class="container-fluid col-10 offset-1">
+<div class="full-height col-12">
+	<div class="content full-height col-10 offset-1">
 		<div class="row">
 			<div class="col-12">
 				<nav aria-label="breadcrumb">
@@ -32,12 +32,18 @@
 
 					<input type="hidden" name="id" value="${tipodeusuario.id}">
 
-					<h5>¿Esta seguro de eliminar este registro?</h5>
+					<h5 class="text-center">¿Esta seguro de eliminar este registro?</h5>
 
 				</c:forEach>
 
+				<section>
+					<label class="required full-width pt-3"><strong id="warningDeleteProject" class="full-width text-center" style="display: block">
+						* Advertencia: Esta acción eliminarán todas los usuarios de este tipo, y los proyectos y actividades asociados.
+					</strong></label>
+				</section>
+
 				<div class="row pt-3">
-					<a href="TipoUsuario?action=index" class="col-12 col-md-3 offset-md-5 mr-3 btn btn-secondary" role="button" aria-pressed="true">Cancelar</a>
+					<a href="TipoUsuario?action=index" class="col-12 col-md-3 offset-md-3 mr-3 btn btn-secondary" role="button" aria-pressed="true">Cancelar</a>
 					<button type="submit" class="col-12 col-md-3 mr-3 btn btn-danger">Eliminar</button>
 				</div>
 			</form>

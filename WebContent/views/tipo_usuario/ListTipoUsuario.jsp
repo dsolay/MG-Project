@@ -13,8 +13,8 @@
 <%-- navbar --%>
 <jsp:include page="../components/navbar.jsp"/>
 
-<div class="content">
-	<div class="container-fluid col-10 offset-1">
+<div class="full-height col-12">
+	<div class="content full-height col-10 offset-1">
 	    <div class="row">
 	        <div class="col-12">
 	            <nav aria-label="breadcrumb">
@@ -37,9 +37,9 @@
 	    <table id="dtableTypeUsers" class="table table-striped table-hover" style="width:100%">
 	        <thead>
 	            <tr>
-	                <th>ID</th>
+	                <th>Correlativo</th>
 	                <th>Tipo</th>
-	                <th>Descripcion</th>
+	                <th>Descripción</th>
 	                <th>Acciones</th>
 	            </tr>
 	        </thead>
@@ -88,13 +88,34 @@
 	            <tr>
 	                <th>ID</th>
 	                <th>Tipo</th>
-	                <th>Descripcion</th>
+	                <th>Descripción</th>
 	                <th>Acciones</th>
 	            </tr>
 	        </tfoot>
 	    </table>
 	</div>
 </div>
+
+<!-- jQuery CDN -->
+<script src="js/vendor/jquery.js"></script>
+
+<!-- Popper.JS -->
+<script src="js/vendor/popper.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="js/vendor/bootstrap.js"></script>
+
+<!-- Datatable js -->
+<script src="js/vendor/datatables.js"></script>
+
+<!-- config datatable -->
+<script src="js/app/lib/datatable.js"></script>
+
+<!-- DOM elements -->
+<script src="js/app/DOM/type_user/ListTypeUser.js"></script>
+
+<!-- app -->
+<script src="js/app.js"></script>
 
 <%-- Header --%>
 <jsp:include page="../components/footer.jsp"/>

@@ -10,7 +10,7 @@
 
 <c:url var="url" value="/Proyectos"/>
 
-<div class="my-login-page">
+<div class="my-login-page col-6 offset-3">
     <section class="h-100">
         <div class="container h-100">
             <div class="row justify-content-md-center h-100">
@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <label for="password">Contraseña
                                         <a href="./views/login/forgot.html" class="float-right">
-                                            ¿Olvide mi contraseña?
+                                            Olvide mi contraseña
                                         </a>
                                     </label>
                                     <input id="password" type="password" class="form-control" name="password" required data-eye>
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="footer">
-                        <p>Copyright &copy; Infusion Actvity 2019</p>
+                        <p>Copyright &copy; MG Project 2019</p>
                     </div>
                 </div>
             </div>
