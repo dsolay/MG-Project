@@ -4,7 +4,7 @@ public class Config {
 
 		protected static String driver="com.mysql.jdbc.Driver";
 		
-		protected static String host="127.0.0.1";
+		protected static String host="db";
 		protected static String port="3306";
 		protected static String database="control_actividades";
 		

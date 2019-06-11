@@ -8,7 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:url var="url" value="/Proyectos"/>
+<c:url var="url" value="/Usuario"/>
+
+<%--header--%>
+<jsp:include page="../components/header.jsp"/>
 
 <div class="my-login-page col-6 offset-3">
     <section class="h-100">
@@ -27,9 +30,9 @@
                                 <input type="hidden" name="option" value="login">
 
                                 <div class="form-group">
-                                    <label for="email">E-Mail</label>
+                                    <label for="user">Username</label>
 
-                                    <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                    <input id="user" type="text" class="form-control" name="user" value="" required autofocus>
                                 </div>
 
                                 <div class="form-group">
@@ -39,6 +42,8 @@
                                         </a>
                                     </label>
                                     <input id="password" type="password" class="form-control" name="password" required data-eye>
+
+                                    <label class="wrong text-danger"><c:out value="${wrongPass}"/></label>
                                 </div>
 
                                 <div class="form-group">
@@ -66,3 +71,15 @@
         </div>
     </section>
 </div>
+
+<!-- jQuery CDN -->
+<script src="js/vendor/jquery.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="js/vendor/bootstrap.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="js/app/lib/my-login.js"></script>
+
+<%-- footer--%>
+<jsp:include page="../components/footer.jsp"/>

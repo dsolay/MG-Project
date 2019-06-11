@@ -98,10 +98,7 @@ public class ControllerProyectos extends HttpServlet {
                 
                 response.sendRedirect(response.encodeRedirectURL(contextPath + "/Proyectos?action=index"));
                 break;
-            case "login":
-            	request.setAttribute("listProyectos", this.listar());
-            	request.getRequestDispatcher("views/proyectos/ListProyectos.jsp").forward(request, response);
-                break;
+
             case "update":
                 if (redirect) {
                     request.setAttribute("datos", this.crearLista(Id, Nombre_proyecto,Descripcion,Id_usuario));

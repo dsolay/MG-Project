@@ -103,6 +103,7 @@ public class UsuarioController extends HttpServlet {
         
         String contextPath = request.getContextPath();
         System.out.println("-------------------------" + option + "--------------------------------------");
+
         switch (option) {
             case "add"://Listado de Evaluacion
             	try {
@@ -115,14 +116,26 @@ public class UsuarioController extends HttpServlet {
                 
                 response.sendRedirect(response.encodeRedirectURL(contextPath + "/Usuario?action=index"));
                 break;
-            //UpdateEvaluacion
+
+            case "login":
+                try {
+                    if (usuarioDao.testPass(request.getParameter("user"), request.getParameter("password"))) {
+                        response.sendRedirect(response.encodeRedirectURL(contextPath + "/Proyectos?action=index"));
+                    } else {
+                       request.setAttribute("wrongPass", "Usuario o contraseña, incorrectos");
+                       request.getRequestDispatcher("views/login/sign-in.jsp").forward(request, response);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+                break;
+
             case "update":
                 System.out.print("------------------------" + redirect + "-----------------------------");
                 if ("true".equals(redirect)) {
                     try {
                         request.setAttribute("datos", this.crearLista(id, usuarinombres, usuariapellidos, usuariemail, usuariusername, usuaripassword, usuariid_tipo_usuario));
                     } catch (Exception e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     request.getRequestDispatcher("views/usuario/UpdateUsuario.jsp").forward(request, response);
@@ -135,14 +148,15 @@ public class UsuarioController extends HttpServlet {
 
                     } catch (Exception ex) {
                         System.out.println(ex + ".............---");
-                        // Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
                     response.sendRedirect(response.encodeRedirectURL(contextPath + "/Usuario?action=index"));
                 }
 
                 break;
-            //Delete Customer
+
+
+
             case "delete":
                 System.out.print("------------------------" + redirect + "-----------------------------");
                 if ("true".equals(redirect)) {
@@ -157,7 +171,6 @@ public class UsuarioController extends HttpServlet {
                         System.out.println(ex + ".............---");
                         // Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-              
                     response.sendRedirect(response.encodeRedirectURL(contextPath + "/Usuario?action=index"));
                 }
 

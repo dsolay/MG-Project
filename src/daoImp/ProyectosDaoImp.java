@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dao.ProyectosDao;
 import db.MySQLi;
 import model.Proyectos;
 

@@ -17,4 +17,6 @@ public interface UsuarioDao {
     List<Map<String, String>> findAllUsuario() throws Exception;
 
     List<Usuario> find(String field, String value) throws Exception;
+
+    boolean testPass(String user, String pass) throws Exception;
 }

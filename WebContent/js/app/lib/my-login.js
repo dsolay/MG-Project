@@ -1,6 +1,6 @@
 $(function() {
 	$("input[type='password'][data-eye]").each(function(i) {
-		let $this = $(this);
+		var $this = $(this);
 
 		$this.wrap($("<div/>", {
 			style: 'position:relative'

@@ -120,11 +120,22 @@ public class TestUsuario {
 		}
 	}
 
+	public boolean pass(String user, String pass) {
+		try {
+			return usua.testPass(user, pass);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public static void main(String[] args) {
 		TestUsuario test = new TestUsuario();
 
-		//test.find("all", "");
+		//test.find("all", "r");
 
-		test.save();
+		//test.save();
+
+		//System.out.println(test.pass("solay2516", "abcd1234"));
 	}
 }

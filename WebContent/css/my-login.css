@@ -63,3 +63,7 @@ body {
 	color: black;
 	text-align: center;
 }
+
+.my-login-page .wrong {
+	margin-top: .5rem;
+}

@@ -1,9 +1,11 @@
 package db;
 
-import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.Connection;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class MySQLi extends Config {
 	
@@ -13,7 +15,7 @@ public class MySQLi extends Config {
 		
 	}
 	
-	public static Connection connect() throws SQLException, ClassNotFoundException {
+	/*public static Connection connect() throws SQLException, ClassNotFoundException {
 	  if (cn == null || cn.isClosed()) {
 	     try {
 	    	 Class.forName(driver);
@@ -26,6 +28,18 @@ public class MySQLi extends Config {
 	  }
 	  
 	  return cn;
+	}*/
+
+	public static java.sql.Connection connect() throws SQLException, ClassNotFoundException {
+		InitialContext ctx;
+		try {
+			ctx = new InitialContext();
+			DataSource ds = (DataSource)ctx.lookup("jdbc/pool");
+			cn = ds.getConnection();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+		return cn;
 	}
 
 	public static void close() throws SQLException {

@@ -201,6 +201,25 @@ public class UsuarioDaoImp implements UsuarioDao{
 		return list;
 	}
 
+	@Override
+	public boolean testPass(String user, String pass) throws Exception {
+		String sql = "SELECT u.id FROM usuarios u WHERE u.username = ? AND u.password = ?";
+
+		try {
+			PreparedStatement statement = MySQLi.connect().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, user);
+			statement.setString(2, pass);
+
+			ResultSet rs = statement.executeQuery();
+
+			return rs.first();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			MySQLi.close();
+		}
+	}
+
 	public static UsuarioDao getInstance() {
 		if (usuarioDaoImpl == null) {
 			usuarioDaoImpl = new UsuarioDaoImp();
