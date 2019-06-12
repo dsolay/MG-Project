@@ -136,6 +136,6 @@ public class TestUsuario {
 
 		//test.save();
 
-		//System.out.println(test.pass("solay2516", "abcd1234"));
+		System.out.println(test.pass("solay2516", "abcd1234"));
 	}
 }

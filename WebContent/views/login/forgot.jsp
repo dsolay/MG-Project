@@ -1,23 +1,27 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
-	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<title>Registro</title>
 	<link rel="stylesheet"
-		   href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-		   crossorigin="anonymous">
+		  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		  crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="../../css/my-login.css">
-	<link rel="stylesheet" type="text/css" href="../..//css/style.css">
+	<link rel="stylesheet" type="text/css" href="../../css/style.css">
 </head>
-<body class="my-login-page">
+
+<body class="my-login-page col-6 offset-3">
 	<section class="h-100">
 		<div class="container h-100">
 			<div class="row justify-content-md-center align-items-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="img/logo.jpg">
+						<img src="../../img/logo.png">
 					</div>
 					<div class="card fat">
 						<div class="card-body">
@@ -47,5 +51,15 @@
 			</div>
 		</div>
 	</section>
-</body>
-</html>
+
+	<!-- jQuery CDN -->
+	<script src="js/vendor/jquery.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="js/vendor/bootstrap.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="js/app/lib/my-login.js"></script>
+
+	<%-- footer--%>
+<jsp:include page="../components/footer.jsp"/>

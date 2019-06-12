@@ -11,7 +11,8 @@
 <c:url var="url" value="/Usuario"/>
 
 <%--header--%>
-<jsp:include page="../components/header.jsp"/>
+<%@ include file="../components/header.jsp"%>
+<%--<jsp:include page="../components/header.jsp"/>--%>
 
 <div class="my-login-page col-6 offset-3">
     <section class="h-100">
@@ -19,7 +20,7 @@
             <div class="row justify-content-md-center h-100">
                 <div class="card-wrapper">
                     <div class="brand">
-                        <img src="img/logo.jpg">
+                        <img src="img/logo.png">
                     </div>
                     <div class="card fat">
                         <div class="card-body">
@@ -37,7 +38,7 @@
 
                                 <div class="form-group">
                                     <label for="password">Contraseña
-                                        <a href="./views/login/forgot.html" class="float-right">
+                                        <a href="./views/login/forgot.jsp" class="float-right">
                                             Olvide mi contraseña
                                         </a>
                                     </label>
@@ -58,7 +59,7 @@
                                     </button>
                                 </div>
                                 <div class="margin-top20 text-center">
-                                    ¿No tienes una cuenta? <a href="./views/login/register.html">Crear una</a>
+                                    ¿No tienes una cuenta? <a href="./views/login/register.jsp">Crear una</a>
                                 </div>
                             </form>
                         </div>
